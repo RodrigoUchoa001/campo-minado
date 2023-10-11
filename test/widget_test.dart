@@ -8,6 +8,7 @@
 import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exception.dart';
 import 'package:campo_minado_flutter/exceptions/descobrir_zona_com_bandeira_exception.dart';
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
+import 'package:campo_minado_flutter/exceptions/remover_bandeira_de_zona_sem_bandeira_exception.dart';
 import 'package:campo_minado_flutter/models/tabuleiro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -78,14 +79,35 @@ void main() {
         throwsA(isA<DescobrirZonaComBandeiraException>()),
       ),
     );
-    // test("testa se é possivel colocar bandeira em uma zona qualquer", () {
-    //   int dificuldade = 1;
-    //   Tabuleiro tabuleiro = Tabuleiro(dificuldade);
+    test("testa se é possivel colocar bandeira em uma zona qualquer", () {
+      int dificuldade = 1;
+      Tabuleiro tabuleiro = Tabuleiro(dificuldade);
 
-    //   tabuleiro.tabuleiro[0][0].status = 1;
+      bool naoColocouBandeiraEmAlgumaZona = false;
 
-    //   expect(tabuleiro.tabuleiro[0][0].status, 1);
-    // });
+      for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
+        for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
+          tabuleiro.tabuleiro[i][j].colocarBandeira();
+          if (tabuleiro.tabuleiro[i][j].status != 1) {
+            naoColocouBandeiraEmAlgumaZona = true;
+          }
+        }
+      }
+
+      expect(naoColocouBandeiraEmAlgumaZona, false);
+    });
+    test(
+      "não se pode remover bandeira onde não houver bandeira",
+      () => expect(
+        () {
+          int dificuldade = 1;
+          Tabuleiro tabuleiro = Tabuleiro(dificuldade);
+
+          tabuleiro.tabuleiro[0][0].removerBandeira();
+        },
+        throwsA(isA<RemoverBandeiraDeZonaSemBandeiraException>()),
+      ),
+    );
   });
   group('testes de tabuleiro', () {
     test(
