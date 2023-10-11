@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:campo_minado_flutter/models/zona.dart';
 
 /// representa o tabuleiro do campo minado
@@ -16,6 +18,7 @@ class Tabuleiro {
           (col) => Zona(),
         ),
       );
+      preencherComBombas(10);
     } else if (dificuldade == 2) {
       tabuleiro = List.generate(
         10,
@@ -24,6 +27,7 @@ class Tabuleiro {
           (col) => Zona(),
         ),
       );
+      preencherComBombas(30);
     } else if (dificuldade == 3) {
       tabuleiro = List.generate(
         24,
@@ -32,6 +36,21 @@ class Tabuleiro {
           (col) => Zona(),
         ),
       );
+      preencherComBombas(100);
+    }
+  }
+  void preencherComBombas(int numBombas) {
+    final random = Random();
+    int bombasColocadas = 0;
+
+    while (bombasColocadas < numBombas) {
+      final row = random.nextInt(tabuleiro.length);
+      final col = random.nextInt(tabuleiro[0].length);
+
+      if (!tabuleiro[row][col].temBomba) {
+        tabuleiro[row][col].temBomba = true;
+        bombasColocadas++;
+      }
     }
   }
 }
