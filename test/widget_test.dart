@@ -5,6 +5,7 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exception.dart';
 import 'package:campo_minado_flutter/models/tabuleiro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -46,5 +47,34 @@ void main() {
 
       expect(temDiferenteDeCoberto, false);
     });
+    test("todas as zonas começam como sem bandeira", () {
+      int dificuldade = 1;
+      Tabuleiro tabuleiro = Tabuleiro(dificuldade);
+
+      bool temZonaComBandeira = false;
+
+      for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+          if (tabuleiro.tabuleiro[i][j].status != 0) {
+            temZonaComBandeira = true;
+          }
+        }
+      }
+
+      expect(temZonaComBandeira, false);
+    });
+    test(
+      "não se pode colocar bandeira em zona descoberta",
+      () => expect(
+        () {
+          int dificuldade = 1;
+          Tabuleiro tabuleiro = Tabuleiro(dificuldade);
+
+          tabuleiro.tabuleiro[0][0].status = 2;
+          tabuleiro.tabuleiro[0][0].status = 1;
+        },
+        throwsA(isA<BandeiraEmZonaDescobertaException>()),
+      ),
+    );
   });
 }
