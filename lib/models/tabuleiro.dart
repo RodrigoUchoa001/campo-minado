@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
 import 'package:campo_minado_flutter/models/zona.dart';
 
 /// representa o tabuleiro do campo minado
@@ -37,6 +38,9 @@ class Tabuleiro {
         ),
       );
       preencherComBombas(100);
+    } else {
+      throw DificuldadeEscolhidaInvalidaException(
+          'A dificuldade escolhida é invalida');
     }
   }
   void preencherComBombas(int numBombas) {
