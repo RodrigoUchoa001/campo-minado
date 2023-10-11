@@ -66,7 +66,7 @@ void main() {
       expect(temZonaComBandeira, false);
     });
     test(
-      "não se pode colocar bandeira em zona descoberta",
+      "testa se não se pode colocar bandeira em zona descoberta",
       () => expect(
         () {
           int dificuldade = 1;
