@@ -6,6 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exception.dart';
+import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
 import 'package:campo_minado_flutter/models/tabuleiro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -78,6 +79,16 @@ void main() {
     );
   });
   group('testes de tabuleiro', () {
+    test(
+      "verifica se é lançada uma exceção quando tenta escolher uma dificuldade invalida",
+      () => expect(
+        () {
+          int dificuldade = 4;
+          Tabuleiro tabuleiro = Tabuleiro(dificuldade);
+        },
+        throwsA(isA<DificuldadeEscolhidaInvalidaException>()),
+      ),
+    );
     test("testa se escolhendo dificuldade fácil o tabuleiro tem 8x8", () {
       int dificuldade = 1;
       Tabuleiro tabuleiro = Tabuleiro(dificuldade);
