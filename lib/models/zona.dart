@@ -5,8 +5,8 @@ import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exce
 /// 1 = com bandeira
 /// 2 = descoberto
 class Zona {
-  late int _status = 0;
-  late bool _temBomba;
+  int _status = 0;
+  bool _temBomba = false;
 
   int get status => _status;
 
