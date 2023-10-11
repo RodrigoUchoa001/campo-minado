@@ -77,4 +77,36 @@ void main() {
       ),
     );
   });
+  group('testes de tabuleiro', () {
+    test("testa se escolhendo dificuldade fácil o tabuleiro tem 8x8", () {
+      int dificuldade = 1;
+      Tabuleiro tabuleiro = Tabuleiro(dificuldade);
+
+      int numLinhas = tabuleiro.tabuleiro.length;
+      int numColunas = tabuleiro.tabuleiro[0].length;
+
+      expect(numLinhas, 8);
+      expect(numColunas, 8);
+    });
+    test("testa se escolhendo dificuldade médio o tabuleiro tem 10x16", () {
+      int dificuldade = 2;
+      Tabuleiro tabuleiro = Tabuleiro(dificuldade);
+
+      int numLinhas = tabuleiro.tabuleiro.length;
+      int numColunas = tabuleiro.tabuleiro[0].length;
+
+      expect(numLinhas, 10);
+      expect(numColunas, 16);
+    });
+    test("testa se escolhendo dificuldade dificil o tabuleiro tem 24x24", () {
+      int dificuldade = 3;
+      Tabuleiro tabuleiro = Tabuleiro(dificuldade);
+
+      int numLinhas = tabuleiro.tabuleiro.length;
+      int numColunas = tabuleiro.tabuleiro[0].length;
+
+      expect(numLinhas, 24);
+      expect(numColunas, 24);
+    });
+  });
 }
