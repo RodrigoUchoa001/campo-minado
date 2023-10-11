@@ -8,13 +8,6 @@ class Tabuleiro {
   /// 2 = medio = 10x16
   /// 3 = dificil = 24x24
   Tabuleiro(int dificuldade) {
-    // if (dificuldade == 1) {
-    //   criaTabuleiro(8, 8);
-    // } else if (dificuldade == 2) {
-    //   criaTabuleiro(10, 16);
-    // } else if (dificuldade == 3) {
-    //   criaTabuleiro(24, 24);
-    // }
     if (dificuldade == 1) {
       tabuleiro = List.generate(
         8,
