@@ -6,6 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exception.dart';
+import 'package:campo_minado_flutter/exceptions/descobrir_zona_com_bandeira_exception.dart';
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
 import 'package:campo_minado_flutter/models/tabuleiro.dart';
 import 'package:flutter/material.dart';
@@ -38,8 +39,8 @@ void main() {
 
       bool temDiferenteDeCoberto = false;
 
-      for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
+      for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
+        for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
           if (tabuleiro.tabuleiro[i][j].status != 0) {
             temDiferenteDeCoberto = true;
           }
@@ -54,8 +55,8 @@ void main() {
 
       bool temZonaComBandeira = false;
 
-      for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
+      for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
+        for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
           if (tabuleiro.tabuleiro[i][j].status == 1) {
             temZonaComBandeira = true;
           }
@@ -71,10 +72,10 @@ void main() {
           int dificuldade = 1;
           Tabuleiro tabuleiro = Tabuleiro(dificuldade);
 
-          tabuleiro.tabuleiro[0][0].status = 2;
-          tabuleiro.tabuleiro[0][0].status = 1;
+          tabuleiro.tabuleiro[0][0].colocarBandeira();
+          tabuleiro.tabuleiro[0][0].descobrirZona();
         },
-        throwsA(isA<BandeiraEmZonaDescobertaException>()),
+        throwsA(isA<DescobrirZonaComBandeiraException>()),
       ),
     );
     // test("testa se é possivel colocar bandeira em uma zona qualquer", () {
