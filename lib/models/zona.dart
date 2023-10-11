@@ -11,14 +11,6 @@ class Zona {
 
   int get status => _status;
 
-  // set status(int status) {
-  //   if (status == 1 && _status == 2) {
-  //     throw BandeiraEmZonaDescobertaException(
-  //         "não se pode colocar bandeira em zona descoberta!");
-  //   }
-  //   _status = status;
-  // }
-
   void colocarBandeira() {
     _status = 1;
   }
