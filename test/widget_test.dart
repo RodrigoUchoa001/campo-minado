@@ -56,7 +56,7 @@ void main() {
 
       for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-          if (tabuleiro.tabuleiro[i][j].status != 0) {
+          if (tabuleiro.tabuleiro[i][j].status == 1) {
             temZonaComBandeira = true;
           }
         }
@@ -77,6 +77,14 @@ void main() {
         throwsA(isA<BandeiraEmZonaDescobertaException>()),
       ),
     );
+    // test("testa se é possivel colocar bandeira em uma zona qualquer", () {
+    //   int dificuldade = 1;
+    //   Tabuleiro tabuleiro = Tabuleiro(dificuldade);
+
+    //   tabuleiro.tabuleiro[0][0].status = 1;
+
+    //   expect(tabuleiro.tabuleiro[0][0].status, 1);
+    // });
   });
   group('testes de tabuleiro', () {
     test(
