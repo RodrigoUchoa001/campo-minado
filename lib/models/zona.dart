@@ -1,5 +1,6 @@
 import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exception.dart';
 import 'package:campo_minado_flutter/exceptions/descobrir_zona_com_bandeira_exception.dart';
+import 'package:campo_minado_flutter/exceptions/remover_bandeira_de_zona_sem_bandeira_exception.dart';
 
 /// classe que representa uma zona do campo minado
 /// 0 = coberto
@@ -16,7 +17,12 @@ class Zona {
   }
 
   void removerBandeira() {
-    _status = 0;
+    if (_status == 1) {
+      _status = 0;
+    } else {
+      throw RemoverBandeiraDeZonaSemBandeiraException(
+          "Não é possivel remover bandeira de zona que não há bandeira");
+    }
   }
 
   void descobrirZona() {
