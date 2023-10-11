@@ -108,5 +108,53 @@ void main() {
       expect(numLinhas, 24);
       expect(numColunas, 24);
     });
+    test('testa se na dificuldade fácil o numero de bombas é 10', () {
+      int dificuldade = 1;
+      Tabuleiro tabuleiro = Tabuleiro(dificuldade);
+
+      int quantidadeDeBombas = 0;
+
+      for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
+        for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
+          if (tabuleiro.tabuleiro[i][j].temBomba) {
+            quantidadeDeBombas++;
+          }
+        }
+      }
+
+      expect(quantidadeDeBombas, 10);
+    });
+    test('testa se na dificuldade médio o numero de bombas é 30', () {
+      int dificuldade = 2;
+      Tabuleiro tabuleiro = Tabuleiro(dificuldade);
+
+      int quantidadeDeBombas = 0;
+
+      for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
+        for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
+          if (tabuleiro.tabuleiro[i][j].temBomba) {
+            quantidadeDeBombas++;
+          }
+        }
+      }
+
+      expect(quantidadeDeBombas, 30);
+    });
+    test('testa se na dificuldade dificil o numero de bombas é 100', () {
+      int dificuldade = 3;
+      Tabuleiro tabuleiro = Tabuleiro(dificuldade);
+
+      int quantidadeDeBombas = 0;
+
+      for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
+        for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
+          if (tabuleiro.tabuleiro[i][j].temBomba) {
+            quantidadeDeBombas++;
+          }
+        }
+      }
+
+      expect(quantidadeDeBombas, 100);
+    });
   });
 }
