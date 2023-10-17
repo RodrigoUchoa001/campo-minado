@@ -47,6 +47,7 @@ class CampoMinado {
       throw DificuldadeEscolhidaInvalidaException(
           'A dificuldade escolhida é invalida');
     }
+    contarBombasAdjacentes();
   }
   void preencherComBombas(int numBombas) {
     final random = Random();
@@ -61,5 +62,45 @@ class CampoMinado {
         bombasColocadas++;
       }
     }
+  }
+
+  List<List<int>> contarBombasAdjacentes() {
+    /// matriz que vai armazenar a quantidade de bombas adjacentes de cada
+    /// posicao. é usada para realizar testes
+    List<List<int>> matrizDeBombasAdjacentes = List.generate(
+      tabuleiro.length,
+      (row) => List.generate(
+        tabuleiro[row].length,
+        (col) => 0,
+      ),
+    );
+
+    for (int i = 0; i < tabuleiro.length; i++) {
+      for (int j = 0; j < tabuleiro[i].length; j++) {
+        if (!tabuleiro[i][j].temBomba) {
+          int bombasAdjacentes = 0;
+
+          // Verifique as 8 posições adjacentes.
+          for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+              int newRow = i + dx;
+              int newCol = j + dy;
+
+              if (newRow >= 0 &&
+                  newRow < tabuleiro.length &&
+                  newCol >= 0 &&
+                  newCol < tabuleiro[i].length &&
+                  tabuleiro[newRow][newCol].temBomba) {
+                bombasAdjacentes++;
+              }
+            }
+          }
+
+          tabuleiro[i][j].bombasAdjacentes = bombasAdjacentes;
+          matrizDeBombasAdjacentes[i][j] = bombasAdjacentes;
+        }
+      }
+    }
+    return matrizDeBombasAdjacentes;
   }
 }
