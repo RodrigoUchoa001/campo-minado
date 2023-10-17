@@ -1,5 +1,6 @@
 import 'package:campo_minado_flutter/models/zona.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ZonaWidget extends StatelessWidget {
   final Zona zona;
@@ -25,6 +26,8 @@ class ZonaWidget extends StatelessWidget {
       return Colors.grey; // Zona não descoberta.
     } else if (zona.status == 1) {
       return Colors.blue; // Zona com bandeira.
+    } else if (zona.temBomba) {
+      return Colors.red;
     } else {
       return Colors.white; // Zona descoberta.
     }
@@ -33,7 +36,8 @@ class ZonaWidget extends StatelessWidget {
   Widget _getZonaIcon(Zona zona) {
     if (zona.status == 2) {
       if (zona.temBomba) {
-        return const Icon(Icons.zoom_out_map, color: Colors.black, size: 24);
+        return const FaIcon(FontAwesomeIcons.bomb,
+            color: Colors.black, size: 24);
       } else {
         return Text(
           zona.bombasAdjacentes > 0 ? zona.bombasAdjacentes.toString() : '',
@@ -41,7 +45,7 @@ class ZonaWidget extends StatelessWidget {
         );
       }
     } else if (zona.status == 1) {
-      return const Icon(Icons.flag, color: Colors.black, size: 24);
+      return const FaIcon(FontAwesomeIcons.flag, color: Colors.black, size: 24);
     } else {
       return Container();
     }
