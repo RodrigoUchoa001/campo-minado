@@ -1,3 +1,5 @@
+import 'package:campo_minado_flutter/ui/screens/tela_de_escolha_de_dificuldade.dart';
+import 'package:campo_minado_flutter/ui/widgets/botao_padrao.dart';
 import 'package:flutter/material.dart';
 
 class TelaInicial extends StatelessWidget {
@@ -5,8 +7,6 @@ class TelaInicial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: Center(
         child: Column(
@@ -17,25 +17,19 @@ class TelaInicial extends StatelessWidget {
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(20),
-                textStyle: const TextStyle(fontSize: 20),
-                fixedSize: Size(width - 24, 56),
-              ),
-              child: const Text('Jogar'),
+            BotaoPadrao(
+              titulo: 'Jogar',
+              apertar: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (_) => const TelaDeEscolhaDeDificuldade()),
+                );
+              },
             ),
-            const SizedBox(height: 12),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(20),
-                textStyle: const TextStyle(fontSize: 20),
-                fixedSize: Size(width - 24, 56),
-              ),
-              child: const Text('Ver Pontuação'),
-            ),
+            BotaoPadrao(
+              titulo: 'Ver Pontuação',
+              apertar: () {},
+            )
           ],
         ),
       ),
