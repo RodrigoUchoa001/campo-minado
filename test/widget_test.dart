@@ -329,14 +329,14 @@ void main() {
         "20- testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade fácil",
         () {
       int dificuldade = 1;
-      CampoMinado tabuleiro = CampoMinado(dificuldade);
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
       bool naoColocouBandeiraEmAlgumaZona = false;
 
-      for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
-        for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
-          tabuleiro.tabuleiro[i][j].colocarBandeira();
-          if (tabuleiro.tabuleiro[i][j].status != 1) {
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          campoMinado.colocarBandeira(i, j);
+          if (campoMinado.tabuleiro[i][j].status != 1) {
             naoColocouBandeiraEmAlgumaZona = true;
           }
         }
@@ -348,14 +348,14 @@ void main() {
         "21- testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade intermidiario",
         () {
       int dificuldade = 2;
-      CampoMinado tabuleiro = CampoMinado(dificuldade);
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
       bool naoColocouBandeiraEmAlgumaZona = false;
 
-      for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
-        for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
-          tabuleiro.tabuleiro[i][j].colocarBandeira();
-          if (tabuleiro.tabuleiro[i][j].status != 1) {
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          campoMinado.colocarBandeira(i, j);
+          if (campoMinado.tabuleiro[i][j].status != 1) {
             naoColocouBandeiraEmAlgumaZona = true;
           }
         }
@@ -367,14 +367,14 @@ void main() {
         "22- testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade dificil",
         () {
       int dificuldade = 3;
-      CampoMinado tabuleiro = CampoMinado(dificuldade);
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
       bool naoColocouBandeiraEmAlgumaZona = false;
 
-      for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
-        for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
-          tabuleiro.tabuleiro[i][j].colocarBandeira();
-          if (tabuleiro.tabuleiro[i][j].status != 1) {
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          campoMinado.colocarBandeira(i, j);
+          if (campoMinado.tabuleiro[i][j].status != 1) {
             naoColocouBandeiraEmAlgumaZona = true;
           }
         }
@@ -397,7 +397,7 @@ void main() {
               int dificuldade = 1;
               CampoMinado campoMinado = CampoMinado(dificuldade);
 
-              campoMinado.tabuleiro[i][j].colocarBandeira();
+              campoMinado.colocarBandeira(i, j);
             },
             throwsA(isA<RangeError>()),
           );
@@ -415,8 +415,8 @@ void main() {
 
       for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
         for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
-          campoMinado.tabuleiro[i][j].colocarBandeira();
-          campoMinado.tabuleiro[i][j].removerBandeira();
+          campoMinado.colocarBandeira(i, j);
+          campoMinado.removerBandeira(i, j);
         }
       }
     });
@@ -429,7 +429,7 @@ void main() {
           for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
             expect(
               () {
-                campoMinado.tabuleiro[i][j].removerBandeira();
+                campoMinado.removerBandeira(i, j);
               },
               throwsA(isA<RemoverBandeiraDeZonaSemBandeiraException>()),
             );
@@ -451,7 +451,7 @@ void main() {
               int dificuldade = 1;
               CampoMinado campoMinado = CampoMinado(dificuldade);
 
-              campoMinado.tabuleiro[i][j].removerBandeira();
+              campoMinado.removerBandeira(i, j);
             },
             throwsA(isA<RangeError>()),
           );
@@ -467,7 +467,7 @@ void main() {
 
       for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
         for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
-          campoMinado.tabuleiro[i][j].descobrirZona();
+          campoMinado.descobrirZona(i, j);
         }
       }
     });
@@ -479,8 +479,8 @@ void main() {
         for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
           expect(
             () {
-              campoMinado.tabuleiro[i][j].colocarBandeira();
-              campoMinado.tabuleiro[i][j].descobrirZona();
+              campoMinado.colocarBandeira(i, j);
+              campoMinado.descobrirZona(i, j);
             },
             throwsA(isA<DescobrirZonaComBandeiraException>()),
           );
@@ -501,7 +501,7 @@ void main() {
               int dificuldade = 1;
               CampoMinado campoMinado = CampoMinado(dificuldade);
 
-              campoMinado.tabuleiro[i][j].descobrirZona();
+              campoMinado.descobrirZona(i, j);
             },
             throwsA(isA<RangeError>()),
           );
@@ -516,13 +516,20 @@ void main() {
 
       for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
         for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
-          expect(
-            () {
-              campoMinado.tabuleiro[i][j].descobrirZona();
-              campoMinado.tabuleiro[i][j].colocarBandeira();
-            },
-            throwsA(isA<BandeiraEmZonaDescobertaException>()),
-          );
+          // o teste n tava passando sem esse if. Pq por verificar o tabuleiro
+          // inteiro, em algum momento ou o jogador vai descobrir uma bomba, ou
+          // vai vencer. Acontecendo isso a variavel '_jogoEmAndamento' da classe
+          // CampoMinado se tornaria 'false', impedindo de descobrir a Zona, oq
+          // faria q n lancasse a excecao esperada
+          if (!campoMinado.tabuleiro[i][j].temBomba) {
+            expect(
+              () {
+                campoMinado.descobrirZona(i, j);
+                campoMinado.colocarBandeira(i, j);
+              },
+              throwsA(isA<BandeiraEmZonaDescobertaException>()),
+            );
+          }
         }
       }
     });
@@ -540,7 +547,7 @@ void main() {
               int dificuldade = 1;
               CampoMinado campoMinado = CampoMinado(dificuldade);
 
-              campoMinado.tabuleiro[i][j].colocarBandeira();
+              campoMinado.colocarBandeira(i, j);
             },
             throwsA(isA<RangeError>()),
           );
@@ -589,6 +596,24 @@ void main() {
             ),
             isTrue,
           );
+        }
+      }
+    });
+  });
+  group(
+      'XII - o jogo deve acabar com derrota quando uma zona com bomba for descoberta',
+      () {
+    test('34- testa se o jogo acaba quando uma bomba é descoberta', () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          if (campoMinado.tabuleiro[i][j].temBomba) {
+            campoMinado.descobrirZona(i, j);
+            expect(campoMinado.jogoEmAndamento, false);
+            break;
+          }
         }
       }
     });
