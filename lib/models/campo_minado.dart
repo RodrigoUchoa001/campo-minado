@@ -109,7 +109,7 @@ class CampoMinado {
     return matrizDeBombasAdjacentes;
   }
 
-  void descobrirZona(int row, int col) {
+  int descobrirZona(int row, int col) {
     if (_jogoEmAndamento) {
       tabuleiro[row][col].descobrirZona();
 
@@ -132,8 +132,10 @@ class CampoMinado {
           _jogoEmAndamento = false; // O jogo terminou devido a uma vitória.
           _vitoria = true;
         }
+        return zonasNaoDescobertas;
       }
     }
+    return 0;
   }
 
   void colocarBandeira(int row, int col) {
