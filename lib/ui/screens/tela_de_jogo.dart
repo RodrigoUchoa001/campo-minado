@@ -66,22 +66,22 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                     },
                     onLongPress: () {
                       setState(() {
-                        zona.colocarBandeira();
+                        if (zona.status == 1) {
+                          zona.removerBandeira();
+                        } else {
+                          zona.colocarBandeira();
+                        }
                       });
                     },
                     child: Container(
-                      width:
-                          30, // Ajuste o tamanho da célula conforme necessário.
+                      width: 30,
                       height: 30,
                       decoration: BoxDecoration(
                         border: Border.all(),
                         color: _getZonaColor(zona),
                       ),
                       child: Center(
-                        child: Text(
-                          _getZonaText(zona),
-                          style: const TextStyle(fontSize: 20),
-                        ),
+                        child: _getZonaIcon(zona),
                       ),
                     ),
                   );
@@ -98,21 +98,26 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
     if (zona.status == 0) {
       return Colors.grey; // Zona não descoberta.
     } else if (zona.status == 1) {
-      return Colors.red; // Zona com bandeira.
+      return Colors.blue; // Zona com bandeira.
     } else {
       return Colors.white; // Zona descoberta.
     }
   }
 
-  String _getZonaText(Zona zona) {
-    if (zona.status == 2 && zona.temBomba) {
-      return 'B'; // Bomba.
-    } else if (zona.status == 2) {
-      return zona.bombasAdjacentes.toString(); // Bombas adjacentes.
+  Widget _getZonaIcon(Zona zona) {
+    if (zona.status == 2) {
+      if (zona.temBomba) {
+        return const Icon(Icons.zoom_out_map, color: Colors.black, size: 24);
+      } else {
+        return Text(
+          zona.bombasAdjacentes > 0 ? zona.bombasAdjacentes.toString() : '',
+          style: const TextStyle(fontSize: 20),
+        );
+      }
     } else if (zona.status == 1) {
-      return 'F'; // Bandeira.
+      return const Icon(Icons.flag, color: Colors.black, size: 24);
     } else {
-      return ''; // Zona não descoberta.
+      return Container();
     }
   }
 }
