@@ -1,3 +1,4 @@
+import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exception.dart';
 import 'package:campo_minado_flutter/exceptions/descobrir_zona_com_bandeira_exception.dart';
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
 import 'package:campo_minado_flutter/models/campo_minado.dart';
@@ -82,7 +83,15 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                           if (zona.status == 1) {
                             campoMinado.removerBandeira(row, col);
                           } else {
-                            campoMinado.colocarBandeira(row, col);
+                            try {
+                              campoMinado.colocarBandeira(row, col);
+                            } on BandeiraEmZonaDescobertaException catch (e) {
+                              final snackBar = SnackBar(
+                                content: Text(e.toString()),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
                           }
                         });
                       },
