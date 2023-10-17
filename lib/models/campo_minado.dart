@@ -7,7 +7,13 @@ class CampoMinado {
   late List<List<Zona>> tabuleiro;
   late int _dificuldade;
 
+  bool _jogoEmAndamento = true;
+  bool _vitoria = false;
+
   int get dificuldade => _dificuldade;
+
+  bool get jogoEmAndamento => _jogoEmAndamento;
+  bool get vitoria => _vitoria;
 
   /// 1 = facil = 8x8
   /// 2 = medio = 10x16
@@ -101,5 +107,40 @@ class CampoMinado {
       }
     }
     return matrizDeBombasAdjacentes;
+  }
+
+  void descobrirZona(int row, int col) {
+    if (_jogoEmAndamento) {
+      tabuleiro[row][col].descobrirZona();
+
+      if (tabuleiro[row][col].temBomba) {
+        _jogoEmAndamento = false; // O jogo terminou devido a uma derrota.
+        _vitoria = false;
+      } else {
+        // Verificar se todas as zonas não bombas foram descobertas.
+        int zonasNaoDescobertas = 0;
+
+        for (int i = 0; i < tabuleiro.length; i++) {
+          for (int j = 0; j < tabuleiro[i].length; j++) {
+            if (tabuleiro[i][j].status == 0 && !tabuleiro[i][j].temBomba) {
+              zonasNaoDescobertas++;
+            }
+          }
+        }
+
+        if (zonasNaoDescobertas == 0) {
+          _jogoEmAndamento = false; // O jogo terminou devido a uma vitória.
+          _vitoria = true;
+        }
+      }
+    }
+  }
+
+  void colocarBandeira(int row, int col) {
+    tabuleiro[row][col].colocarBandeira();
+  }
+
+  void removerBandeira(int row, int col) {
+    tabuleiro[row][col].removerBandeira();
   }
 }
