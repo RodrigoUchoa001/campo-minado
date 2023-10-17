@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:campo_minado_flutter/main.dart';
+import 'package:parameterized_test/parameterized_test.dart';
 
 void main() {
   // testWidgets('Counter increments smoke test', (WidgetTester tester) async {
@@ -151,7 +152,7 @@ void main() {
     });
   });
 
-  group('IV - todas as zonas devem começar como cobertas ', () {
+  group('IV - todas as zonas devem começar como cobertas', () {
     test(
         "11- testa se todas as zonas da dificuldade fácil começam como cobertas",
         () {
@@ -325,53 +326,10 @@ void main() {
     });
   });
 
-  group("Testes de Zonas", () {
-    // test("testa se todas as zonas começam cobertas", () {
-    //   int dificuldade = 1;
-    //   CampoMinado tabuleiro = CampoMinado(dificuldade);
-
-    //   bool temDiferenteDeCoberto = false;
-
-    //   for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
-    //     for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
-    //       if (tabuleiro.tabuleiro[i][j].status != 0) {
-    //         temDiferenteDeCoberto = true;
-    //       }
-    //     }
-    //   }
-
-    //   expect(temDiferenteDeCoberto, false);
-    // });
-    test("todas as zonas começam como sem bandeira", () {
-      int dificuldade = 1;
-      CampoMinado tabuleiro = CampoMinado(dificuldade);
-
-      bool temZonaComBandeira = false;
-
-      for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
-        for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
-          if (tabuleiro.tabuleiro[i][j].status == 1) {
-            temZonaComBandeira = true;
-          }
-        }
-      }
-
-      expect(temZonaComBandeira, false);
-    });
+  group('deve ser possivel colocar bandeira em uma posição coberta', () {
     test(
-      "testa se não se pode colocar bandeira em zona descoberta",
-      () => expect(
+        "20- testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade fácil",
         () {
-          int dificuldade = 1;
-          CampoMinado tabuleiro = CampoMinado(dificuldade);
-
-          tabuleiro.tabuleiro[0][0].colocarBandeira();
-          tabuleiro.tabuleiro[0][0].descobrirZona();
-        },
-        throwsA(isA<DescobrirZonaComBandeiraException>()),
-      ),
-    );
-    test("testa se é possivel colocar bandeira em uma zona qualquer", () {
       int dificuldade = 1;
       CampoMinado tabuleiro = CampoMinado(dificuldade);
 
@@ -389,17 +347,164 @@ void main() {
       expect(naoColocouBandeiraEmAlgumaZona, false);
     });
     test(
-      "não se pode remover bandeira onde não houver bandeira",
+        "21- testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade intermidiario",
+        () {
+      int dificuldade = 2;
+      CampoMinado tabuleiro = CampoMinado(dificuldade);
+
+      bool naoColocouBandeiraEmAlgumaZona = false;
+
+      for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
+        for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
+          tabuleiro.tabuleiro[i][j].colocarBandeira();
+          if (tabuleiro.tabuleiro[i][j].status != 1) {
+            naoColocouBandeiraEmAlgumaZona = true;
+          }
+        }
+      }
+
+      expect(naoColocouBandeiraEmAlgumaZona, false);
+    });
+    test(
+        "22- testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade dificil",
+        () {
+      int dificuldade = 3;
+      CampoMinado tabuleiro = CampoMinado(dificuldade);
+
+      bool naoColocouBandeiraEmAlgumaZona = false;
+
+      for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
+        for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
+          tabuleiro.tabuleiro[i][j].colocarBandeira();
+          if (tabuleiro.tabuleiro[i][j].status != 1) {
+            naoColocouBandeiraEmAlgumaZona = true;
+          }
+        }
+      }
+
+      expect(naoColocouBandeiraEmAlgumaZona, false);
+    });
+
+    parameterizedTest(
+      "23- testa se não é possivel colocar bandeira em posição invalida",
+      [
+        [-1, 0],
+        [0, -1],
+        [-1, -1],
+      ],
+      p2(
+        (int i, int j) {
+          expect(
+            () {
+              int dificuldade = 1;
+              CampoMinado campoMinado = CampoMinado(dificuldade);
+
+              campoMinado.tabuleiro[i][j].colocarBandeira();
+            },
+            throwsA(isA<RangeError>()),
+          );
+        },
+      ),
+    );
+  });
+
+  group('deve ser possível remover bandeira se houver', () {
+    test(
+        '24- testa se é possível remover bandeira de qualquer zona quando houver',
+        () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          campoMinado.tabuleiro[i][j].colocarBandeira();
+          campoMinado.tabuleiro[i][j].removerBandeira();
+        }
+      }
+    });
+    test(
+      '25- testa se não é possivel remover bandeira de zona quando não houver',
+      () {
+        int dificuldade = 1;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+        for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+          for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+            expect(
+              () {
+                campoMinado.tabuleiro[i][j].removerBandeira();
+              },
+              throwsA(isA<RemoverBandeiraDeZonaSemBandeiraException>()),
+            );
+          }
+        }
+      },
+    );
+    parameterizedTest(
+      '26- testa se não é possivel remover bandeira em posição invalida',
+      [
+        [-1, 0],
+        [0, -1],
+        [-1, -1],
+      ],
+      p2(
+        (int i, int j) {
+          expect(
+            () {
+              int dificuldade = 1;
+              CampoMinado campoMinado = CampoMinado(dificuldade);
+
+              campoMinado.tabuleiro[i][j].removerBandeira();
+            },
+            throwsA(isA<RangeError>()),
+          );
+        },
+      ),
+    );
+  });
+
+  group("Testes de Zonas", () {
+    test(
+      "testa se não se pode colocar bandeira em zona descoberta",
       () => expect(
         () {
           int dificuldade = 1;
           CampoMinado tabuleiro = CampoMinado(dificuldade);
 
-          tabuleiro.tabuleiro[0][0].removerBandeira();
+          tabuleiro.tabuleiro[0][0].colocarBandeira();
+          tabuleiro.tabuleiro[0][0].descobrirZona();
         },
-        throwsA(isA<RemoverBandeiraDeZonaSemBandeiraException>()),
+        throwsA(isA<DescobrirZonaComBandeiraException>()),
       ),
     );
+    // test("testa se é possivel colocar bandeira em uma zona qualquer", () {
+    //   int dificuldade = 1;
+    //   CampoMinado tabuleiro = CampoMinado(dificuldade);
+
+    //   bool naoColocouBandeiraEmAlgumaZona = false;
+
+    //   for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
+    //     for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
+    //       tabuleiro.tabuleiro[i][j].colocarBandeira();
+    //       if (tabuleiro.tabuleiro[i][j].status != 1) {
+    //         naoColocouBandeiraEmAlgumaZona = true;
+    //       }
+    //     }
+    //   }
+
+    //   expect(naoColocouBandeiraEmAlgumaZona, false);
+    // });
+    // test(
+    //   "não se pode remover bandeira onde não houver bandeira",
+    //   () => expect(
+    //     () {
+    //       int dificuldade = 1;
+    //       CampoMinado tabuleiro = CampoMinado(dificuldade);
+
+    //       tabuleiro.tabuleiro[0][0].removerBandeira();
+    //     },
+    //     throwsA(isA<RemoverBandeiraDeZonaSemBandeiraException>()),
+    //   ),
+    // );
   });
   group('testes de tabuleiro', () {
     // test(
