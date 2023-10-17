@@ -571,5 +571,28 @@ void main() {
         }
       }
     });
+    test(
+        '33- testa se o número de bombas adjacentes de uma zona está entre 0 e 8',
+        () {
+      bool valorEstaEntre(int valor, int limiteInferior, int limiteSuperior) {
+        return valor >= limiteInferior && valor <= limiteSuperior;
+      }
+
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          expect(
+            valorEstaEntre(
+              campoMinado.tabuleiro[i][j].bombasAdjacentes,
+              0,
+              8,
+            ),
+            isTrue,
+          );
+        }
+      }
+    });
   });
 }
