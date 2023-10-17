@@ -17,7 +17,7 @@ class BotaoPadrao extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.all(20),
           textStyle: const TextStyle(fontSize: 20),
-          fixedSize: Size(width - 24, 56),
+          fixedSize: Size.fromWidth(width - 24),
         ),
         child: Text(titulo),
       ),
