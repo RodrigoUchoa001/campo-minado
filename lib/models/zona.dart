@@ -1,5 +1,6 @@
 import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exception.dart';
 import 'package:campo_minado_flutter/exceptions/descobrir_zona_com_bandeira_exception.dart';
+import 'package:campo_minado_flutter/exceptions/quantidade_de_bombas_adjacentes_invalida_exception.dart';
 import 'package:campo_minado_flutter/exceptions/remover_bandeira_de_zona_sem_bandeira_exception.dart';
 
 /// classe que representa uma zona do campo minado
@@ -9,8 +10,20 @@ import 'package:campo_minado_flutter/exceptions/remover_bandeira_de_zona_sem_ban
 class Zona {
   int _status = 0;
   bool _temBomba = false;
+  int _bombasAdjacentes = 0;
 
   int get status => _status;
+  bool get temBomba => _temBomba;
+  int get bombasAdjacentes => _bombasAdjacentes;
+
+  set bombasAdjacentes(int numBombasAdjacentes) {
+    if (numBombasAdjacentes >= 0 && numBombasAdjacentes <= 8) {
+      _bombasAdjacentes = numBombasAdjacentes;
+    } else {
+      throw QuantidadeDeBombasAdjacentesInvalidaException(
+          "O numero de bombas adjacentes foi menor que 0 ou mair que 8");
+    }
+  }
 
   void colocarBandeira() {
     if (_status == 0) {
@@ -38,8 +51,6 @@ class Zona {
           "Não é possivel descobrir zona com bandeira");
     }
   }
-
-  bool get temBomba => _temBomba;
 
   /// impede de alterar o valor do temBomba após ser setado pela primeira vez
   set temBomba(bool temBomba) {
