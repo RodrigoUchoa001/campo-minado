@@ -612,10 +612,29 @@ void main() {
           if (campoMinado.tabuleiro[i][j].temBomba) {
             campoMinado.descobrirZona(i, j);
             expect(campoMinado.jogoEmAndamento, false);
+            expect(campoMinado.vitoria, false);
             break;
           }
         }
       }
+    });
+
+    test('35- testa se o jogo continua se não houver bomba descoberta', () {
+      // esse teste descobre todas as zonas q n tem bomba. se descobrir todas
+      // (jogoEmAndamento ficar como true), entao o jogo continua enquanto as
+      // zonas com bombas n estiverem descobertas
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          if (!campoMinado.tabuleiro[i][j].temBomba) {
+            campoMinado.descobrirZona(i, j);
+          }
+        }
+      }
+      expect(campoMinado.jogoEmAndamento, false);
+      expect(campoMinado.vitoria, true);
     });
   });
 }
