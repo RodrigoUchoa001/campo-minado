@@ -1,3 +1,4 @@
+import 'package:campo_minado_flutter/exceptions/descobrir_zona_com_bandeira_exception.dart';
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
 import 'package:campo_minado_flutter/models/campo_minado.dart';
 import 'package:campo_minado_flutter/ui/widgets/zona_widget.dart';
@@ -65,7 +66,15 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                       onTap: () {
                         setState(() {
                           //TODO: n deixar clicar de novo caso ja tenha descoberto, TRATAR EXCECOES
-                          campoMinado.descobrirZona(row, col);
+                          try {
+                            campoMinado.descobrirZona(row, col);
+                          } on DescobrirZonaComBandeiraException catch (e) {
+                            final snackBar = SnackBar(
+                              content: Text(e.toString()),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
                         });
                       },
                       onLongPress: () {
