@@ -8,29 +8,31 @@ class TelaInicial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "Campo Minado",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 24),
-            BotaoPadrao(
-              titulo: 'Jogar',
-              apertar: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (_) => const TelaDeEscolhaDeDificuldade()),
-                );
-              },
-            ),
-            BotaoPadrao(
-              titulo: 'Ver Pontuação',
-              apertar: () {},
-            )
-          ],
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Campo Minado",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 24),
+              BotaoPadrao(
+                titulo: 'Jogar',
+                apertar: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (_) => const TelaDeEscolhaDeDificuldade()),
+                  );
+                },
+              ),
+              BotaoPadrao(
+                titulo: 'Ver Pontuação',
+                apertar: () {},
+              )
+            ],
+          ),
         ),
       ),
     );
