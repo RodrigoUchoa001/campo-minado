@@ -462,138 +462,92 @@ void main() {
     );
   });
 
-  group("Testes de Zonas", () {
-    test(
-      "testa se não se pode colocar bandeira em zona descoberta",
-      () => expect(
-        () {
-          int dificuldade = 1;
-          CampoMinado tabuleiro = CampoMinado(dificuldade);
+  group('IX- deve ser possivel descobrir uma zona sem bandeira', () {
+    test('27- testa se é possível descobrir uma zona que não tem bandeira', () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
-          tabuleiro.tabuleiro[0][0].colocarBandeira();
-          tabuleiro.tabuleiro[0][0].descobrirZona();
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          campoMinado.tabuleiro[i][j].descobrirZona();
+        }
+      }
+    });
+    test('28- testa se é não possível descobrir uma zona que tem bandeira', () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          expect(
+            () {
+              campoMinado.tabuleiro[i][j].colocarBandeira();
+              campoMinado.tabuleiro[i][j].descobrirZona();
+            },
+            throwsA(isA<DescobrirZonaComBandeiraException>()),
+          );
+        }
+      }
+    });
+    parameterizedTest(
+      '29- testa se não é possivel descobrir zona de posição invalida',
+      [
+        [-1, 0],
+        [0, -1],
+        [-1, -1],
+      ],
+      p2(
+        (int i, int j) {
+          expect(
+            () {
+              int dificuldade = 1;
+              CampoMinado campoMinado = CampoMinado(dificuldade);
+
+              campoMinado.tabuleiro[i][j].descobrirZona();
+            },
+            throwsA(isA<RangeError>()),
+          );
         },
-        throwsA(isA<DescobrirZonaComBandeiraException>()),
       ),
     );
-    // test("testa se é possivel colocar bandeira em uma zona qualquer", () {
-    //   int dificuldade = 1;
-    //   CampoMinado tabuleiro = CampoMinado(dificuldade);
-
-    //   bool naoColocouBandeiraEmAlgumaZona = false;
-
-    //   for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
-    //     for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
-    //       tabuleiro.tabuleiro[i][j].colocarBandeira();
-    //       if (tabuleiro.tabuleiro[i][j].status != 1) {
-    //         naoColocouBandeiraEmAlgumaZona = true;
-    //       }
-    //     }
-    //   }
-
-    //   expect(naoColocouBandeiraEmAlgumaZona, false);
-    // });
-    // test(
-    //   "não se pode remover bandeira onde não houver bandeira",
-    //   () => expect(
-    //     () {
-    //       int dificuldade = 1;
-    //       CampoMinado tabuleiro = CampoMinado(dificuldade);
-
-    //       tabuleiro.tabuleiro[0][0].removerBandeira();
-    //     },
-    //     throwsA(isA<RemoverBandeiraDeZonaSemBandeiraException>()),
-    //   ),
-    // );
   });
-  group('testes de tabuleiro', () {
-    // test(
-    //   "verifica se é lançada uma exceção quando tenta escolher uma dificuldade invalida",
-    //   () => expect(
-    //     () {
-    //       int dificuldade = 4;
-    //       CampoMinado tabuleiro = CampoMinado(dificuldade);
-    //     },
-    //     throwsA(isA<DificuldadeEscolhidaInvalidaException>()),
-    //   ),
-    // );
-    // test("testa se escolhendo dificuldade fácil o tabuleiro tem 8x8", () {
-    //   int dificuldade = 1;
-    //   CampoMinado tabuleiro = CampoMinado(dificuldade);
+  group("X- não deve ser possível colocar bandeira em zona descoberta", () {
+    test("30- testa se não é possível colocar bandeira em zona descoberta", () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
-    //   int numLinhas = tabuleiro.tabuleiro.length;
-    //   int numColunas = tabuleiro.tabuleiro[0].length;
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          expect(
+            () {
+              campoMinado.tabuleiro[i][j].descobrirZona();
+              campoMinado.tabuleiro[i][j].colocarBandeira();
+            },
+            throwsA(isA<BandeiraEmZonaDescobertaException>()),
+          );
+        }
+      }
+    });
+    parameterizedTest(
+      '31- testa se não é possivel colocar bandeira em zona invalida',
+      [
+        [-1, 0],
+        [0, -1],
+        [-1, -1],
+      ],
+      p2(
+        (int i, int j) {
+          expect(
+            () {
+              int dificuldade = 1;
+              CampoMinado campoMinado = CampoMinado(dificuldade);
 
-    //   expect(numLinhas, 8);
-    //   expect(numColunas, 8);
-    // });
-    // test("testa se escolhendo dificuldade médio o tabuleiro tem 10x16", () {
-    //   int dificuldade = 2;
-    //   CampoMinado tabuleiro = CampoMinado(dificuldade);
-
-    //   int numLinhas = tabuleiro.tabuleiro.length;
-    //   int numColunas = tabuleiro.tabuleiro[0].length;
-
-    //   expect(numLinhas, 10);
-    //   expect(numColunas, 16);
-    // });
-    // test("testa se escolhendo dificuldade dificil o tabuleiro tem 24x24", () {
-    //   int dificuldade = 3;
-    //   CampoMinado tabuleiro = CampoMinado(dificuldade);
-
-    //   int numLinhas = tabuleiro.tabuleiro.length;
-    //   int numColunas = tabuleiro.tabuleiro[0].length;
-
-    //   expect(numLinhas, 24);
-    //   expect(numColunas, 24);
-    // });
-    // test('testa se na dificuldade fácil o numero de bombas é 10', () {
-    //   int dificuldade = 1;
-    //   CampoMinado tabuleiro = CampoMinado(dificuldade);
-
-    //   int quantidadeDeBombas = 0;
-
-    //   for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
-    //     for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
-    //       if (tabuleiro.tabuleiro[i][j].temBomba) {
-    //         quantidadeDeBombas++;
-    //       }
-    //     }
-    //   }
-
-    //   expect(quantidadeDeBombas, 10);
-    // });
-    // test('testa se na dificuldade médio o numero de bombas é 30', () {
-    //   int dificuldade = 2;
-    //   CampoMinado tabuleiro = CampoMinado(dificuldade);
-
-    //   int quantidadeDeBombas = 0;
-
-    //   for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
-    //     for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
-    //       if (tabuleiro.tabuleiro[i][j].temBomba) {
-    //         quantidadeDeBombas++;
-    //       }
-    //     }
-    //   }
-
-    //   expect(quantidadeDeBombas, 30);
-    // });
-    // test('testa se na dificuldade dificil o numero de bombas é 100', () {
-    //   int dificuldade = 3;
-    //   CampoMinado tabuleiro = CampoMinado(dificuldade);
-
-    //   int quantidadeDeBombas = 0;
-
-    //   for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
-    //     for (int j = 0; j < tabuleiro.tabuleiro[i].length; j++) {
-    //       if (tabuleiro.tabuleiro[i][j].temBomba) {
-    //         quantidadeDeBombas++;
-    //       }
-    //     }
-    //   }
-
-    //   expect(quantidadeDeBombas, 100);
-    // });
+              campoMinado.tabuleiro[i][j].colocarBandeira();
+            },
+            throwsA(isA<RangeError>()),
+          );
+        },
+      ),
+    );
   });
 }
