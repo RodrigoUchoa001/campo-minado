@@ -10,10 +10,8 @@ import 'package:campo_minado_flutter/exceptions/descobrir_zona_com_bandeira_exce
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
 import 'package:campo_minado_flutter/exceptions/remover_bandeira_de_zona_sem_bandeira_exception.dart';
 import 'package:campo_minado_flutter/models/campo_minado.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 
-import 'package:campo_minado_flutter/main.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:parameterized_test/parameterized_test.dart';
 
 void main() {
