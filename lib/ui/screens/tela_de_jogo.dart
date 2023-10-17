@@ -2,6 +2,7 @@ import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exce
 import 'package:campo_minado_flutter/exceptions/descobrir_zona_com_bandeira_exception.dart';
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
 import 'package:campo_minado_flutter/models/campo_minado.dart';
+import 'package:campo_minado_flutter/ui/screens/tela_de_escolha_de_dificuldade.dart';
 import 'package:campo_minado_flutter/ui/widgets/zona_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -36,6 +37,28 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
         'Dificuldade escolhida invalida');
   }
 
+  void mostrarMsgDeFimDeJogo(bool vitoria) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(vitoria ? 'Você Venceu!' : 'Você Perdeu!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (_) => const TelaDeEscolhaDeDificuldade()),
+                );
+              },
+              child: const Text('Jogar novamente'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +89,6 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                     return GestureDetector(
                       onTap: () {
                         setState(() {
-                          //TODO: n deixar clicar de novo caso ja tenha descoberto, TRATAR EXCECOES
                           try {
                             campoMinado.descobrirZona(row, col);
                           } on DescobrirZonaComBandeiraException catch (e) {
@@ -75,6 +97,10 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                             );
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
+                          }
+
+                          if (!campoMinado.jogoEmAndamento) {
+                            mostrarMsgDeFimDeJogo(campoMinado.vitoria);
                           }
                         });
                       },
