@@ -637,4 +637,49 @@ void main() {
       expect(campoMinado.vitoria, true);
     });
   });
+  group(
+      'XIII - o jogo deve acabar com vitória quando todas as zonas sem bombas estiverem descobertas',
+      () {
+    test(
+        '36- testa se o jogo acaba quando todas as zonas sem bombas estiverem descobertas',
+        () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          if (!campoMinado.tabuleiro[i][j].temBomba) {
+            campoMinado.descobrirZona(i, j);
+          }
+        }
+      }
+      expect(campoMinado.jogoEmAndamento, false);
+      expect(campoMinado.vitoria, true);
+    });
+
+    test('37- testa se o jogo continua se alguma das zonas estiver coberta',
+        () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      bool jogoParouAntesDaHora = false;
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          if (!campoMinado.tabuleiro[i][j].temBomba) {
+            campoMinado.descobrirZona(i, j);
+            // testa se o jogo não está mais em andamento, mas ainda há zonas
+            //cobertas, msm o if anterior descobrindo todas as zonas sem bombas
+            if (!campoMinado.jogoEmAndamento &&
+                campoMinado.descobrirZona(i, j) != 0) {
+              jogoParouAntesDaHora = true;
+              break;
+            }
+          }
+        }
+      }
+
+      expect(jogoParouAntesDaHora, false);
+    });
+  });
 }
