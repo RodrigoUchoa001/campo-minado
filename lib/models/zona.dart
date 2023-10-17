@@ -13,7 +13,12 @@ class Zona {
   int get status => _status;
 
   void colocarBandeira() {
-    _status = 1;
+    if (_status == 0) {
+      _status = 1;
+    } else {
+      throw BandeiraEmZonaDescobertaException(
+          "Não se pode colocar bandeira em zona descoberta");
+    }
   }
 
   void removerBandeira() {
