@@ -550,4 +550,26 @@ void main() {
       ),
     );
   });
+  group(
+      'XI - As zonas limpas que fazem fronteira com zonas com bomba, devem indicar quantas bombas aparecem adjacentes a ela',
+      () {
+    test(
+        '32- testa se a zona diz exatamente quantas bombas existem adjacentes desta zona',
+        () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      List<List<int>> matrizDeBombasAdjacentes =
+          campoMinado.contarBombasAdjacentes();
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          expect(
+            campoMinado.tabuleiro[i][j].bombasAdjacentes,
+            matrizDeBombasAdjacentes[i][j],
+          );
+        }
+      }
+    });
+  });
 }
