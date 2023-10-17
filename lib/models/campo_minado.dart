@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
 import 'package:campo_minado_flutter/models/zona.dart';
 
-/// representa o tabuleiro do campo minado
 class CampoMinado {
   late List<List<Zona>> tabuleiro;
   late int _dificuldade;
