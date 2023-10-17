@@ -4,13 +4,18 @@ import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada
 import 'package:campo_minado_flutter/models/zona.dart';
 
 /// representa o tabuleiro do campo minado
-class Tabuleiro {
+class CampoMinado {
   late List<List<Zona>> tabuleiro;
+  late int _dificuldade;
+
+  int get dificuldade => _dificuldade;
 
   /// 1 = facil = 8x8
   /// 2 = medio = 10x16
   /// 3 = dificil = 24x24
-  Tabuleiro(int dificuldade) {
+  CampoMinado(int dificuldade) {
+    _dificuldade = dificuldade;
+
     if (dificuldade == 1) {
       tabuleiro = List.generate(
         8,
