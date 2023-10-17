@@ -65,15 +65,15 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                       onTap: () {
                         setState(() {
                           //TODO: n deixar clicar de novo caso ja tenha descoberto, TRATAR EXCECOES
-                          zona.descobrirZona();
+                          campoMinado.descobrirZona(row, col);
                         });
                       },
                       onLongPress: () {
                         setState(() {
                           if (zona.status == 1) {
-                            zona.removerBandeira();
+                            campoMinado.removerBandeira(row, col);
                           } else {
-                            zona.colocarBandeira();
+                            campoMinado.colocarBandeira(row, col);
                           }
                         });
                       },
