@@ -73,6 +73,12 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                   style: const TextStyle(
                       fontSize: 30, fontWeight: FontWeight.bold),
                 ),
+                !campoMinado.jogoEmAndamento
+                    ? const Text(
+                        'o jogo acabou!',
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : Container(),
                 const SizedBox(height: 24),
                 GridView.builder(
                   shrinkWrap: true,
