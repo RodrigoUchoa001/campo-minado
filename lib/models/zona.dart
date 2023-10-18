@@ -2,6 +2,7 @@ import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exce
 import 'package:campo_minado_flutter/exceptions/descobrir_zona_com_bandeira_exception.dart';
 import 'package:campo_minado_flutter/exceptions/quantidade_de_bombas_adjacentes_invalida_exception.dart';
 import 'package:campo_minado_flutter/exceptions/remover_bandeira_de_zona_sem_bandeira_exception.dart';
+import 'package:campo_minado_flutter/exceptions/tentativa_de_alteracao_de_bomba_exception.dart';
 
 /// classe que representa uma zona do campo minado
 /// 0 = coberto
@@ -11,6 +12,8 @@ class Zona {
   int _status = 0;
   bool _temBomba = false;
   int _bombasAdjacentes = 0;
+
+  bool _temBombaDefinida = false;
 
   int get status => _status;
   bool get temBomba => _temBomba;
@@ -54,8 +57,12 @@ class Zona {
 
   /// impede de alterar o valor do temBomba após ser setado pela primeira vez
   set temBomba(bool temBomba) {
-    if (_temBomba != true || _temBomba != false) {
+    if (!_temBombaDefinida) {
       _temBomba = temBomba;
+      _temBombaDefinida = true;
+    } else {
+      throw TentativaDeAlteracaoDeBombaException(
+          'não é possível alterar o atributo temBomba após já ser modificado uma primeira vez');
     }
   }
 }
