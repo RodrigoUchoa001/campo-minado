@@ -9,7 +9,9 @@ import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exce
 import 'package:campo_minado_flutter/exceptions/descobrir_zona_com_bandeira_exception.dart';
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
 import 'package:campo_minado_flutter/exceptions/remover_bandeira_de_zona_sem_bandeira_exception.dart';
+import 'package:campo_minado_flutter/exceptions/tentativa_de_alteracao_de_bomba_exception.dart';
 import 'package:campo_minado_flutter/models/campo_minado.dart';
+import 'package:campo_minado_flutter/models/zona.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:parameterized_test/parameterized_test.dart';
@@ -680,6 +682,24 @@ void main() {
       }
 
       expect(jogoParouAntesDaHora, false);
+    });
+  });
+  group(
+      'XIV - não deve ser possivel alterar se há bomba ou não em uma Zona após a primeira definição.',
+      () {
+    test(
+        '38- testa se não é possível mudar o valor do atributo "temBomba" de uma Zona',
+        () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+      expect(
+        () {
+          Zona zona = Zona();
+          zona.temBomba = true;
+          zona.temBomba = false;
+        },
+        throwsA(isA<TentativaDeAlteracaoDeBombaException>()),
+      );
     });
   });
 }
