@@ -34,6 +34,54 @@ void main() {
   //   expect(find.text('1'), findsOneWidget);
   // });
 
+  group('testes da classe Zona', () {
+    test(
+        '38- testa se não é possível mudar o valor do atributo "temBomba" de uma Zona',
+        () {
+      expect(
+        () {
+          Zona zona = Zona();
+          zona.temBomba = true;
+          zona.temBomba = false;
+        },
+        throwsA(isA<TentativaDeAlteracaoDeBombaException>()),
+      );
+    });
+    test(
+        '39- Teste se o colocarBandeira para verificar se ela define o status corretamente',
+        () {
+      Zona zona = Zona();
+      zona.colocarBandeira();
+
+      expect(zona.status, 1);
+    });
+    test(
+        '40- Teste se o removerBandeira para verificar se ela define o status corretamente',
+        () {
+      Zona zona = Zona();
+      zona.colocarBandeira();
+      zona.removerBandeira();
+
+      expect(zona.status, 0);
+    });
+    test(
+        '40- Teste se o removerBandeira para verificar se ela define o status corretamente',
+        () {
+      Zona zona = Zona();
+      zona.colocarBandeira();
+      zona.removerBandeira();
+
+      expect(zona.status, 0);
+    });
+    test(
+        '41- Teste se o descobrirZona para verificar se ela define o status corretamente',
+        () {
+      Zona zona = Zona();
+      zona.descobrirZona();
+
+      expect(zona.status, 2);
+    });
+  });
   group(
       'II - deve ser possível escolher entre três níveis de dificuldade (fácil, intermediário, difícil)',
       () {
@@ -671,7 +719,8 @@ void main() {
           if (!campoMinado.tabuleiro[i][j].temBomba) {
             campoMinado.descobrirZona(i, j);
             // testa se o jogo não está mais em andamento, mas ainda há zonas
-            //cobertas, msm o if anterior descobrindo todas as zonas sem bombas
+            // cobertas, msm o if anterior descobrindo todas as zonas sem bombas
+            // obs: o descobrirZona() retorna o numero de zonasNaoDescobertas
             if (!campoMinado.jogoEmAndamento &&
                 campoMinado.descobrirZona(i, j) != 0) {
               jogoParouAntesDaHora = true;
@@ -682,24 +731,6 @@ void main() {
       }
 
       expect(jogoParouAntesDaHora, false);
-    });
-  });
-  group(
-      'XIV - não deve ser possivel alterar se há bomba ou não em uma Zona após a primeira definição.',
-      () {
-    test(
-        '38- testa se não é possível mudar o valor do atributo "temBomba" de uma Zona',
-        () {
-      int dificuldade = 1;
-      CampoMinado campoMinado = CampoMinado(dificuldade);
-      expect(
-        () {
-          Zona zona = Zona();
-          zona.temBomba = true;
-          zona.temBomba = false;
-        },
-        throwsA(isA<TentativaDeAlteracaoDeBombaException>()),
-      );
     });
   });
 }
