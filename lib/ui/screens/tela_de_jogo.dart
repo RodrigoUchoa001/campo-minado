@@ -113,7 +113,15 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                       onLongPress: () {
                         setState(() {
                           if (zona.status == 1) {
-                            campoMinado.removerBandeira(row, col);
+                            try {
+                              campoMinado.removerBandeira(row, col);
+                            } on BandeiraEmZonaDescobertaException catch (e) {
+                              final snackBar = SnackBar(
+                                content: Text(e.toString()),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
                           } else {
                             try {
                               campoMinado.colocarBandeira(row, col);
