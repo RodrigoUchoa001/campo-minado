@@ -10,10 +10,14 @@ class CampoMinado {
   bool _jogoEmAndamento = true;
   bool _vitoria = false;
 
+  late List<List<int>> _matrizDeBombasAdjacentes;
+
   int get dificuldade => _dificuldade;
 
   bool get jogoEmAndamento => _jogoEmAndamento;
   bool get vitoria => _vitoria;
+
+  List<List<int>> get matrizDeBombasAdjacentes => _matrizDeBombasAdjacentes;
 
   /// 1 = facil = 8x8
   /// 2 = medio = 10x16
@@ -69,10 +73,10 @@ class CampoMinado {
     }
   }
 
-  List<List<int>> contarBombasAdjacentes() {
+  void contarBombasAdjacentes() {
     /// matriz que vai armazenar a quantidade de bombas adjacentes de cada
     /// posicao. é usada para realizar testes
-    List<List<int>> matrizDeBombasAdjacentes = List.generate(
+    _matrizDeBombasAdjacentes = List.generate(
       tabuleiro.length,
       (row) => List.generate(
         tabuleiro[row].length,
@@ -106,7 +110,6 @@ class CampoMinado {
         }
       }
     }
-    return matrizDeBombasAdjacentes;
   }
 
   int descobrirZona(int row, int col) {
