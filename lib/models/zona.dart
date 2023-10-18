@@ -49,6 +49,7 @@ class Zona {
   void descobrirZona() {
     if (_status == 0) {
       _status = 2;
+    } else if (_status == 2) {
     } else {
       throw DescobrirZonaComBandeiraException(
           "Não é possivel descobrir zona com bandeira");
