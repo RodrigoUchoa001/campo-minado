@@ -62,17 +62,20 @@ void main() {
     test('5- testa se é possível escolher dificuldade fácil', () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
-      // n precisa de expect, se der exception vai da erro no teste
+
+      expect(campoMinado.dificuldade, 1);
     });
     test('6- testa se é possível escolher dificuldade intermediário', () {
       int dificuldade = 2;
       CampoMinado campoMinado = CampoMinado(dificuldade);
-      // n precisa de expect, se der exception vai da erro no teste
+
+      expect(campoMinado.dificuldade, 2);
     });
     test('7- testa se é possível escolher dificuldade difícil', () {
       int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
-      // n precisa de expect, se der exception vai da erro no teste
+
+      expect(campoMinado.dificuldade, 3);
     });
     test(
       "8- testa se não é deve ser possível escolher outro nivel de dificuldade",
@@ -439,6 +442,7 @@ void main() {
 
       for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
         for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          // n tem except, pq caso de uma excecao o teste n passa
           campoMinado.colocarBandeira(i, j);
           campoMinado.removerBandeira(i, j);
         }
@@ -475,6 +479,7 @@ void main() {
               int dificuldade = 1;
               CampoMinado campoMinado = CampoMinado(dificuldade);
 
+              campoMinado.colocarBandeira(i, j);
               campoMinado.removerBandeira(i, j);
             },
             throwsA(isA<RangeError>()),
@@ -491,6 +496,7 @@ void main() {
 
       for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
         for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          // n tem except, pq caso de uma excecao o teste n passa
           campoMinado.descobrirZona(i, j);
         }
       }
@@ -589,7 +595,7 @@ void main() {
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
       List<List<int>> matrizDeBombasAdjacentes =
-          campoMinado.contarBombasAdjacentes();
+          campoMinado.matrizDeBombasAdjacentes;
 
       for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
         for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
