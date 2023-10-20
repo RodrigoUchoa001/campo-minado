@@ -96,7 +96,17 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                       onTap: () {
                         setState(() {
                           try {
-                            campoMinado.descobrirZona(row, col);
+                            if (zona.status == 0) {
+                              if (zona.temBomba) {
+                                campoMinado.descobrirZona(row, col);
+                                mostrarMsgDeFimDeJogo(false);
+                              } else {
+                                campoMinado.descobrirZonasAdjacentes(row, col);
+                                if (!campoMinado.jogoEmAndamento) {
+                                  mostrarMsgDeFimDeJogo(campoMinado.vitoria);
+                                }
+                              }
+                            }
                           } on DescobrirZonaComBandeiraException catch (e) {
                             final snackBar = SnackBar(
                               content: Text(e.toString()),

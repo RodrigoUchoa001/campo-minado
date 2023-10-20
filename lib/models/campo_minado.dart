@@ -141,6 +141,39 @@ class CampoMinado {
     return 0;
   }
 
+  void descobrirZonasAdjacentes(int row, int col) {
+    final List<List<bool>> visited = List.generate(
+      tabuleiro.length,
+      (i) => List.generate(
+        tabuleiro[i].length,
+        (j) => false,
+      ),
+    );
+
+    void dfs(int r, int c) {
+      if (r < 0 || r >= tabuleiro.length || c < 0 || c >= tabuleiro[0].length) {
+        return;
+      }
+
+      if (visited[r][c]) {
+        return;
+      }
+
+      visited[r][c] = true;
+      descobrirZona(r, c);
+
+      if (tabuleiro[r][c].bombasAdjacentes == 0) {
+        for (int dr = -1; dr <= 1; dr++) {
+          for (int dc = -1; dc <= 1; dc++) {
+            dfs(r + dr, c + dc);
+          }
+        }
+      }
+    }
+
+    dfs(row, col);
+  }
+
   void colocarBandeira(int row, int col) {
     tabuleiro[row][col].colocarBandeira();
   }
