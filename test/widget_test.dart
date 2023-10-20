@@ -713,6 +713,89 @@ void main() {
       expect(jogoParouAntesDaHora, false);
     });
 
+    group(
+        'ao clicar em uma zona, as zonas adjacentes que não tiverem bombas são automaticamente descobertas ao msm tempo',
+        () {
+      test(
+          '42- Ao descobrir uma zona vazia, zonas adjacentes sem bombas também devem ser descobertas',
+          () {
+        // Crie um objeto CampoMinado para o teste
+        final campoMinado = CampoMinado(1);
+
+        // Inicialize as variáveis targetRow e targetCol com valores padrão
+        int targetRow = 0;
+        int targetCol = 0;
+
+        // Encontre uma zona vazia (sem bomba) para realizar o teste
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.tabuleiro[row][col].bombasAdjacentes == 0) {
+              targetRow = row;
+              targetCol = col;
+              break;
+            }
+          }
+          if (targetRow != 0 && targetCol != 0) {
+            break;
+          }
+        }
+
+        // Execute a função que você deseja testar
+        campoMinado.descobrirZona(targetRow, targetCol);
+
+        // Verifique se as zonas adjacentes foram descobertas
+
+        // Zona superior esquerda
+        if (targetRow > 0 && targetCol > 0) {
+          expect(campoMinado.tabuleiro[targetRow - 1][targetCol - 1].status,
+              equals(0));
+        }
+
+        // Zona superior
+        if (targetRow > 0) {
+          expect(campoMinado.tabuleiro[targetRow - 1][targetCol].status,
+              equals(0));
+        }
+
+        // Zona superior direita
+        if (targetRow > 0 && targetCol < campoMinado.tabuleiro[0].length - 1) {
+          expect(campoMinado.tabuleiro[targetRow - 1][targetCol + 1].status,
+              equals(0));
+        }
+
+        // Zona esquerda
+        if (targetCol > 0) {
+          expect(campoMinado.tabuleiro[targetRow][targetCol - 1].status,
+              equals(0));
+        }
+
+        // Zona direita
+        if (targetCol < campoMinado.tabuleiro[0].length - 1) {
+          expect(campoMinado.tabuleiro[targetRow][targetCol + 1].status,
+              equals(0));
+        }
+
+        // Zona inferior esquerda
+        if (targetRow < campoMinado.tabuleiro.length - 1 && targetCol > 0) {
+          expect(campoMinado.tabuleiro[targetRow + 1][targetCol - 1].status,
+              equals(0));
+        }
+
+        // Zona inferior
+        if (targetRow < campoMinado.tabuleiro.length - 1) {
+          expect(campoMinado.tabuleiro[targetRow + 1][targetCol].status,
+              equals(0));
+        }
+
+        // Zona inferior direita
+        if (targetRow < campoMinado.tabuleiro.length - 1 &&
+            targetCol < campoMinado.tabuleiro[0].length - 1) {
+          expect(campoMinado.tabuleiro[targetRow + 1][targetCol + 1].status,
+              equals(0));
+        }
+      });
+    });
+
     // testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     //   // Build our app and trigger a frame.
     //   await tester.pumpWidget(const MyApp());
