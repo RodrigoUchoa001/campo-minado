@@ -37,6 +37,21 @@ void main() {
       CampoMinado campoMinado = CampoMinado(dificuldade);
       expect(campoMinado.jogoEmAndamento, true);
     });
+    test('testa se vitoria inicia como false na dificuldade facil', () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+      expect(campoMinado.vitoria, false);
+    });
+    test('testa se vitoria inicia como false na dificuldade intermediario', () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+      expect(campoMinado.vitoria, false);
+    });
+    test('testa se vitoria inicia como false na dificuldade dificil', () {
+      int dificuldade = 3;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+      expect(campoMinado.vitoria, false);
+    });
   });
   group('testes da classe Zona', () {
     test(
