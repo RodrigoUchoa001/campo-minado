@@ -17,42 +17,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:parameterized_test/parameterized_test.dart';
 
 void main() {
-  group('testes da classe CampoMinado', () {
-    test('testa se jogoEmAndamento n inicia como true na dificuldade facil',
-        () {
-      int dificuldade = 1;
-      CampoMinado campoMinado = CampoMinado(dificuldade);
-      expect(campoMinado.jogoEmAndamento, true);
-    });
-    test(
-        'testa se jogoEmAndamento n inicia como true na dificuldade intermediario',
-        () {
-      int dificuldade = 2;
-      CampoMinado campoMinado = CampoMinado(dificuldade);
-      expect(campoMinado.jogoEmAndamento, true);
-    });
-    test('testa se jogoEmAndamento n inicia como true na dificuldade dificil',
-        () {
-      int dificuldade = 3;
-      CampoMinado campoMinado = CampoMinado(dificuldade);
-      expect(campoMinado.jogoEmAndamento, true);
-    });
-    test('testa se vitoria inicia como false na dificuldade facil', () {
-      int dificuldade = 1;
-      CampoMinado campoMinado = CampoMinado(dificuldade);
-      expect(campoMinado.vitoria, false);
-    });
-    test('testa se vitoria inicia como false na dificuldade intermediario', () {
-      int dificuldade = 2;
-      CampoMinado campoMinado = CampoMinado(dificuldade);
-      expect(campoMinado.vitoria, false);
-    });
-    test('testa se vitoria inicia como false na dificuldade dificil', () {
-      int dificuldade = 3;
-      CampoMinado campoMinado = CampoMinado(dificuldade);
-      expect(campoMinado.vitoria, false);
-    });
-  });
   group('testes da classe Zona', () {
     test(
         'testa se não é possível mudar o valor do atributo "temBomba" de uma Zona',
@@ -90,6 +54,43 @@ void main() {
       zona.descobrirZona();
 
       expect(zona.status, 2);
+    });
+  });
+
+  group('testes da classe CampoMinado', () {
+    test('testa se jogoEmAndamento n inicia como true na dificuldade facil',
+        () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+      expect(campoMinado.jogoEmAndamento, true);
+    });
+    test(
+        'testa se jogoEmAndamento n inicia como true na dificuldade intermediario',
+        () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+      expect(campoMinado.jogoEmAndamento, true);
+    });
+    test('testa se jogoEmAndamento n inicia como true na dificuldade dificil',
+        () {
+      int dificuldade = 3;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+      expect(campoMinado.jogoEmAndamento, true);
+    });
+    test('testa se vitoria inicia como false na dificuldade facil', () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+      expect(campoMinado.vitoria, false);
+    });
+    test('testa se vitoria inicia como false na dificuldade intermediario', () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+      expect(campoMinado.vitoria, false);
+    });
+    test('testa se vitoria inicia como false na dificuldade dificil', () {
+      int dificuldade = 3;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+      expect(campoMinado.vitoria, false);
     });
   });
   group(
