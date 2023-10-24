@@ -150,7 +150,8 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                                   j < campoMinado.tabuleiro[i].length;
                                   j++) {
                                 if (campoMinado.tabuleiro[i][j].temBomba) {
-                                  campoMinado.tabuleiro[i][j].descobrirZona();
+                                  campoMinado.tabuleiro[i][j]
+                                      .forcarDescobrirZona();
                                 }
                               }
                             }
@@ -183,7 +184,8 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                           }
                         });
                       },
-                      child: ZonaWidget(zona: zona),
+                      child:
+                          ZonaWidget(zona: zona, venceu: campoMinado.vitoria),
                     );
                   },
                 ),

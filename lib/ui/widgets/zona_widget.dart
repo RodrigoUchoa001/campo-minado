@@ -4,7 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ZonaWidget extends StatelessWidget {
   final Zona zona;
-  const ZonaWidget({super.key, required this.zona});
+  final bool venceu;
+  const ZonaWidget({super.key, required this.zona, required this.venceu});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,9 @@ class ZonaWidget extends StatelessWidget {
       return Colors.grey; // Zona não descoberta.
     } else if (zona.status == 1) {
       return Colors.blue; // Zona com bandeira.
-    } else if (zona.temBomba) {
+    } else if (zona.temBomba && venceu) {
+      return Colors.blue;
+    } else if (zona.temBomba && !venceu) {
       return Colors.red;
     } else {
       return Colors.white; // Zona descoberta.

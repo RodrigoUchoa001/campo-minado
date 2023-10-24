@@ -56,6 +56,11 @@ class Zona {
     }
   }
 
+  // apenas para alteracao visual ao vencer
+  void forcarDescobrirZona() {
+    _status = 2;
+  }
+
   /// impede de alterar o valor do temBomba após ser setado pela primeira vez
   set temBomba(bool temBomba) {
     if (!_temBombaDefinida) {
