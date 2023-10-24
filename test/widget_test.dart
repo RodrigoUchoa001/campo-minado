@@ -19,7 +19,7 @@ import 'package:parameterized_test/parameterized_test.dart';
 void main() {
   group('testes da classe Zona', () {
     test(
-        '1- testa se não é possível mudar o valor do atributo "temBomba" de uma Zona',
+        'testa se não é possível mudar o valor do atributo "temBomba" de uma Zona',
         () {
       expect(
         () {
@@ -31,7 +31,7 @@ void main() {
       );
     });
     test(
-        '2- Teste se o colocarBandeira para verificar se ela define o status corretamente',
+        'Teste se o colocarBandeira para verificar se ela define o status corretamente',
         () {
       Zona zona = Zona();
       zona.colocarBandeira();
@@ -39,7 +39,7 @@ void main() {
       expect(zona.status, 1);
     });
     test(
-        '3- Teste se o removerBandeira para verificar se ela define o status corretamente',
+        'Teste se o removerBandeira para verificar se ela define o status corretamente',
         () {
       Zona zona = Zona();
       zona.colocarBandeira();
@@ -48,7 +48,7 @@ void main() {
       expect(zona.status, 0);
     });
     test(
-        '4- Teste se o descobrirZona para verificar se ela define o status corretamente',
+        'Teste se o descobrirZona para verificar se ela define o status corretamente',
         () {
       Zona zona = Zona();
       zona.descobrirZona();
@@ -59,26 +59,26 @@ void main() {
   group(
       'deve ser possível escolher entre três níveis de dificuldade (fácil, intermediário, difícil)',
       () {
-    test('5- testa se é possível escolher dificuldade fácil', () {
+    test('a se é possível escolher dificuldade fácil', () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
       expect(campoMinado.dificuldade, 1);
     });
-    test('6- testa se é possível escolher dificuldade intermediário', () {
+    test('a se é possível escolher dificuldade intermediário', () {
       int dificuldade = 2;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
       expect(campoMinado.dificuldade, 2);
     });
-    test('7- testa se é possível escolher dificuldade difícil', () {
+    test('a se é possível escolher dificuldade difícil', () {
       int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
       expect(campoMinado.dificuldade, 3);
     });
     test(
-      "8- testa se não é deve ser possível escolher outro nivel de dificuldade",
+      "testa se não é deve ser possível escolher outro nivel de dificuldade",
       () => expect(
         () {
           int dificuldade = 4;
@@ -92,34 +92,52 @@ void main() {
   group(
       'cada nivel de dificuldade deve criar um tabuleiro com quantidade fixa de posições',
       () {
-    test("9- testa se escolhendo fácil tem 8x8 posições", () {
+    test("testa se escolhendo fácil o tabuleiro tem 8 linhas", () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
       int numLinhas = campoMinado.tabuleiro.length;
-      int numColunas = campoMinado.tabuleiro[0].length;
 
       expect(numLinhas, 8);
+    });
+    test("testa se escolhendo fácil o tabuleiro tem 8 colunas", () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      int numColunas = campoMinado.tabuleiro[0].length;
+
       expect(numColunas, 8);
     });
-    test("10- testa se escolhendo fácil tem 10x16 posições", () {
+    test("testa se escolhendo intermediario o tabuleiro tem 10 linhas", () {
       int dificuldade = 2;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
       int numLinhas = campoMinado.tabuleiro.length;
-      int numColunas = campoMinado.tabuleiro[0].length;
 
       expect(numLinhas, 10);
+    });
+    test("testa se escolhendo intermediario o tabuleiro tem 16 colunas", () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      int numColunas = campoMinado.tabuleiro[0].length;
+
       expect(numColunas, 16);
     });
-    test("11- testa se escolhendo fácil tem 24x24 posições", () {
+    test("testa se escolhendo dificil o tabuleiro tem 24 linhas", () {
       int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
       int numLinhas = campoMinado.tabuleiro.length;
-      int numColunas = campoMinado.tabuleiro[0].length;
 
       expect(numLinhas, 24);
+    });
+    test("testa se escolhendo dificil o tabuleiro tem 24 colunas", () {
+      int dificuldade = 3;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      int numColunas = campoMinado.tabuleiro[0].length;
+
       expect(numColunas, 24);
     });
   });
@@ -127,7 +145,7 @@ void main() {
   group(
       'cada nivel de dificuldade deve criar um tabuleiro com um número fixa de bombas',
       () {
-    test('12- testa se escolhendo fácil tem 10 bombas', () {
+    test('testa se escolhendo fácil tem 10 bombas', () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
@@ -143,7 +161,7 @@ void main() {
 
       expect(quantidadeDeBombas, 10);
     });
-    test('13- testa se escolhendo fácil tem 30 bombas', () {
+    test('testa se escolhendo fácil tem 30 bombas', () {
       int dificuldade = 2;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
@@ -159,7 +177,7 @@ void main() {
 
       expect(quantidadeDeBombas, 30);
     });
-    test('14- testa se escolhendo fácil tem 100 bombas', () {
+    test('testa se escolhendo fácil tem 100 bombas', () {
       int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
@@ -178,8 +196,7 @@ void main() {
   });
 
   group('todas as zonas devem começar como cobertas', () {
-    test(
-        "15- testa se todas as zonas da dificuldade fácil começam como cobertas",
+    test("testa se todas as zonas da dificuldade fácil começam como cobertas",
         () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -197,7 +214,7 @@ void main() {
       expect(temDiferenteDeCoberto, false);
     });
     test(
-        "16- testa se todas as zonas da dificuldade intermidiario começam como cobertas",
+        "testa se todas as zonas da dificuldade intermidiario começam como cobertas",
         () {
       int dificuldade = 2;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -214,8 +231,7 @@ void main() {
 
       expect(temDiferenteDeCoberto, false);
     });
-    test(
-        "17- testa se todas as zonas da dificuldade dificil começam como cobertas",
+    test("testa se todas as zonas da dificuldade dificil começam como cobertas",
         () {
       int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -235,8 +251,7 @@ void main() {
   });
 
   group('todas as zonas devem começam como sem bandeira', () {
-    test(
-        "18- testa se todas as zonas da dificuldade fácil começam sem bandeira",
+    test("testa se todas as zonas da dificuldade fácil começam sem bandeira",
         () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -254,7 +269,7 @@ void main() {
       expect(temZonaComBandeira, false);
     });
     test(
-        "19- testa se todas as zonas da dificuldade intermediario começam sem bandeira",
+        "testa se todas as zonas da dificuldade intermediario começam sem bandeira",
         () {
       int dificuldade = 2;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -271,8 +286,7 @@ void main() {
 
       expect(temZonaComBandeira, false);
     });
-    test(
-        "20- testa se todas as zonas da dificuldade dificil começam sem bandeira",
+    test("testa se todas as zonas da dificuldade dificil começam sem bandeira",
         () {
       int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -292,8 +306,7 @@ void main() {
   });
 
   group('Cada zona pode ser área limpa ou conter uma bomba', () {
-    test(
-        '21- testa se cada zona da dificuldade fácil inicia contendo bomba ou não',
+    test('testa se cada zona da dificuldade fácil inicia contendo bomba ou não',
         () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -312,7 +325,7 @@ void main() {
       expect(temAlgoAlemDeBombaOuNaoBomba, false);
     });
     test(
-        '22- testa se cada zona da dificuldade intermediario inicia contendo bomba ou não',
+        'testa se cada zona da dificuldade intermediario inicia contendo bomba ou não',
         () {
       int dificuldade = 2;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -331,7 +344,7 @@ void main() {
       expect(temAlgoAlemDeBombaOuNaoBomba, false);
     });
     test(
-        '23- testa se cada zona da dificuldade dificil inicia contendo bomba ou não',
+        'testa se cada zona da dificuldade dificil inicia contendo bomba ou não',
         () {
       int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -353,7 +366,7 @@ void main() {
 
   group('deve ser possivel colocar bandeira em uma posição coberta', () {
     test(
-        "24- testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade fácil",
+        "testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade fácil",
         () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -372,7 +385,7 @@ void main() {
       expect(naoColocouBandeiraEmAlgumaZona, false);
     });
     test(
-        "25- testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade intermidiario",
+        "testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade intermidiario",
         () {
       int dificuldade = 2;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -391,7 +404,7 @@ void main() {
       expect(naoColocouBandeiraEmAlgumaZona, false);
     });
     test(
-        "26- testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade dificil",
+        "testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade dificil",
         () {
       int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -411,7 +424,7 @@ void main() {
     });
 
     parameterizedTest(
-      "27- testa se não é possivel colocar bandeira em posição invalida",
+      "testa se não é possivel colocar bandeira em posição invalida",
       [
         [-1, 0],
         [0, -1],
@@ -434,8 +447,7 @@ void main() {
   });
 
   group('deve ser possível remover bandeira se houver', () {
-    test(
-        '28- testa se é possível remover bandeira de qualquer zona quando houver',
+    test('testa se é possível remover bandeira de qualquer zona quando houver',
         () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -449,7 +461,7 @@ void main() {
       }
     });
     test(
-      '29- testa se não é possivel remover bandeira de zona quando não houver',
+      'testa se não é possivel remover bandeira de zona quando não houver',
       () {
         int dificuldade = 1;
         CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -490,7 +502,7 @@ void main() {
   });
 
   group('deve ser possivel descobrir uma zona sem bandeira', () {
-    test('31- testa se é possível descobrir uma zona que não tem bandeira', () {
+    test('testa se é possível descobrir uma zona que não tem bandeira', () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
@@ -501,7 +513,7 @@ void main() {
         }
       }
     });
-    test('32- testa se é não possível descobrir uma zona que tem bandeira', () {
+    test('testa se é não possível descobrir uma zona que tem bandeira', () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
@@ -540,7 +552,7 @@ void main() {
     );
   });
   group("não deve ser possível colocar bandeira em zona descoberta", () {
-    test("34- testa se não é possível colocar bandeira em zona descoberta", () {
+    test("testa se não é possível colocar bandeira em zona descoberta", () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
@@ -589,7 +601,7 @@ void main() {
       'As zonas limpas que fazem fronteira com zonas com bomba, devem indicar quantas bombas aparecem adjacentes a ela',
       () {
     test(
-        '36- testa se a zona diz exatamente quantas bombas existem adjacentes desta zona',
+        'testa se a zona diz exatamente quantas bombas existem adjacentes desta zona',
         () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -606,8 +618,7 @@ void main() {
         }
       }
     });
-    test(
-        '37- testa se o número de bombas adjacentes de uma zona está entre 0 e 8',
+    test('testa se o número de bombas adjacentes de uma zona está entre 0 e 8',
         () {
       bool valorEstaEntre(int valor, int limiteInferior, int limiteSuperior) {
         return valor >= limiteInferior && valor <= limiteSuperior;
@@ -633,7 +644,7 @@ void main() {
   group(
       ' o jogo deve acabar com derrota quando uma zona com bomba for descoberta',
       () {
-    test('38- testa se o jogo acaba quando uma bomba é descoberta', () {
+    test('testa se o jogo acaba quando uma bomba é descoberta', () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
@@ -649,7 +660,7 @@ void main() {
       }
     });
 
-    test('39- testa se o jogo continua se não houver bomba descoberta', () {
+    test('testa se o jogo continua se não houver bomba descoberta', () {
       // esse teste descobre todas as zonas q n tem bomba. se descobrir todas
       // (jogoEmAndamento ficar como true), entao o jogo continua enquanto as
       // zonas com bombas n estiverem descobertas
@@ -671,7 +682,7 @@ void main() {
       'o jogo deve acabar com vitória quando todas as zonas sem bombas estiverem descobertas',
       () {
     test(
-        '40- testa se o jogo acaba quando todas as zonas sem bombas estiverem descobertas',
+        'testa se o jogo acaba quando todas as zonas sem bombas estiverem descobertas',
         () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -687,8 +698,7 @@ void main() {
       expect(campoMinado.vitoria, true);
     });
 
-    test('41- testa se o jogo continua se alguma das zonas estiver coberta',
-        () {
+    test('testa se o jogo continua se alguma das zonas estiver coberta', () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
@@ -717,7 +727,7 @@ void main() {
         'ao clicar em uma zona, as zonas adjacentes que não tiverem bombas são automaticamente descobertas ao msm tempo',
         () {
       test(
-          '42- Ao descobrir uma zona vazia, zonas adjacentes sem bombas também devem ser descobertas',
+          'Ao descobrir uma zona vazia, zonas adjacentes sem bombas também devem ser descobertas',
           () {
         // Crie um objeto CampoMinado para o teste
         final campoMinado = CampoMinado(1);
@@ -796,6 +806,16 @@ void main() {
       });
     });
 
+    // group(
+    //     'A pontuação do jogo é dada pelo tempo levado para descobrir todas as bombas em segundos',
+    //     () {
+    //   test('testa se é iniciado um contador de tempo ao começar o jogo', () {
+    //     CampoMinado campoMinado = CampoMinado(1);
+    //   });
+    // });
+    //
+    //
+    //
     // testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     //   // Build our app and trigger a frame.
     //   await tester.pumpWidget(const MyApp());
