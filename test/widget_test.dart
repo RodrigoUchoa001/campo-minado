@@ -11,6 +11,7 @@ import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada
 import 'package:campo_minado_flutter/exceptions/remover_bandeira_de_zona_sem_bandeira_exception.dart';
 import 'package:campo_minado_flutter/exceptions/tentativa_de_alteracao_de_bomba_exception.dart';
 import 'package:campo_minado_flutter/models/campo_minado.dart';
+import 'package:campo_minado_flutter/models/cronometro.dart';
 import 'package:campo_minado_flutter/models/zona.dart';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -54,6 +55,52 @@ void main() {
       zona.descobrirZona();
 
       expect(zona.status, 2);
+    });
+  });
+
+  group('testes da classe Cronometro', () {
+    test('testa se o cronômetro conta o tempo corretamente', () async {
+      Cronometro cronometro = Cronometro();
+      cronometro.start();
+
+      await Future.delayed(const Duration(seconds: 3));
+
+      cronometro.stop();
+
+      // a divisao a seguir usa uma margem de erro na contagem de tempo, já q
+      // pode variar por causa do await
+      final tempoEmSegundos = cronometro.elapsedTime.inMilliseconds / 1000.0;
+      expect(tempoEmSegundos, closeTo(3.0, 0.1));
+    });
+    test('testa se o reset reinicia o tempo corretamente', () async {
+      Cronometro cronometro = Cronometro();
+      cronometro.start();
+
+      await Future.delayed(const Duration(seconds: 3));
+
+      cronometro.stop();
+      cronometro.reset();
+
+      expect(cronometro.elapsedTime, equals(Duration.zero));
+    });
+    test(
+        'testa se o cronometro conta o tempo corretamente se pausado em algum momento',
+        () async {
+      Cronometro cronometro = Cronometro();
+
+      cronometro.start();
+      await Future.delayed(const Duration(seconds: 2));
+      cronometro.stop();
+
+      //espera 2 segundos até contar novamente
+      await Future.delayed(const Duration(seconds: 2));
+
+      cronometro.start();
+      await Future.delayed(const Duration(seconds: 2));
+      cronometro.stop();
+
+      final tempoEmSegundos = cronometro.elapsedTime.inMilliseconds / 1000.0;
+      expect(tempoEmSegundos, closeTo(4.0, 0.1));
     });
   });
 
