@@ -59,6 +59,11 @@ void main() {
   });
 
   group('testes da classe Cronometro', () {
+    test('testa se o cronômetro inicia como zero', () {
+      Cronometro cronometro = Cronometro();
+
+      expect(cronometro.elapsedTime, Duration.zero);
+    });
     test('testa se o cronômetro conta o tempo corretamente', () async {
       Cronometro cronometro = Cronometro();
       cronometro.start();
