@@ -56,6 +56,15 @@ void main() {
 
       expect(zona.status, 2);
     });
+    test('testa se descobrir a zona após colocar e remover bandeira é possivel',
+        () {
+      Zona zona = Zona();
+      zona.colocarBandeira();
+      zona.removerBandeira();
+      zona.descobrirZona();
+
+      expect(zona.status, 2);
+    });
   });
 
   group('testes da classe Cronometro', () {
