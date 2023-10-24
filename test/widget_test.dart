@@ -182,8 +182,6 @@ void main() {
       // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
 
-      campoMinado.contarBombasAdjacentes();
-
       // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 1);
     });
@@ -207,8 +205,6 @@ void main() {
 
       // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
-
-      campoMinado.contarBombasAdjacentes();
 
       // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 2);
@@ -234,8 +230,6 @@ void main() {
 
       // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
-
-      campoMinado.contarBombasAdjacentes();
 
       // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 3);
@@ -263,8 +257,6 @@ void main() {
       // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
 
-      campoMinado.contarBombasAdjacentes();
-
       // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 4);
     });
@@ -291,8 +283,6 @@ void main() {
 
       // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
-
-      campoMinado.contarBombasAdjacentes();
 
       // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 5);
@@ -322,8 +312,6 @@ void main() {
       // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
 
-      campoMinado.contarBombasAdjacentes();
-
       // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 6);
     });
@@ -352,8 +340,6 @@ void main() {
 
       // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
-
-      campoMinado.contarBombasAdjacentes();
 
       // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 7);
@@ -385,10 +371,43 @@ void main() {
       // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
 
-      campoMinado.contarBombasAdjacentes();
-
       // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 8);
+    });
+    test(
+        'testa se ao clicar em uma zona que tem zonas adjacentes sem bombas, essas zonas são descobertas também',
+        () {
+      // Crie um tabuleiro fake.
+      final tabuleiroFake = List.generate(
+        5,
+        (row) => List.generate(
+          5,
+          (col) => Zona(),
+        ),
+      );
+
+      // Configurar o tabuleiro com uma zona sem bombas (meio) e zonas adjacentes sem bombas.
+      for (int i = 2; i <= 2; i++) {
+        for (int j = 2; j <= 2; j++) {
+          tabuleiroFake[i][j].temBomba = false; // Zonas sem bombas
+        }
+      }
+
+      // Crie uma instância de CampoMinado usando o tabuleiro fake.
+      final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
+
+      // Chame o método descobrirZona para a zona no meio.
+      campoMinado.descobrirZonasAdjacentes(2, 2);
+
+      // Verifique se a zona no meio foi descoberta.
+      expect(campoMinado.tabuleiro[2][2].status, 2); // Deve ser descoberto
+
+      // Verifique se as zonas adjacentes sem bombas também foram descobertas.
+      for (int i = 1; i <= 3; i++) {
+        for (int j = 1; j <= 3; j++) {
+          expect(campoMinado.tabuleiro[i][j].status, 2); // Deve ser descoberto
+        }
+      }
     });
   });
   group(
