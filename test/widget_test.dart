@@ -88,6 +88,15 @@ void main() {
 
       expect(cronometro.elapsedTime, equals(Duration.zero));
     });
+    test('testa se o isRunning funciona corretamente', () {
+      Cronometro cronometro = Cronometro();
+
+      cronometro.start();
+      expect(cronometro.isRunning, true);
+
+      cronometro.stop();
+      expect(cronometro.isRunning, false);
+    });
     test(
         'testa se o cronometro conta o tempo corretamente se pausado em algum momento',
         () async {
