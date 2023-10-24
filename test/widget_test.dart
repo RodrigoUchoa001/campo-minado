@@ -82,7 +82,7 @@ void main() {
       () => expect(
         () {
           int dificuldade = 4;
-          CampoMinado campoMinado = CampoMinado(dificuldade);
+          CampoMinado(dificuldade);
         },
         throwsA(isA<DificuldadeEscolhidaInvalidaException>()),
       ),
