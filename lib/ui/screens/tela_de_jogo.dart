@@ -116,6 +116,7 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
 
                     return GestureDetector(
                       onTap: () {
+                        // TODO: vencer n faz mostrar as bombas, pq tenta descobrir zonas com bandeiras, oq da excecao, corrigir
                         setState(() {
                           if (!campoMinado.cronometro.isRunning) {
                             campoMinado.cronometro
