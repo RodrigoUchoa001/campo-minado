@@ -2,7 +2,6 @@ import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exce
 import 'package:campo_minado_flutter/exceptions/descobrir_zona_com_bandeira_exception.dart';
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
 import 'package:campo_minado_flutter/models/campo_minado.dart';
-import 'package:campo_minado_flutter/models/cronometro.dart';
 import 'package:campo_minado_flutter/ui/screens/tela_de_escolha_de_dificuldade.dart';
 import 'package:campo_minado_flutter/ui/widgets/zona_widget.dart';
 import 'package:flutter/material.dart';
@@ -17,13 +16,12 @@ class TelaDeJogo extends StatefulWidget {
 
 class _TelaDeJogoState extends State<TelaDeJogo> {
   late CampoMinado campoMinado;
-  final cronometro = Cronometro();
 
   @override
   void initState() {
     super.initState();
     campoMinado = CampoMinado(widget.dificuldade);
-    cronometro.elapsedTimeStream.listen((elapsedTime) {
+    campoMinado.cronometro.elapsedTimeStream.listen((elapsedTime) {
       setState(
           () {}); // Atualize a interface do usuário quando o stream notificar mudanças
     });
@@ -44,7 +42,7 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
   }
 
   void mostrarMsgDeFimDeJogo(bool vitoria) {
-    cronometro.stop(); // Pare o cronômetro
+    campoMinado.cronometro.stop(); // Pare o cronômetro
     showDialog(
       context: context,
       builder: (context) {
@@ -88,7 +86,7 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                     : Container(),
                 const SizedBox(height: 24),
                 StreamBuilder<Duration>(
-                  stream: cronometro.elapsedTimeStream,
+                  stream: campoMinado.cronometro.elapsedTimeStream,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.active) {
                       final elapsed = snapshot.data;
@@ -119,8 +117,9 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                     return GestureDetector(
                       onTap: () {
                         setState(() {
-                          if (!cronometro.isRunning) {
-                            cronometro.start(); // Inicie o cronômetro
+                          if (!campoMinado.cronometro.isRunning) {
+                            campoMinado.cronometro
+                                .start(); // Inicie o cronômetro
                           }
                           try {
                             if (zona.status == 0) {
