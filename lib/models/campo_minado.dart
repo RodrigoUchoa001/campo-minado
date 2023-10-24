@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
+import 'package:campo_minado_flutter/models/cronometro.dart';
 import 'package:campo_minado_flutter/models/zona.dart';
 
 class CampoMinado {
@@ -12,12 +13,16 @@ class CampoMinado {
 
   late List<List<int>> _matrizDeBombasAdjacentes;
 
+  late Cronometro _cronometro;
+
   int get dificuldade => _dificuldade;
 
   bool get jogoEmAndamento => _jogoEmAndamento;
   bool get vitoria => _vitoria;
 
   List<List<int>> get matrizDeBombasAdjacentes => _matrizDeBombasAdjacentes;
+
+  Cronometro get cronometro => _cronometro;
 
   /// 1 = facil = 8x8
   /// 2 = medio = 10x16
@@ -57,6 +62,7 @@ class CampoMinado {
           'A dificuldade escolhida é invalida');
     }
     contarBombasAdjacentes();
+    _cronometro = Cronometro();
   }
   void preencherComBombas(int numBombas) {
     final random = Random();
