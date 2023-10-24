@@ -162,6 +162,234 @@ void main() {
       CampoMinado campoMinado = CampoMinado(dificuldade);
       expect(campoMinado.vitoria, false);
     });
+    test(
+        'testa se o numero de zonas adjacentes com bomba é apresentado corretamente no caso de 1 bombas',
+        () {
+      final tabuleiroFake = List.generate(
+        8,
+        (row) => List.generate(
+          8,
+          (col) => Zona(),
+        ),
+      );
+
+      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
+      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+
+      // Bombas ao redor da zona central
+      tabuleiroFake[2][2].temBomba = true;
+
+      // Crie uma instância de CampoMinado usando o tabuleiro fake.
+      final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
+
+      campoMinado.contarBombasAdjacentes();
+
+      // Verifique se o número de bombas adjacentes da zona central é 8.
+      expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 1);
+    });
+    test(
+        'testa se o numero de zonas adjacentes com bomba é apresentado corretamente no caso de 2 bombas',
+        () {
+      final tabuleiroFake = List.generate(
+        8,
+        (row) => List.generate(
+          8,
+          (col) => Zona(),
+        ),
+      );
+
+      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
+      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+
+      // Bombas ao redor da zona central
+      tabuleiroFake[2][2].temBomba = true;
+      tabuleiroFake[2][3].temBomba = true;
+
+      // Crie uma instância de CampoMinado usando o tabuleiro fake.
+      final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
+
+      campoMinado.contarBombasAdjacentes();
+
+      // Verifique se o número de bombas adjacentes da zona central é 8.
+      expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 2);
+    });
+    test(
+        'testa se o numero de zonas adjacentes com bomba é apresentado corretamente no caso de 3 bombas',
+        () {
+      final tabuleiroFake = List.generate(
+        8,
+        (row) => List.generate(
+          8,
+          (col) => Zona(),
+        ),
+      );
+
+      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
+      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+
+      // Bombas ao redor da zona central
+      tabuleiroFake[2][2].temBomba = true;
+      tabuleiroFake[2][3].temBomba = true;
+      tabuleiroFake[2][4].temBomba = true;
+
+      // Crie uma instância de CampoMinado usando o tabuleiro fake.
+      final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
+
+      campoMinado.contarBombasAdjacentes();
+
+      // Verifique se o número de bombas adjacentes da zona central é 8.
+      expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 3);
+    });
+    test(
+        'testa se o numero de zonas adjacentes com bomba é apresentado corretamente no caso de 4 bombas',
+        () {
+      final tabuleiroFake = List.generate(
+        8,
+        (row) => List.generate(
+          8,
+          (col) => Zona(),
+        ),
+      );
+
+      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
+      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+
+      // Bombas ao redor da zona central
+      tabuleiroFake[2][2].temBomba = true;
+      tabuleiroFake[2][3].temBomba = true;
+      tabuleiroFake[2][4].temBomba = true;
+      tabuleiroFake[3][2].temBomba = true;
+
+      // Crie uma instância de CampoMinado usando o tabuleiro fake.
+      final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
+
+      campoMinado.contarBombasAdjacentes();
+
+      // Verifique se o número de bombas adjacentes da zona central é 8.
+      expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 4);
+    });
+    test(
+        'testa se o numero de zonas adjacentes com bomba é apresentado corretamente no caso de 5 bombas',
+        () {
+      final tabuleiroFake = List.generate(
+        8,
+        (row) => List.generate(
+          8,
+          (col) => Zona(),
+        ),
+      );
+
+      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
+      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+
+      // Bombas ao redor da zona central
+      tabuleiroFake[2][2].temBomba = true;
+      tabuleiroFake[2][3].temBomba = true;
+      tabuleiroFake[2][4].temBomba = true;
+      tabuleiroFake[3][2].temBomba = true;
+      tabuleiroFake[3][4].temBomba = true;
+
+      // Crie uma instância de CampoMinado usando o tabuleiro fake.
+      final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
+
+      campoMinado.contarBombasAdjacentes();
+
+      // Verifique se o número de bombas adjacentes da zona central é 8.
+      expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 5);
+    });
+    test(
+        'testa se o numero de zonas adjacentes com bomba é apresentado corretamente no caso de 6 bombas',
+        () {
+      final tabuleiroFake = List.generate(
+        8,
+        (row) => List.generate(
+          8,
+          (col) => Zona(),
+        ),
+      );
+
+      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
+      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+
+      // Bombas ao redor da zona central
+      tabuleiroFake[2][2].temBomba = true;
+      tabuleiroFake[2][3].temBomba = true;
+      tabuleiroFake[2][4].temBomba = true;
+      tabuleiroFake[3][2].temBomba = true;
+      tabuleiroFake[3][4].temBomba = true;
+      tabuleiroFake[4][2].temBomba = true;
+
+      // Crie uma instância de CampoMinado usando o tabuleiro fake.
+      final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
+
+      campoMinado.contarBombasAdjacentes();
+
+      // Verifique se o número de bombas adjacentes da zona central é 8.
+      expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 6);
+    });
+    test(
+        'testa se o numero de zonas adjacentes com bomba é apresentado corretamente no caso de 7 bombas',
+        () {
+      final tabuleiroFake = List.generate(
+        8,
+        (row) => List.generate(
+          8,
+          (col) => Zona(),
+        ),
+      );
+
+      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
+      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+
+      // Bombas ao redor da zona central
+      tabuleiroFake[2][2].temBomba = true;
+      tabuleiroFake[2][3].temBomba = true;
+      tabuleiroFake[2][4].temBomba = true;
+      tabuleiroFake[3][2].temBomba = true;
+      tabuleiroFake[3][4].temBomba = true;
+      tabuleiroFake[4][2].temBomba = true;
+      tabuleiroFake[4][3].temBomba = true;
+
+      // Crie uma instância de CampoMinado usando o tabuleiro fake.
+      final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
+
+      campoMinado.contarBombasAdjacentes();
+
+      // Verifique se o número de bombas adjacentes da zona central é 8.
+      expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 7);
+    });
+    test(
+        'testa se o numero de zonas adjacentes com bomba é apresentado corretamente no caso de 8 bombas',
+        () {
+      final tabuleiroFake = List.generate(
+        8,
+        (row) => List.generate(
+          8,
+          (col) => Zona(),
+        ),
+      );
+
+      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
+      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+
+      // Bombas ao redor da zona central
+      tabuleiroFake[2][2].temBomba = true;
+      tabuleiroFake[2][3].temBomba = true;
+      tabuleiroFake[2][4].temBomba = true;
+      tabuleiroFake[3][2].temBomba = true;
+      tabuleiroFake[3][4].temBomba = true;
+      tabuleiroFake[4][2].temBomba = true;
+      tabuleiroFake[4][3].temBomba = true;
+      tabuleiroFake[4][4].temBomba = true;
+
+      // Crie uma instância de CampoMinado usando o tabuleiro fake.
+      final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
+
+      campoMinado.contarBombasAdjacentes();
+
+      // Verifique se o número de bombas adjacentes da zona central é 8.
+      expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 8);
+    });
   });
   group(
       'deve ser possível escolher entre três níveis de dificuldade (fácil, intermediário, difícil)',
