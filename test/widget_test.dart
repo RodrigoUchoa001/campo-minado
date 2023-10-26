@@ -1159,6 +1159,27 @@ void main() {
         }
       });
     });
+    group(
+        'A pontuação do jogo é dada pelo tempo levado para descobrir todas as bombas em segundos',
+        () {
+      test(
+          'testa se o contador de tempo é iniciado ao descobrir a primeira zona sem bomba',
+          () {
+        int dificuldade = 1;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+        outerLoop: //nomeando o for para fazer o break sair de todos os for
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (!campoMinado.tabuleiro[row][col].temBomba) {
+              campoMinado.descobrirZona(row, col);
+              expect(campoMinado.cronometro.isRunning, true);
+
+              break outerLoop;
+            }
+          }
+        }
+      });
+    });
 
     // group(
     //     'A pontuação do jogo é dada pelo tempo levado para descobrir todas as bombas em segundos',
