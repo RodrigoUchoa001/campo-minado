@@ -16,6 +16,7 @@ class TelaDeJogo extends StatefulWidget {
 
 class _TelaDeJogoState extends State<TelaDeJogo> {
   late CampoMinado campoMinado;
+  bool taPausado = false;
 
   @override
   void initState() {
@@ -64,6 +65,41 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
     );
   }
 
+  void pausarJogo() {
+    setState(() {
+      campoMinado.cronometro.stop();
+      taPausado = true;
+    });
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      barrierColor: Colors.white,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Jogo pausado"),
+          content: Text(
+              'Tempo decorrido: ${campoMinado.cronometro.elapsedTime.inMinutes.remainder(60).toString().padLeft(2, '0')}:${campoMinado.cronometro.elapsedTime.inSeconds.remainder(60).toString().padLeft(2, '0')}'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                despausarJogo();
+                Navigator.of(context).pop();
+              },
+              child: const Text('Despausar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void despausarJogo() {
+    setState(() {
+      campoMinado.cronometro.start();
+      taPausado = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,10 +109,25 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  getNomeDaDificuldade(campoMinado.dificuldade),
-                  style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 4.0, horizontal: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        getNomeDaDificuldade(campoMinado.dificuldade),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            pausarJogo();
+                          },
+                          icon: const Icon(Icons.pause, size: 36))
+                    ],
+                  ),
                 ),
                 !campoMinado.jogoEmAndamento
                     ? const Text(
