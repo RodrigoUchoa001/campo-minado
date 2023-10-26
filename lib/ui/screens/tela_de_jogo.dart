@@ -171,10 +171,10 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                       onTap: () {
                         // TODO: vencer n faz mostrar as bombas, pq tenta descobrir zonas com bandeiras, oq da excecao, corrigir
                         setState(() {
-                          if (!campoMinado.cronometro.isRunning) {
-                            campoMinado.cronometro
-                                .start(); // Inicie o cronômetro
-                          }
+                          // if (!campoMinado.cronometro.isRunning) {
+                          //   campoMinado.cronometro
+                          //       .start(); // Inicie o cronômetro
+                          // }
                           try {
                             if (zona.status == 0) {
                               if (zona.temBomba) {

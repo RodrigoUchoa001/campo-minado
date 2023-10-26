@@ -119,6 +119,9 @@ class CampoMinado {
 
   int descobrirZona(int row, int col) {
     if (_jogoEmAndamento) {
+      if (!cronometro.isRunning) {
+        cronometro.start();
+      }
       tabuleiro[row][col].descobrirZona();
 
       if (tabuleiro[row][col].temBomba) {
