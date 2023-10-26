@@ -7,22 +7,16 @@ import 'package:campo_minado_flutter/models/zona.dart';
 class CampoMinado {
   late List<List<Zona>> tabuleiro;
   late int _dificuldade;
-
+  late List<List<int>> _matrizDeBombasAdjacentes;
+  late Cronometro _cronometro;
   bool _jogoEmAndamento = true;
   bool _vitoria = false;
 
-  late List<List<int>> _matrizDeBombasAdjacentes;
-
-  late Cronometro _cronometro;
-
   int get dificuldade => _dificuldade;
-
+  List<List<int>> get matrizDeBombasAdjacentes => _matrizDeBombasAdjacentes;
+  Cronometro get cronometro => _cronometro;
   bool get jogoEmAndamento => _jogoEmAndamento;
   bool get vitoria => _vitoria;
-
-  List<List<int>> get matrizDeBombasAdjacentes => _matrizDeBombasAdjacentes;
-
-  Cronometro get cronometro => _cronometro;
 
   /// 1 = facil = 8x8
   /// 2 = medio = 10x16
