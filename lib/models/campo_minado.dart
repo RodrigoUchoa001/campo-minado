@@ -61,6 +61,7 @@ class CampoMinado {
 
   CampoMinado.paraTeste(this.tabuleiro) {
     contarBombasAdjacentes();
+    _cronometro = Cronometro();
   }
 
   void preencherComBombas(int numBombas) {
