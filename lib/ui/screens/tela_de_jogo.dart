@@ -66,31 +66,33 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
   }
 
   void pausarJogo() {
-    setState(() {
-      campoMinado.cronometro.stop();
-      taPausado = true;
-    });
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      barrierColor: Colors.white,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text("Jogo pausado"),
-          content: Text(
-              'Tempo decorrido: ${campoMinado.cronometro.elapsedTime.inMinutes.remainder(60).toString().padLeft(2, '0')}:${campoMinado.cronometro.elapsedTime.inSeconds.remainder(60).toString().padLeft(2, '0')}'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                despausarJogo();
-                Navigator.of(context).pop();
-              },
-              child: const Text('Despausar'),
-            ),
-          ],
-        );
-      },
-    );
+    if (campoMinado.jogoEmAndamento) {
+      setState(() {
+        campoMinado.cronometro.stop();
+        taPausado = true;
+      });
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        barrierColor: Colors.white,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Jogo pausado"),
+            content: Text(
+                'Tempo decorrido: ${campoMinado.cronometro.elapsedTime.inMinutes.remainder(60).toString().padLeft(2, '0')}:${campoMinado.cronometro.elapsedTime.inSeconds.remainder(60).toString().padLeft(2, '0')}'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  despausarJogo();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Despausar'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   void despausarJogo() {
