@@ -18,6 +18,7 @@ class _CampoMinadoWidgetState extends State<CampoMinadoWidget> {
     widget.campoMinado.cronometro.stop(); // Pare o cronômetro
 
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) {
         return DialogDeFimDeJogo(
