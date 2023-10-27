@@ -1,6 +1,7 @@
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
 import 'package:campo_minado_flutter/models/campo_minado.dart';
 import 'package:campo_minado_flutter/ui/widgets/campo_minado_widget.dart';
+import 'package:campo_minado_flutter/utils/formatar_tempo_decorrido.dart';
 import 'package:flutter/material.dart';
 
 class TelaDeJogo extends StatefulWidget {
@@ -53,14 +54,14 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
           return AlertDialog(
             title: const Text("Jogo pausado"),
             content: Text(
-                'Tempo decorrido: ${campoMinado.cronometro.elapsedTime.inMinutes.remainder(60).toString().padLeft(2, '0')}:${campoMinado.cronometro.elapsedTime.inSeconds.remainder(60).toString().padLeft(2, '0')}'),
+                'Tempo decorrido: ${formatarTempoDecorrido(campoMinado.cronometro.elapsedTime)}'),
             actions: [
               TextButton(
                 onPressed: () {
                   despausarJogo();
                   Navigator.of(context).pop();
                 },
-                child: const Text('Despausar'),
+                child: const Text('Voltar para o jogo'),
               ),
             ],
           );
@@ -118,7 +119,7 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                     if (snapshot.connectionState == ConnectionState.active) {
                       final elapsed = snapshot.data;
                       return Text(
-                        '${elapsed?.inMinutes.remainder(60).toString().padLeft(2, '0')}:${elapsed?.inSeconds.remainder(60).toString().padLeft(2, '0')}',
+                        formatarTempoDecorrido(elapsed!),
                         style: const TextStyle(fontSize: 48.0),
                       );
                     } else {

@@ -1,5 +1,6 @@
 import 'package:campo_minado_flutter/models/campo_minado.dart';
 import 'package:campo_minado_flutter/ui/screens/tela_de_escolha_de_dificuldade.dart';
+import 'package:campo_minado_flutter/utils/formatar_tempo_decorrido.dart';
 import 'package:flutter/material.dart';
 
 class DialogDeFimDeJogo extends StatelessWidget {
@@ -13,7 +14,9 @@ class DialogDeFimDeJogo extends StatelessWidget {
     String nomeDoJogador = '';
 
     return AlertDialog(
-      title: Text(vitoria ? 'Você Venceu!' : 'Você Perdeu!'),
+      title: Text(vitoria
+          ? 'Você Venceu! \n Seu tempo foi: ${formatarTempoDecorrido(campoMinado.cronometro.elapsedTime)}'
+          : 'Você Perdeu!'),
       actions: [
         if (vitoria)
           Column(
