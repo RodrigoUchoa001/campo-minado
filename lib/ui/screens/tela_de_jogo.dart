@@ -2,7 +2,7 @@ import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exce
 import 'package:campo_minado_flutter/exceptions/descobrir_zona_com_bandeira_exception.dart';
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
 import 'package:campo_minado_flutter/models/campo_minado.dart';
-import 'package:campo_minado_flutter/ui/screens/tela_de_escolha_de_dificuldade.dart';
+import 'package:campo_minado_flutter/ui/widgets/dialog_de_fim_de_jogo.dart';
 import 'package:campo_minado_flutter/ui/widgets/zona_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -43,60 +43,12 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
   }
 
   void mostrarMsgDeFimDeJogo(bool vitoria) {
-    String nomeDoJogador = '';
-
     campoMinado.cronometro.stop(); // Pare o cronômetro
+
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: Text(vitoria
-              ? 'Você Venceu! \n Digite seu nome para armazenar a pontuação:'
-              : 'Você Perdeu!'),
-          actions: [
-            if (vitoria)
-              Column(
-                children: [
-                  TextField(
-                    onChanged: (text) {
-                      nomeDoJogador = text;
-                    },
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      campoMinado.armazenarNovaVitoria(
-                          nomeDoJogador,
-                          campoMinado.cronometro.elapsedTime,
-                          campoMinado.dificuldade);
-
-                      //mostrar msg de vitoria armazenada
-                      const snackBar = SnackBar(
-                        content: Text('vitória armazenada'),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-                      //volta para tela de escolha de dificuldade para jogar novamente
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (_) => const TelaDeEscolhaDeDificuldade()),
-                      );
-                    },
-                    child: const Text('Salvar'),
-                  ),
-                ],
-              ),
-            if (!vitoria)
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (_) => const TelaDeEscolhaDeDificuldade()),
-                  );
-                },
-                child: const Text('Jogar novamente'),
-              ),
-          ],
-        );
+        return DialogDeFimDeJogo(campoMinado: campoMinado, vitoria: vitoria);
       },
     );
   }
