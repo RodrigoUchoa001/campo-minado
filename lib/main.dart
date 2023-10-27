@@ -1,4 +1,3 @@
-import 'package:campo_minado_flutter/ui/screens/tela_de_escolha_de_dificuldade.dart';
 import 'package:campo_minado_flutter/ui/screens/tela_inicial.dart';
 import 'package:flutter/material.dart';
 
@@ -18,13 +17,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      // home: const TelaInicial(),
       initialRoute: '/',
-      // home: const TelaDeJogo(dificuldade: 1),
       routes: {
         '/': (context) => const TelaInicial(),
-        '/tela-de-escolha-de-dificuldade': (context) =>
-            const TelaDeEscolhaDeDificuldade(),
       },
     );
   }
