@@ -43,7 +43,7 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
   }
 
   void mostrarMsgDeFimDeJogo(bool vitoria) {
-    String textoDigitado = '';
+    String nomeDoJogador = '';
 
     campoMinado.cronometro.stop(); // Pare o cronômetro
     showDialog(
@@ -59,13 +59,15 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                 children: [
                   TextField(
                     onChanged: (text) {
-                      textoDigitado = text;
+                      nomeDoJogador = text;
                     },
                   ),
                   TextButton(
                     onPressed: () {
                       campoMinado.armazenarNovaVitoria(
-                          textoDigitado, campoMinado.cronometro.elapsedTime);
+                          nomeDoJogador,
+                          campoMinado.cronometro.elapsedTime,
+                          campoMinado.dificuldade);
                       const snackBar = SnackBar(
                         content: Text('vitória armazenada'),
                       );

@@ -194,7 +194,13 @@ class CampoMinado {
     tabuleiro[row][col].removerBandeira();
   }
 
-  void armazenarNovaVitoria(String nomeDoJogador, Duration duracao) async {
+  void armazenarNovaVitoria(
+      String nomeDoJogador, Duration duracao, int dificuldade) async {
+    if (dificuldade < 1 || dificuldade > 3) {
+      throw DificuldadeEscolhidaInvalidaException(
+          'dificuldade escolhida inválida');
+    }
+
     final dir = await getApplicationDocumentsDirectory();
     final isar = await Isar.open(
       [PontuacaoSchema],
@@ -203,7 +209,8 @@ class CampoMinado {
 
     final novaPontuacao = Pontuacao()
       ..nomeDoJogador = nomeDoJogador
-      ..duracaoEmSegundos = duracao.inSeconds;
+      ..duracaoEmSegundos = duracao.inSeconds
+      ..dificuldade = dificuldade;
 
     await isar.writeTxn(() async {
       await isar.pontuacaos.put(novaPontuacao);
