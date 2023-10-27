@@ -17,13 +17,18 @@ const PontuacaoSchema = CollectionSchema(
   name: r'Pontuacao',
   id: -486976910787842909,
   properties: {
-    r'duracaoEmSegundos': PropertySchema(
+    r'dificuldade': PropertySchema(
       id: 0,
+      name: r'dificuldade',
+      type: IsarType.long,
+    ),
+    r'duracaoEmSegundos': PropertySchema(
+      id: 1,
       name: r'duracaoEmSegundos',
       type: IsarType.long,
     ),
     r'nomeDoJogador': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'nomeDoJogador',
       type: IsarType.string,
     )
@@ -58,8 +63,9 @@ void _pontuacaoSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.duracaoEmSegundos);
-  writer.writeString(offsets[1], object.nomeDoJogador);
+  writer.writeLong(offsets[0], object.dificuldade);
+  writer.writeLong(offsets[1], object.duracaoEmSegundos);
+  writer.writeString(offsets[2], object.nomeDoJogador);
 }
 
 Pontuacao _pontuacaoDeserialize(
@@ -69,9 +75,10 @@ Pontuacao _pontuacaoDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Pontuacao();
-  object.duracaoEmSegundos = reader.readLong(offsets[0]);
+  object.dificuldade = reader.readLong(offsets[0]);
+  object.duracaoEmSegundos = reader.readLong(offsets[1]);
   object.id = id;
-  object.nomeDoJogador = reader.readString(offsets[1]);
+  object.nomeDoJogador = reader.readString(offsets[2]);
   return object;
 }
 
@@ -85,6 +92,8 @@ P _pontuacaoDeserializeProp<P>(
     case 0:
       return (reader.readLong(offset)) as P;
     case 1:
+      return (reader.readLong(offset)) as P;
+    case 2:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -182,6 +191,60 @@ extension PontuacaoQueryWhere
 
 extension PontuacaoQueryFilter
     on QueryBuilder<Pontuacao, Pontuacao, QFilterCondition> {
+  QueryBuilder<Pontuacao, Pontuacao, QAfterFilterCondition> dificuldadeEqualTo(
+      int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dificuldade',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Pontuacao, Pontuacao, QAfterFilterCondition>
+      dificuldadeGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'dificuldade',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Pontuacao, Pontuacao, QAfterFilterCondition> dificuldadeLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'dificuldade',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Pontuacao, Pontuacao, QAfterFilterCondition> dificuldadeBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'dificuldade',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<Pontuacao, Pontuacao, QAfterFilterCondition>
       duracaoEmSegundosEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
@@ -435,6 +498,18 @@ extension PontuacaoQueryLinks
     on QueryBuilder<Pontuacao, Pontuacao, QFilterCondition> {}
 
 extension PontuacaoQuerySortBy on QueryBuilder<Pontuacao, Pontuacao, QSortBy> {
+  QueryBuilder<Pontuacao, Pontuacao, QAfterSortBy> sortByDificuldade() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dificuldade', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Pontuacao, Pontuacao, QAfterSortBy> sortByDificuldadeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dificuldade', Sort.desc);
+    });
+  }
+
   QueryBuilder<Pontuacao, Pontuacao, QAfterSortBy> sortByDuracaoEmSegundos() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'duracaoEmSegundos', Sort.asc);
@@ -463,6 +538,18 @@ extension PontuacaoQuerySortBy on QueryBuilder<Pontuacao, Pontuacao, QSortBy> {
 
 extension PontuacaoQuerySortThenBy
     on QueryBuilder<Pontuacao, Pontuacao, QSortThenBy> {
+  QueryBuilder<Pontuacao, Pontuacao, QAfterSortBy> thenByDificuldade() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dificuldade', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Pontuacao, Pontuacao, QAfterSortBy> thenByDificuldadeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dificuldade', Sort.desc);
+    });
+  }
+
   QueryBuilder<Pontuacao, Pontuacao, QAfterSortBy> thenByDuracaoEmSegundos() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'duracaoEmSegundos', Sort.asc);
@@ -503,6 +590,12 @@ extension PontuacaoQuerySortThenBy
 
 extension PontuacaoQueryWhereDistinct
     on QueryBuilder<Pontuacao, Pontuacao, QDistinct> {
+  QueryBuilder<Pontuacao, Pontuacao, QDistinct> distinctByDificuldade() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'dificuldade');
+    });
+  }
+
   QueryBuilder<Pontuacao, Pontuacao, QDistinct> distinctByDuracaoEmSegundos() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'duracaoEmSegundos');
@@ -523,6 +616,12 @@ extension PontuacaoQueryProperty
   QueryBuilder<Pontuacao, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<Pontuacao, int, QQueryOperations> dificuldadeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'dificuldade');
     });
   }
 

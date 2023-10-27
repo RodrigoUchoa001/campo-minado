@@ -9,4 +9,5 @@ class Pontuacao {
 
   late String nomeDoJogador;
   late int duracaoEmSegundos;
+  late int dificuldade;
 }
