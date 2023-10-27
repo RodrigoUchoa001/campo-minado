@@ -43,22 +43,48 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
   }
 
   void mostrarMsgDeFimDeJogo(bool vitoria) {
+    String textoDigitado = '';
+
     campoMinado.cronometro.stop(); // Pare o cronômetro
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(vitoria ? 'Você Venceu!' : 'Você Perdeu!'),
+          title: Text(vitoria
+              ? 'Você Venceu! \n Digite seu nome para armazenar a pontuação:'
+              : 'Você Perdeu!'),
           actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (_) => const TelaDeEscolhaDeDificuldade()),
-                );
-              },
-              child: const Text('Jogar novamente'),
-            ),
+            if (vitoria)
+              Column(
+                children: [
+                  TextField(
+                    onChanged: (text) {
+                      textoDigitado = text;
+                    },
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      campoMinado.armazenarNovaVitoria(
+                          textoDigitado, campoMinado.cronometro.elapsedTime);
+                      const snackBar = SnackBar(
+                        content: Text('vitória armazenada'),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                    child: const Text('Salvar'),
+                  ),
+                ],
+              ),
+            if (!vitoria)
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (_) => const TelaDeEscolhaDeDificuldade()),
+                  );
+                },
+                child: const Text('Jogar novamente'),
+              ),
           ],
         );
       },
@@ -169,7 +195,6 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
 
                     return GestureDetector(
                       onTap: () {
-                        // TODO: vencer n faz mostrar as bombas, pq tenta descobrir zonas com bandeiras, oq da excecao, corrigir
                         setState(() {
                           try {
                             if (zona.status == 0) {
