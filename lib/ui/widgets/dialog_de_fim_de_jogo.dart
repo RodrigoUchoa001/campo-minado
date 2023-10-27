@@ -38,9 +38,11 @@ class DialogDeFimDeJogo extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
                   //volta para tela de escolha de dificuldade para jogar novamente
-                  Navigator.of(context).push(
+                  Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
-                        builder: (_) => const TelaDeEscolhaDeDificuldade()),
+                      builder: (_) => const TelaDeEscolhaDeDificuldade(),
+                    ),
+                    ModalRoute.withName('/'),
                   );
                 },
                 child: const Text('Salvar'),
@@ -50,9 +52,11 @@ class DialogDeFimDeJogo extends StatelessWidget {
         if (!vitoria)
           TextButton(
             onPressed: () {
-              Navigator.of(context).push(
+              Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                    builder: (_) => const TelaDeEscolhaDeDificuldade()),
+                  builder: (_) => const TelaDeEscolhaDeDificuldade(),
+                ),
+                ModalRoute.withName('/'),
               );
             },
             child: const Text('Jogar novamente'),
