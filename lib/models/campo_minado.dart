@@ -1,8 +1,11 @@
 import 'dart:math';
 
+import 'package:campo_minado_flutter/db/collections/pontuacao.dart';
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
 import 'package:campo_minado_flutter/models/cronometro.dart';
 import 'package:campo_minado_flutter/models/zona.dart';
+import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
 
 class CampoMinado {
   late List<List<Zona>> tabuleiro;
@@ -189,5 +192,31 @@ class CampoMinado {
 
   void removerBandeira(int row, int col) {
     tabuleiro[row][col].removerBandeira();
+  }
+
+  void armazenarNovaVitoria(String nomeDoJogador, Duration duracao) async {
+    final dir = await getApplicationDocumentsDirectory();
+    final isar = await Isar.open(
+      [PontuacaoSchema],
+      directory: dir.path,
+    );
+
+    final novaPontuacao = Pontuacao()
+      ..nomeDoJogador = nomeDoJogador
+      ..duracaoEmSegundos = duracao.inSeconds;
+
+    await isar.writeTxn(() async {
+      await isar.pontuacaos.put(novaPontuacao);
+    });
+  }
+
+  Future<List<Pontuacao>> listarTodasVitorias() async {
+    final dir = await getApplicationDocumentsDirectory();
+    final isar = await Isar.open(
+      [PontuacaoSchema],
+      directory: dir.path,
+    );
+
+    return isar.pontuacaos.where().findAll();
   }
 }
