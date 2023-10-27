@@ -68,10 +68,18 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                           nomeDoJogador,
                           campoMinado.cronometro.elapsedTime,
                           campoMinado.dificuldade);
+
+                      //mostrar msg de vitoria armazenada
                       const snackBar = SnackBar(
                         content: Text('vitória armazenada'),
                       );
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                      //volta para tela de escolha de dificuldade para jogar novamente
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (_) => const TelaDeEscolhaDeDificuldade()),
+                      );
                     },
                     child: const Text('Salvar'),
                   ),
