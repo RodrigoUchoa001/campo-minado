@@ -13,13 +13,12 @@ class DialogDeFimDeJogo extends StatelessWidget {
     String nomeDoJogador = '';
 
     return AlertDialog(
-      title: Text(vitoria
-          ? 'Você Venceu! \n Digite seu nome para armazenar a pontuação:'
-          : 'Você Perdeu!'),
+      title: Text(vitoria ? 'Você Venceu!' : 'Você Perdeu!'),
       actions: [
         if (vitoria)
           Column(
             children: [
+              const Text('Digite seu nome para armazenar a pontuação:'),
               TextField(
                 onChanged: (text) {
                   nomeDoJogador = text;
@@ -33,8 +32,8 @@ class DialogDeFimDeJogo extends StatelessWidget {
                       campoMinado.dificuldade);
 
                   //mostrar msg de vitoria armazenada
-                  const snackBar = SnackBar(
-                    content: Text('vitória armazenada'),
+                  final snackBar = SnackBar(
+                    content: Text('Vitória de $nomeDoJogador armazenada'),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
