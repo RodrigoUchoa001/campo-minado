@@ -1,3 +1,4 @@
+import 'package:campo_minado_flutter/db/db_metodos.dart';
 import 'package:campo_minado_flutter/models/campo_minado.dart';
 import 'package:campo_minado_flutter/ui/screens/tela_de_escolha_de_dificuldade.dart';
 import 'package:campo_minado_flutter/utils/formatar_tempo_decorrido.dart';
@@ -29,7 +30,8 @@ class DialogDeFimDeJogo extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  campoMinado.armazenarNovaVitoria(
+                  final DBMetodos db = DBMetodos();
+                  db.armazenarNovaVitoria(
                       nomeDoJogador,
                       campoMinado.cronometro.elapsedTime,
                       campoMinado.dificuldade);
