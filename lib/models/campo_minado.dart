@@ -217,13 +217,48 @@ class CampoMinado {
     });
   }
 
-  Future<List<Pontuacao>> listarTodasVitorias() async {
+  Future<List<Pontuacao>> listarTodasVitoriasFacil() async {
     final dir = await getApplicationDocumentsDirectory();
     final isar = await Isar.open(
       [PontuacaoSchema],
       directory: dir.path,
     );
 
-    return isar.pontuacaos.where().findAll();
+    return isar.pontuacaos
+        .where()
+        .filter()
+        .dificuldadeEqualTo(1)
+        .sortByDuracaoEmSegundos()
+        .findAll();
+  }
+
+  Future<List<Pontuacao>> listarTodasVitoriasIntermediario() async {
+    final dir = await getApplicationDocumentsDirectory();
+    final isar = await Isar.open(
+      [PontuacaoSchema],
+      directory: dir.path,
+    );
+
+    return isar.pontuacaos
+        .where()
+        .filter()
+        .dificuldadeEqualTo(2)
+        .sortByDuracaoEmSegundos()
+        .findAll();
+  }
+
+  Future<List<Pontuacao>> listarTodasVitoriasDificil() async {
+    final dir = await getApplicationDocumentsDirectory();
+    final isar = await Isar.open(
+      [PontuacaoSchema],
+      directory: dir.path,
+    );
+
+    return isar.pontuacaos
+        .where()
+        .filter()
+        .dificuldadeEqualTo(3)
+        .sortByDuracaoEmSegundos()
+        .findAll();
   }
 }
