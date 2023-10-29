@@ -31,10 +31,7 @@ class DialogDeFimDeJogo extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   final DBMetodos db = DBMetodos();
-                  db.armazenarNovaVitoria(
-                      nomeDoJogador,
-                      campoMinado.cronometro.elapsedTime,
-                      campoMinado.dificuldade);
+                  db.armazenarNovaVitoria(nomeDoJogador, campoMinado);
 
                   //mostrar msg de vitoria armazenada
                   final snackBar = SnackBar(
