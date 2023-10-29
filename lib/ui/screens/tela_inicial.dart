@@ -1,4 +1,5 @@
 import 'package:campo_minado_flutter/ui/screens/tela_de_escolha_de_dificuldade.dart';
+import 'package:campo_minado_flutter/ui/screens/tela_de_exibicao_das_pontuacoes.dart';
 import 'package:campo_minado_flutter/ui/widgets/botao_padrao.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,12 @@ class TelaInicial extends StatelessWidget {
               ),
               BotaoPadrao(
                 titulo: 'Ver Pontuação',
-                apertar: () {},
+                apertar: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (_) => const TelaDeExibicaoDasPontuacoes()),
+                  );
+                },
               )
             ],
           ),
