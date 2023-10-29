@@ -30,6 +30,8 @@ class DBMetodos {
     await isar.writeTxn(() async {
       await isar.pontuacaos.put(novaPontuacao);
     });
+
+    isar.close();
   }
 
   Future<List<Pontuacao>> listarTodasVitoriasFacil() async {
@@ -39,12 +41,16 @@ class DBMetodos {
       directory: dir.path,
     );
 
-    return isar.pontuacaos
+    final pontuacoes = isar.pontuacaos
         .where()
         .filter()
         .dificuldadeEqualTo(1)
         .sortByDuracaoEmSegundos()
         .findAll();
+
+    isar.close();
+
+    return pontuacoes;
   }
 
   Future<List<Pontuacao>> listarTodasVitoriasIntermediario() async {
@@ -54,12 +60,16 @@ class DBMetodos {
       directory: dir.path,
     );
 
-    return isar.pontuacaos
+    final pontuacoes = isar.pontuacaos
         .where()
         .filter()
         .dificuldadeEqualTo(2)
         .sortByDuracaoEmSegundos()
         .findAll();
+
+    isar.close();
+
+    return pontuacoes;
   }
 
   Future<List<Pontuacao>> listarTodasVitoriasDificil() async {
@@ -69,11 +79,15 @@ class DBMetodos {
       directory: dir.path,
     );
 
-    return isar.pontuacaos
+    final pontuacoes = isar.pontuacaos
         .where()
         .filter()
         .dificuldadeEqualTo(3)
         .sortByDuracaoEmSegundos()
         .findAll();
+
+    isar.close();
+
+    return pontuacoes;
   }
 }
