@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:campo_minado_flutter/db/collections/pontuacao.dart';
-import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
+import 'package:campo_minado_flutter/exceptions/armazenar_pontuacao_sem_haver_vitoria_exception.dart';
 import 'package:campo_minado_flutter/models/campo_minado.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -12,6 +12,11 @@ class DBMetodos {
 
   void armazenarNovaVitoria(
       String nomeDoJogador, CampoMinado campoMinado) async {
+    if (!campoMinado.vitoria) {
+      throw ArmazenarPontuacaoSemHaverVitoriaException(
+          'não é possivel armazenar uma pontuação se não houver vitória');
+    }
+
     final dir = await getApplicationDocumentsDirectory();
     final isar = await Isar.open(
       [PontuacaoSchema],
