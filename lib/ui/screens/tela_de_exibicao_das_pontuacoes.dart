@@ -2,6 +2,7 @@ import 'package:campo_minado_flutter/db/collections/pontuacao.dart';
 import 'package:campo_minado_flutter/db/db_metodos.dart';
 import 'package:campo_minado_flutter/utils/formatar_tempo_decorrido.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TelaDeExibicaoDasPontuacoes extends StatelessWidget {
   const TelaDeExibicaoDasPontuacoes({super.key});
@@ -75,15 +76,32 @@ class TelaDeExibicaoDasPontuacoes extends StatelessWidget {
       return Container();
     }
 
+    if (pontuacoes.isEmpty) {
+      return const Center(
+        child: Text(
+          'Nenhuma pontuação armazenada ainda!',
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+
     return ListView.builder(
       itemCount: pontuacoes.length,
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         return ListTile(
-          title: Text(
-            pontuacoes[index].nomeDoJogador,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+          title: Row(
+            children: [
+              Text(
+                pontuacoes[index].nomeDoJogador,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(width: 5),
+              if (index == 0)
+                const FaIcon(FontAwesomeIcons.crown,
+                    color: Colors.amber, size: 12)
+            ],
           ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
