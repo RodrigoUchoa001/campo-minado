@@ -1,18 +1,21 @@
 import 'dart:math';
 
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
+import 'package:campo_minado_flutter/exceptions/numero_de_bandeiras_colocadas_ultrapassou_o_maximo_exception.dart';
 import 'package:campo_minado_flutter/models/cronometro.dart';
 import 'package:campo_minado_flutter/models/zona.dart';
 
 class CampoMinado {
   late List<List<Zona>> tabuleiro;
   late int _dificuldade;
+  late int _bandeirasColocadas;
   late List<List<int>> _matrizDeBombasAdjacentes;
   late Cronometro _cronometro;
   bool _jogoEmAndamento = true;
   bool _vitoria = false;
 
   int get dificuldade => _dificuldade;
+  int get bandeirasColocadas => _bandeirasColocadas;
   List<List<int>> get matrizDeBombasAdjacentes => _matrizDeBombasAdjacentes;
   Cronometro get cronometro => _cronometro;
   bool get jogoEmAndamento => _jogoEmAndamento;
@@ -56,6 +59,7 @@ class CampoMinado {
           'A dificuldade escolhida é invalida');
     }
     contarBombasAdjacentes();
+    _bandeirasColocadas = 0;
     _cronometro = Cronometro();
   }
 
@@ -184,10 +188,30 @@ class CampoMinado {
   }
 
   void colocarBandeira(int row, int col) {
+    if (_bandeirasColocadas > getNumeroDeBombasPermitidas()) {
+      throw NumeroDeBandeirasUltrapassouOMaximoException(
+          'numero de bandeiras não pode ultrapassar o numero de bombas');
+    }
+
     tabuleiro[row][col].colocarBandeira();
+    _bandeirasColocadas++;
   }
 
   void removerBandeira(int row, int col) {
     tabuleiro[row][col].removerBandeira();
+    _bandeirasColocadas--;
+  }
+
+  int getNumeroDeBombasPermitidas() {
+    late int numDeBandeirasPermitidas;
+    if (dificuldade == 1) {
+      numDeBandeirasPermitidas = 10;
+    } else if (dificuldade == 2) {
+      numDeBandeirasPermitidas = 30;
+    } else if (dificuldade == 3) {
+      numDeBandeirasPermitidas = 100;
+    }
+
+    return numDeBandeirasPermitidas;
   }
 }
