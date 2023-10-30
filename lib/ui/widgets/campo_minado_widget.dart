@@ -4,6 +4,7 @@ import 'package:campo_minado_flutter/models/campo_minado.dart';
 import 'package:campo_minado_flutter/ui/widgets/dialog_de_fim_de_jogo.dart';
 import 'package:campo_minado_flutter/ui/widgets/zona_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CampoMinadoWidget extends StatefulWidget {
   final CampoMinado campoMinado;
@@ -92,6 +93,7 @@ class _CampoMinadoWidgetState extends State<CampoMinadoWidget> {
                 if (zona.status == 1) {
                   try {
                     widget.campoMinado.removerBandeira(row, col);
+                    HapticFeedback.vibrate();
                   } on BandeiraEmZonaDescobertaException catch (e) {
                     final snackBar = SnackBar(
                       content: Text(e.toString()),
@@ -101,6 +103,7 @@ class _CampoMinadoWidgetState extends State<CampoMinadoWidget> {
                 } else {
                   try {
                     widget.campoMinado.colocarBandeira(row, col);
+                    HapticFeedback.vibrate();
                   } on Exception catch (e) {
                     final snackBar = SnackBar(
                       content: Text(e.toString()),
