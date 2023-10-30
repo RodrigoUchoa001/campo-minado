@@ -113,13 +113,6 @@ class _CampoMinadoWidgetState extends State<CampoMinadoWidget> {
                 }
               });
               if (!widget.campoMinado.jogoEmAndamento) {
-                for (int i = 0; i < widget.campoMinado.tabuleiro.length; i++) {
-                  for (int j = 0;
-                      j < widget.campoMinado.tabuleiro[i].length;
-                      j++) {
-                    widget.campoMinado.tabuleiro[i][j].forcarDescobrirZona();
-                  }
-                }
                 mostrarMsgDeFimDeJogo(widget.campoMinado.vitoria);
               }
             },
