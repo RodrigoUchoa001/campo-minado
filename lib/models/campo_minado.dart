@@ -195,6 +195,21 @@ class CampoMinado {
 
     tabuleiro[row][col].colocarBandeira();
     _bandeirasColocadas++;
+
+    bool temZonaComBombaSemBandeira = false;
+
+    for (int row = 0; row < tabuleiro.length; row++) {
+      for (int col = 0; col < tabuleiro[0].length; col++) {
+        if (tabuleiro[row][col].temBomba && tabuleiro[row][col].status != 1) {
+          temZonaComBombaSemBandeira = true;
+        }
+      }
+    }
+
+    if (!temZonaComBombaSemBandeira) {
+      _jogoEmAndamento = false; // O jogo terminou devido a uma vitória.
+      _vitoria = true;
+    }
   }
 
   void removerBandeira(int row, int col) {
