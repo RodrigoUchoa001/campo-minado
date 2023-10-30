@@ -53,6 +53,16 @@ void main() {
       expect(zona.status, 0);
     });
     test(
+        'testa se colocarBandeira, depois removerBandeira, depois colocarBandeira de novo é possivel',
+        () {
+      Zona zona = Zona();
+      zona.colocarBandeira();
+      zona.removerBandeira();
+      zona.colocarBandeira();
+
+      expect(zona.status, 1);
+    });
+    test(
         'Teste se o descobrirZona para verificar se ela define o status corretamente',
         () {
       Zona zona = Zona();
