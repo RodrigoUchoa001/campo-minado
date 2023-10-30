@@ -3,6 +3,7 @@ import 'package:campo_minado_flutter/models/campo_minado.dart';
 import 'package:campo_minado_flutter/ui/widgets/campo_minado_widget.dart';
 import 'package:campo_minado_flutter/utils/formatar_tempo_decorrido.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TelaDeJogo extends StatefulWidget {
   final int dificuldade;
@@ -130,6 +131,18 @@ class _TelaDeJogoState extends State<TelaDeJogo> {
                     }
                   },
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const FaIcon(FontAwesomeIcons.flag),
+                    const SizedBox(width: 8),
+                    Text(
+                      '${campoMinado.bandeirasColocadas}/${campoMinado.getNumeroDeBombasPermitidas()}',
+                      style: const TextStyle(fontSize: 28.0),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
                 CampoMinadoWidget(campoMinado: campoMinado),
               ],
             ),
