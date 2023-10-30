@@ -739,18 +739,13 @@ void main() {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
-      bool naoColocouBandeiraEmAlgumaZona = false;
-
       for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
         for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
           campoMinado.colocarBandeira(i, j);
-          if (campoMinado.tabuleiro[i][j].status != 1) {
-            naoColocouBandeiraEmAlgumaZona = true;
-          }
+          expect(campoMinado.tabuleiro[i][j].status, 1);
+          campoMinado.removerBandeira(i, j);
         }
       }
-
-      expect(naoColocouBandeiraEmAlgumaZona, false);
     });
     test(
         "testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade intermidiario",
@@ -758,18 +753,13 @@ void main() {
       int dificuldade = 2;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
-      bool naoColocouBandeiraEmAlgumaZona = false;
-
       for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
         for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
           campoMinado.colocarBandeira(i, j);
-          if (campoMinado.tabuleiro[i][j].status != 1) {
-            naoColocouBandeiraEmAlgumaZona = true;
-          }
+          expect(campoMinado.tabuleiro[i][j].status, 1);
+          campoMinado.removerBandeira(i, j);
         }
       }
-
-      expect(naoColocouBandeiraEmAlgumaZona, false);
     });
     test(
         "testa se é possivel colocar bandeira em qualquer uma das posições sem problemas na dificuldade dificil",
@@ -777,18 +767,13 @@ void main() {
       int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
-      bool naoColocouBandeiraEmAlgumaZona = false;
-
       for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
         for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
           campoMinado.colocarBandeira(i, j);
-          if (campoMinado.tabuleiro[i][j].status != 1) {
-            naoColocouBandeiraEmAlgumaZona = true;
-          }
+          expect(campoMinado.tabuleiro[i][j].status, 1);
+          campoMinado.removerBandeira(i, j);
         }
       }
-
-      expect(naoColocouBandeiraEmAlgumaZona, false);
     });
 
     parameterizedTest(
@@ -894,6 +879,7 @@ void main() {
             },
             throwsA(isA<DescobrirZonaComBandeiraException>()),
           );
+          campoMinado.removerBandeira(i, j);
         }
       }
     });
