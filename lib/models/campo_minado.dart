@@ -145,16 +145,15 @@ class CampoMinado {
         }
 
         if (zonasNaoDescobertas == 0) {
+          for (int i = 0; i < tabuleiro.length; i++) {
+            for (int j = 0; j < tabuleiro[i].length; j++) {
+              tabuleiro[i][j].forcarDescobrirZona();
+            }
+          }
           _jogoEmAndamento = false; // O jogo terminou devido a uma vitória.
           _vitoria = true;
         }
         return zonasNaoDescobertas;
-      }
-    } else {
-      for (int i = 0; i < tabuleiro.length; i++) {
-        for (int j = 0; j < tabuleiro[i].length; j++) {
-          tabuleiro[i][j].forcarDescobrirZona();
-        }
       }
     }
     return 0;
@@ -213,6 +212,11 @@ class CampoMinado {
     }
 
     if (!temZonaComBombaSemBandeira) {
+      for (int i = 0; i < tabuleiro.length; i++) {
+        for (int j = 0; j < tabuleiro[i].length; j++) {
+          tabuleiro[i][j].forcarDescobrirZona();
+        }
+      }
       _jogoEmAndamento = false; // O jogo terminou devido a uma vitória.
       _vitoria = true;
     }
