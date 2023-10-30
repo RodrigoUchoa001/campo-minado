@@ -1388,6 +1388,55 @@ void main() {
         }
       });
     });
+    group(
+        'deve ser possivel ganhar quando colocar bandeira em todas os local de bomba',
+        () {
+      test(
+          'testa se colocando bandeira em todos os locais de bomba faz uma vitória na dificuldade fácil',
+          () {
+        int dificuldade = 1;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.tabuleiro[row][col].temBomba) {
+              campoMinado.colocarBandeira(row, col);
+            }
+          }
+        }
+        expect(campoMinado.vitoria, true);
+      });
+      test(
+          'testa se colocando bandeira em todos os locais de bomba faz uma vitória na dificuldade intermediário',
+          () {
+        int dificuldade = 2;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.tabuleiro[row][col].temBomba) {
+              campoMinado.colocarBandeira(row, col);
+            }
+          }
+        }
+        expect(campoMinado.vitoria, true);
+      });
+      test(
+          'testa se colocando bandeira em todos os locais de bomba faz uma vitória na dificuldade dificil',
+          () {
+        int dificuldade = 1;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.tabuleiro[row][col].temBomba) {
+              campoMinado.colocarBandeira(row, col);
+            }
+          }
+        }
+        expect(campoMinado.vitoria, true);
+      });
+    });
 
     // group(
     //     'A pontuação do jogo é dada pelo tempo levado para descobrir todas as bombas em segundos',
