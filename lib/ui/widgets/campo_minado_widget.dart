@@ -101,7 +101,7 @@ class _CampoMinadoWidgetState extends State<CampoMinadoWidget> {
                 } else {
                   try {
                     widget.campoMinado.colocarBandeira(row, col);
-                  } on BandeiraEmZonaDescobertaException catch (e) {
+                  } on Exception catch (e) {
                     final snackBar = SnackBar(
                       content: Text(e.toString()),
                     );
