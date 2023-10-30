@@ -188,7 +188,7 @@ class CampoMinado {
   }
 
   void colocarBandeira(int row, int col) {
-    if (_bandeirasColocadas > getNumeroDeBombasPermitidas()) {
+    if (_bandeirasColocadas >= getNumeroDeBombasPermitidas()) {
       throw NumeroDeBandeirasUltrapassouOMaximoException(
           'numero de bandeiras não pode ultrapassar o numero de bombas');
     }
