@@ -10,7 +10,7 @@ class DBMetodos {
   late Directory dir;
   late Isar isar;
 
-  void armazenarNovaVitoria(
+  Future<Pontuacao> armazenarNovaVitoria(
       String nomeDoJogador, CampoMinado campoMinado) async {
     if (!campoMinado.vitoria) {
       throw ArmazenarPontuacaoSemHaverVitoriaException(
@@ -33,6 +33,18 @@ class DBMetodos {
     });
 
     isar.close();
+    return novaPontuacao;
+  }
+
+  void removerVitoria(int id) async {
+    final dir = await getApplicationDocumentsDirectory();
+    final isar = await Isar.open(
+      [PontuacaoSchema],
+      directory: dir.path,
+    );
+
+    await isar.pontuacaos.delete(id);
+    isar.close();
   }
 
   Future<List<Pontuacao>> listarTodasVitoriasFacil() async {
@@ -50,7 +62,6 @@ class DBMetodos {
         .findAll();
 
     isar.close();
-
     return pontuacoes;
   }
 
@@ -69,7 +80,6 @@ class DBMetodos {
         .findAll();
 
     isar.close();
-
     return pontuacoes;
   }
 
@@ -88,7 +98,6 @@ class DBMetodos {
         .findAll();
 
     isar.close();
-
     return pontuacoes;
   }
 }
