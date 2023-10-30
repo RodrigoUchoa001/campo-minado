@@ -1217,7 +1217,7 @@ void main() {
           for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
             // o if impede de tentar colocar bandeiras acima do numero permitido,
             // o numero de bombas
-            if (campoMinado.bandeirasColocadas <= 10) {
+            if (campoMinado.bandeirasColocadas < 10) {
               campoMinado.colocarBandeira(row, col);
               bandeirasColocadas++;
               expect(campoMinado.bandeirasColocadas, bandeirasColocadas);
@@ -1240,7 +1240,7 @@ void main() {
           for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
             // o if impede de tentar colocar bandeiras acima do numero permitido,
             // o numero de bombas
-            if (campoMinado.bandeirasColocadas <= 30) {
+            if (campoMinado.bandeirasColocadas < 30) {
               campoMinado.colocarBandeira(row, col);
               bandeirasColocadas++;
               expect(campoMinado.bandeirasColocadas, bandeirasColocadas);
@@ -1263,7 +1263,7 @@ void main() {
           for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
             // o if impede de tentar colocar bandeiras acima do numero permitido,
             // o numero de bombas
-            if (campoMinado.bandeirasColocadas <= 100) {
+            if (campoMinado.bandeirasColocadas < 100) {
               campoMinado.colocarBandeira(row, col);
               bandeirasColocadas++;
               expect(campoMinado.bandeirasColocadas, bandeirasColocadas);
@@ -1282,7 +1282,7 @@ void main() {
         outerLoop:
         for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
           for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.bandeirasColocadas <= 10) {
+            if (campoMinado.bandeirasColocadas < 10) {
               campoMinado.colocarBandeira(row, col);
             } else {
               break outerLoop;
@@ -1299,7 +1299,7 @@ void main() {
         outerLoop:
         for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
           for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.bandeirasColocadas <= 30) {
+            if (campoMinado.bandeirasColocadas < 30) {
               campoMinado.colocarBandeira(row, col);
             } else {
               break outerLoop;
@@ -1316,7 +1316,7 @@ void main() {
         outerLoop:
         for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
           for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.bandeirasColocadas <= 100) {
+            if (campoMinado.bandeirasColocadas < 100) {
               campoMinado.colocarBandeira(row, col);
             } else {
               break outerLoop;
@@ -1332,7 +1332,7 @@ void main() {
 
         for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
           for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.bandeirasColocadas <= 10) {
+            if (campoMinado.bandeirasColocadas < 10) {
               campoMinado.colocarBandeira(row, col);
             } else {
               expect(
@@ -1353,7 +1353,7 @@ void main() {
 
         for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
           for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.bandeirasColocadas <= 30) {
+            if (campoMinado.bandeirasColocadas < 30) {
               campoMinado.colocarBandeira(row, col);
             } else {
               expect(
@@ -1374,7 +1374,7 @@ void main() {
 
         for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
           for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.bandeirasColocadas <= 100) {
+            if (campoMinado.bandeirasColocadas < 100) {
               campoMinado.colocarBandeira(row, col);
             } else {
               expect(
