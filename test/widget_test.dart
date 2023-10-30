@@ -1437,6 +1437,82 @@ void main() {
         expect(campoMinado.vitoria, true);
       });
     });
+    group(
+        'ao haver uma vitória, todas as zonas com bombas devem ser descobertas',
+        () {
+      test(
+          'testa se havendo vitória todas as zonas com bombas são descobertas na dificuldade fácil',
+          () {
+        int dificuldade = 1;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        // descobrindo todas as zonas sem bombas
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (!campoMinado.tabuleiro[row][col].temBomba) {
+              campoMinado.descobrirZonasAdjacentes(row, col);
+            }
+          }
+        }
+
+        // verificando se cada zona com bomba está descoberta
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.tabuleiro[row][col].temBomba) {
+              expect(campoMinado.tabuleiro[row][col].status, 2);
+            }
+          }
+        }
+      });
+      test(
+          'testa se havendo vitória todas as zonas com bombas são descobertas na dificuldade intermediário',
+          () {
+        int dificuldade = 2;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        // descobrindo todas as zonas sem bombas
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (!campoMinado.tabuleiro[row][col].temBomba) {
+              campoMinado.descobrirZonasAdjacentes(row, col);
+            }
+          }
+        }
+
+        // verificando se cada zona com bomba está descoberta
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.tabuleiro[row][col].temBomba) {
+              expect(campoMinado.tabuleiro[row][col].status, 2);
+            }
+          }
+        }
+      });
+      test(
+          'testa se havendo vitória todas as zonas com bombas são descobertas na dificuldade dificil',
+          () {
+        int dificuldade = 3;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        // descobrindo todas as zonas sem bombas
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (!campoMinado.tabuleiro[row][col].temBomba) {
+              campoMinado.descobrirZonasAdjacentes(row, col);
+            }
+          }
+        }
+
+        // verificando se cada zona com bomba está descoberta
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.tabuleiro[row][col].temBomba) {
+              expect(campoMinado.tabuleiro[row][col].status, 2);
+            }
+          }
+        }
+      });
+    });
 
     // group(
     //     'A pontuação do jogo é dada pelo tempo levado para descobrir todas as bombas em segundos',
