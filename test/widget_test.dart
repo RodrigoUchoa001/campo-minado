@@ -5,9 +5,13 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:campo_minado_flutter/db/collections/pontuacao.dart';
+import 'package:campo_minado_flutter/db/db_metodos.dart';
+import 'package:campo_minado_flutter/exceptions/armazenar_pontuacao_sem_haver_vitoria_exception.dart';
 import 'package:campo_minado_flutter/exceptions/bandeira_em_zona_descoberta_exception.dart';
 import 'package:campo_minado_flutter/exceptions/descobrir_zona_com_bandeira_exception.dart';
 import 'package:campo_minado_flutter/exceptions/dificuldade_escolhida_invalidada_excepcion.dart';
+import 'package:campo_minado_flutter/exceptions/numero_de_bandeiras_colocadas_ultrapassou_o_maximo_exception.dart';
 import 'package:campo_minado_flutter/exceptions/remover_bandeira_de_zona_sem_bandeira_exception.dart';
 import 'package:campo_minado_flutter/exceptions/tentativa_de_alteracao_de_bomba_exception.dart';
 import 'package:campo_minado_flutter/models/campo_minado.dart';
@@ -1175,6 +1179,214 @@ void main() {
               expect(campoMinado.cronometro.isRunning, true);
 
               break outerLoop;
+            }
+          }
+        }
+      });
+      // test(
+      //     'testa se no fim do jogo (APENAS NO CASO DE VITÓRIA) a pontuação é armazenada com nome do jogador',
+      //     () async {
+      //   WidgetsFlutterBinding.ensureInitialized();
+      //   int dificuldade = 1;
+      //   CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      //   for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+      //     for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+      //       if (!campoMinado.tabuleiro[row][col].temBomba) {
+      //         campoMinado.descobrirZona(row, col);
+      //       }
+      //     }
+      //   }
+
+      //   DBMetodos db = DBMetodos();
+      //   Pontuacao pontuacaoRegistrada =
+      //       await db.armazenarNovaVitoria('jogador teste123', campoMinado);
+      //   db.removerVitoria(pontuacaoRegistrada.id);
+      // });
+    });
+
+    group(
+        'só deve ser possível colocar um número de bandeiras no máximo igual ao número de bombas',
+        () {
+      test(
+          'testa se a contagem de bandeiras colocadas está correta para dificuldade fácil',
+          () {
+        int dificuldade = 1;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        int bandeirasColocadas = 0;
+
+        outerLoop:
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            // o if impede de tentar colocar bandeiras acima do numero permitido,
+            // o numero de bombas
+            if (campoMinado.bandeirasColocadas <= 10) {
+              campoMinado.colocarBandeira(row, col);
+              bandeirasColocadas++;
+              expect(campoMinado.bandeirasColocadas, bandeirasColocadas);
+            } else {
+              break outerLoop;
+            }
+          }
+        }
+      });
+      test(
+          'testa se a contagem de bandeiras colocadas está correta para dificuldade intermediario',
+          () {
+        int dificuldade = 2;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        int bandeirasColocadas = 0;
+
+        outerLoop:
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            // o if impede de tentar colocar bandeiras acima do numero permitido,
+            // o numero de bombas
+            if (campoMinado.bandeirasColocadas <= 30) {
+              campoMinado.colocarBandeira(row, col);
+              bandeirasColocadas++;
+              expect(campoMinado.bandeirasColocadas, bandeirasColocadas);
+            } else {
+              break outerLoop;
+            }
+          }
+        }
+      });
+      test(
+          'testa se a contagem de bandeiras colocadas está correta para dificuldade dificil',
+          () {
+        int dificuldade = 3;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        int bandeirasColocadas = 0;
+
+        outerLoop:
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            // o if impede de tentar colocar bandeiras acima do numero permitido,
+            // o numero de bombas
+            if (campoMinado.bandeirasColocadas <= 100) {
+              campoMinado.colocarBandeira(row, col);
+              bandeirasColocadas++;
+              expect(campoMinado.bandeirasColocadas, bandeirasColocadas);
+            } else {
+              break outerLoop;
+            }
+          }
+        }
+      });
+      test(
+          'deve ser possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade fácil',
+          () {
+        int dificuldade = 1;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        outerLoop:
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.bandeirasColocadas <= 10) {
+              campoMinado.colocarBandeira(row, col);
+            } else {
+              break outerLoop;
+            }
+          }
+        }
+      });
+      test(
+          'deve ser possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade intermediário',
+          () {
+        int dificuldade = 2;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        outerLoop:
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.bandeirasColocadas <= 30) {
+              campoMinado.colocarBandeira(row, col);
+            } else {
+              break outerLoop;
+            }
+          }
+        }
+      });
+      test(
+          'deve ser possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade dificil',
+          () {
+        int dificuldade = 3;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        outerLoop:
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.bandeirasColocadas <= 100) {
+              campoMinado.colocarBandeira(row, col);
+            } else {
+              break outerLoop;
+            }
+          }
+        }
+      });
+      test(
+          'não deve ser possível colocar um número de bandeiras maior que o número de bombas para dificuldade fácil',
+          () {
+        int dificuldade = 1;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.bandeirasColocadas <= 10) {
+              campoMinado.colocarBandeira(row, col);
+            } else {
+              expect(
+                () {
+                  campoMinado.colocarBandeira(row, col);
+                },
+                throwsA(isA<NumeroDeBandeirasUltrapassouOMaximoException>()),
+              );
+            }
+          }
+        }
+      });
+      test(
+          'não deve ser possível colocar um número de bandeiras maior que o número de bombas para dificuldade intermediario',
+          () {
+        int dificuldade = 2;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.bandeirasColocadas <= 30) {
+              campoMinado.colocarBandeira(row, col);
+            } else {
+              expect(
+                () {
+                  campoMinado.colocarBandeira(row, col);
+                },
+                throwsA(isA<NumeroDeBandeirasUltrapassouOMaximoException>()),
+              );
+            }
+          }
+        }
+      });
+      test(
+          'não deve ser possível colocar um número de bandeiras maior que o número de bombas para dificuldade dificil',
+          () {
+        int dificuldade = 3;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.bandeirasColocadas <= 100) {
+              campoMinado.colocarBandeira(row, col);
+            } else {
+              expect(
+                () {
+                  campoMinado.colocarBandeira(row, col);
+                },
+                throwsA(isA<NumeroDeBandeirasUltrapassouOMaximoException>()),
+              );
             }
           }
         }
