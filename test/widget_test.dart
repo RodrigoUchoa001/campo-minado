@@ -1436,6 +1436,54 @@ void main() {
         }
         expect(campoMinado.vitoria, true);
       });
+      test(
+          'testa se não há vitória caso ainda não tenha sido colocado bandeira em todos os locais de bombas na dificuldade fácil',
+          () {
+        int dificuldade = 1;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.tabuleiro[row][col].temBomba &&
+                campoMinado.bandeirasColocadas < 9) {
+              campoMinado.colocarBandeira(row, col);
+              expect(campoMinado.vitoria, false);
+            }
+          }
+        }
+      });
+      test(
+          'testa se não há vitória caso ainda não tenha sido colocado bandeira em todos os locais de bombas na dificuldade intermediário',
+          () {
+        int dificuldade = 2;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.tabuleiro[row][col].temBomba &&
+                campoMinado.bandeirasColocadas < 29) {
+              campoMinado.colocarBandeira(row, col);
+              expect(campoMinado.vitoria, false);
+            }
+          }
+        }
+      });
+      test(
+          'testa se não há vitória caso ainda não tenha sido colocado bandeira em todos os locais de bombas na dificuldade dificil',
+          () {
+        int dificuldade = 3;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (campoMinado.tabuleiro[row][col].temBomba &&
+                campoMinado.bandeirasColocadas < 99) {
+              campoMinado.colocarBandeira(row, col);
+              expect(campoMinado.vitoria, false);
+            }
+          }
+        }
+      });
     });
     group(
         'ao haver uma vitória, todas as zonas com bombas devem ser descobertas',
