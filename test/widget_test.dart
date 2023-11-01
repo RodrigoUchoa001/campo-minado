@@ -1411,8 +1411,44 @@ void main() {
   group(
       ' o jogo deve acabar com derrota quando uma zona com bomba for descoberta',
       () {
-    test('testa se o jogo acaba quando uma bomba é descoberta', () {
+    test(
+        'testa se o jogo acaba quando uma bomba é descoberta na dificuldade fácil',
+        () {
       int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          if (campoMinado.tabuleiro[i][j].temBomba) {
+            campoMinado.descobrirZona(i, j);
+            expect(campoMinado.jogoEmAndamento, false);
+            expect(campoMinado.vitoria, false);
+            break;
+          }
+        }
+      }
+    });
+    test(
+        'testa se o jogo acaba quando uma bomba é descoberta na dificuldade intermediário',
+        () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          if (campoMinado.tabuleiro[i][j].temBomba) {
+            campoMinado.descobrirZona(i, j);
+            expect(campoMinado.jogoEmAndamento, false);
+            expect(campoMinado.vitoria, false);
+            break;
+          }
+        }
+      }
+    });
+    test(
+        'testa se o jogo acaba quando uma bomba é descoberta na dificuldade difícil',
+        () {
+      int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
       for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
