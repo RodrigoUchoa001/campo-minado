@@ -1485,9 +1485,41 @@ void main() {
       'o jogo deve acabar com vitória quando todas as zonas sem bombas estiverem descobertas',
       () {
     test(
-        'testa se o jogo acaba quando todas as zonas sem bombas estiverem descobertas',
+        'testa se o jogo acaba quando todas as zonas sem bombas estiverem descobertas na dificuldade fácil',
         () {
       int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          if (!campoMinado.tabuleiro[i][j].temBomba) {
+            campoMinado.descobrirZona(i, j);
+          }
+        }
+      }
+      expect(campoMinado.jogoEmAndamento, false);
+      expect(campoMinado.vitoria, true);
+    });
+    test(
+        'testa se o jogo acaba quando todas as zonas sem bombas estiverem descobertas na dificuldade intermediário',
+        () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          if (!campoMinado.tabuleiro[i][j].temBomba) {
+            campoMinado.descobrirZona(i, j);
+          }
+        }
+      }
+      expect(campoMinado.jogoEmAndamento, false);
+      expect(campoMinado.vitoria, true);
+    });
+    test(
+        'testa se o jogo acaba quando todas as zonas sem bombas estiverem descobertas na dificuldade difícil',
+        () {
+      int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
       for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
