@@ -1958,6 +1958,40 @@ void main() {
         }
       }
     });
+    test(
+        'testa se o contador de tempo é iniciado ao descobrir a primeira zona sem bomba na dificuldade intermediário',
+        () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+      outerLoop: //nomeando o for para fazer o break sair de todos os for
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (!campoMinado.tabuleiro[row][col].temBomba) {
+            campoMinado.descobrirZona(row, col);
+            expect(campoMinado.cronometro.isRunning, true);
+
+            break outerLoop;
+          }
+        }
+      }
+    });
+    test(
+        'testa se o contador de tempo é iniciado ao descobrir a primeira zona sem bomba na dificuldade difícil',
+        () {
+      int dificuldade = 3;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+      outerLoop: //nomeando o for para fazer o break sair de todos os for
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (!campoMinado.tabuleiro[row][col].temBomba) {
+            campoMinado.descobrirZona(row, col);
+            expect(campoMinado.cronometro.isRunning, true);
+
+            break outerLoop;
+          }
+        }
+      }
+    });
     // test(
     //     'testa se no fim do jogo (APENAS NO CASO DE VITÓRIA) a pontuação é armazenada com nome do jogador',
     //     () async {
