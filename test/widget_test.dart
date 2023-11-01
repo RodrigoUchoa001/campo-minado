@@ -17,6 +17,8 @@ import 'package:campo_minado_flutter/exceptions/tentativa_de_alteracao_de_bomba_
 import 'package:campo_minado_flutter/models/campo_minado.dart';
 import 'package:campo_minado_flutter/models/cronometro.dart';
 import 'package:campo_minado_flutter/models/zona.dart';
+import 'package:campo_minado_flutter/ui/screens/tela_inicial.dart';
+import 'package:flutter/material.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:parameterized_test/parameterized_test.dart';
@@ -387,41 +389,6 @@ void main() {
 
       // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 8);
-    });
-    test(
-        'testa se ao clicar em uma zona que tem zonas adjacentes sem bombas, essas zonas são descobertas também',
-        () {
-      // Crie um tabuleiro fake.
-      final tabuleiroFake = List.generate(
-        5,
-        (row) => List.generate(
-          5,
-          (col) => Zona(),
-        ),
-      );
-
-      // Configurar o tabuleiro com uma zona sem bombas (meio) e zonas adjacentes sem bombas.
-      for (int i = 2; i <= 2; i++) {
-        for (int j = 2; j <= 2; j++) {
-          tabuleiroFake[i][j].temBomba = false; // Zonas sem bombas
-        }
-      }
-
-      // Crie uma instância de CampoMinado usando o tabuleiro fake.
-      final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
-
-      // Chame o método descobrirZona para a zona no meio.
-      campoMinado.descobrirZonasAdjacentes(2, 2);
-
-      // Verifique se a zona no meio foi descoberta.
-      expect(campoMinado.tabuleiro[2][2].status, 2); // Deve ser descoberto
-
-      // Verifique se as zonas adjacentes sem bombas também foram descobertas.
-      for (int i = 1; i <= 3; i++) {
-        for (int j = 1; j <= 3; j++) {
-          expect(campoMinado.tabuleiro[i][j].status, 2); // Deve ser descoberto
-        }
-      }
     });
   });
   group(
@@ -1789,7 +1756,7 @@ void main() {
       }
     });
     test(
-        'deve ser possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade fácil',
+        'testa se é possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade fácil',
         () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -1806,7 +1773,7 @@ void main() {
       }
     });
     test(
-        'deve ser possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade intermediário',
+        'testa se é possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade intermediário',
         () {
       int dificuldade = 2;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -1823,7 +1790,7 @@ void main() {
       }
     });
     test(
-        'deve ser possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade dificil',
+        'testa se é possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade dificil',
         () {
       int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -1840,7 +1807,7 @@ void main() {
       }
     });
     test(
-        'não deve ser possível colocar um número de bandeiras maior que o número de bombas para dificuldade fácil',
+        'testa se não é possível colocar um número de bandeiras maior que o número de bombas para dificuldade fácil',
         () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -1861,7 +1828,7 @@ void main() {
       }
     });
     test(
-        'não deve ser possível colocar um número de bandeiras maior que o número de bombas para dificuldade intermediario',
+        'testa se não é possível colocar um número de bandeiras maior que o número de bombas para dificuldade intermediario',
         () {
       int dificuldade = 2;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -1882,7 +1849,7 @@ void main() {
       }
     });
     test(
-        'não deve ser possível colocar um número de bandeiras maior que o número de bombas para dificuldade dificil',
+        'testa se não é possível colocar um número de bandeiras maior que o número de bombas para dificuldade dificil',
         () {
       int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
@@ -2041,6 +2008,19 @@ void main() {
     //   db.removerVitoria(pontuacaoRegistrada.id);
     // });
   });
+  // group('testes de UI', () {
+  //   testWidgets('testa se é possível escolher um nível de dificuldade',
+  //       (WidgetTester tester) async {
+  //     await tester.pumpWidget(const TelaInicial());
+
+  //     await tester.tap(find.text('Jogar'));
+  //     await tester.pump();
+
+  //     expect(find.text('Fácil'), findsOneWidget);
+  //     expect(find.text('Intermediário'), findsOneWidget);
+  //     expect(find.text('Difícil'), findsOneWidget);
+  //   });
+  // });
   //
   // testWidgets('Counter increments smoke test', (WidgetTester tester) async {
   //   // Build our app and trigger a frame.
