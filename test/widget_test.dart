@@ -1639,7 +1639,7 @@ void main() {
         'ao clicar em uma zona, as zonas adjacentes que não tiverem bombas são automaticamente descobertas ao msm tempo',
         () {
       test(
-          'Ao descobrir uma zona vazia, zonas adjacentes sem bombas também devem ser descobertas',
+          'testa se ao descobrir uma zona vazia, zonas adjacentes sem bombas também são descobertas',
           () {
         // Crie um objeto CampoMinado para o teste
         final campoMinado = CampoMinado(1);
@@ -1717,48 +1717,6 @@ void main() {
         }
       });
     });
-    group(
-        'A pontuação do jogo é dada pelo tempo levado para descobrir todas as bombas em segundos',
-        () {
-      test(
-          'testa se o contador de tempo é iniciado ao descobrir a primeira zona sem bomba',
-          () {
-        int dificuldade = 1;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-        outerLoop: //nomeando o for para fazer o break sair de todos os for
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (!campoMinado.tabuleiro[row][col].temBomba) {
-              campoMinado.descobrirZona(row, col);
-              expect(campoMinado.cronometro.isRunning, true);
-
-              break outerLoop;
-            }
-          }
-        }
-      });
-      // test(
-      //     'testa se no fim do jogo (APENAS NO CASO DE VITÓRIA) a pontuação é armazenada com nome do jogador',
-      //     () async {
-      //   WidgetsFlutterBinding.ensureInitialized();
-      //   int dificuldade = 1;
-      //   CampoMinado campoMinado = CampoMinado(dificuldade);
-
-      //   for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-      //     for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-      //       if (!campoMinado.tabuleiro[row][col].temBomba) {
-      //         campoMinado.descobrirZona(row, col);
-      //       }
-      //     }
-      //   }
-
-      //   DBMetodos db = DBMetodos();
-      //   Pontuacao pontuacaoRegistrada =
-      //       await db.armazenarNovaVitoria('jogador teste123', campoMinado);
-      //   db.removerVitoria(pontuacaoRegistrada.id);
-      // });
-    });
-
     group(
         'só deve ser possível colocar um número de bandeiras no máximo igual ao número de bombas',
         () {
@@ -2042,6 +2000,47 @@ void main() {
           }
         }
       });
+    });
+    group(
+        'A pontuação do jogo é dada pelo tempo levado para descobrir todas as bombas em segundos',
+        () {
+      test(
+          'testa se o contador de tempo é iniciado ao descobrir a primeira zona sem bomba',
+          () {
+        int dificuldade = 1;
+        CampoMinado campoMinado = CampoMinado(dificuldade);
+        outerLoop: //nomeando o for para fazer o break sair de todos os for
+        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+            if (!campoMinado.tabuleiro[row][col].temBomba) {
+              campoMinado.descobrirZona(row, col);
+              expect(campoMinado.cronometro.isRunning, true);
+
+              break outerLoop;
+            }
+          }
+        }
+      });
+      // test(
+      //     'testa se no fim do jogo (APENAS NO CASO DE VITÓRIA) a pontuação é armazenada com nome do jogador',
+      //     () async {
+      //   WidgetsFlutterBinding.ensureInitialized();
+      //   int dificuldade = 1;
+      //   CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      //   for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+      //     for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+      //       if (!campoMinado.tabuleiro[row][col].temBomba) {
+      //         campoMinado.descobrirZona(row, col);
+      //       }
+      //     }
+      //   }
+
+      //   DBMetodos db = DBMetodos();
+      //   Pontuacao pontuacaoRegistrada =
+      //       await db.armazenarNovaVitoria('jogador teste123', campoMinado);
+      //   db.removerVitoria(pontuacaoRegistrada.id);
+      // });
     });
 
     // group(
