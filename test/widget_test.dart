@@ -1210,7 +1210,9 @@ void main() {
     );
   });
   group("não deve ser possível colocar bandeira em zona descoberta", () {
-    test("testa se não é possível colocar bandeira em zona descoberta", () {
+    test(
+        "testa se não é possível colocar bandeira em zona descoberta na dificuldade fácil",
+        () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
@@ -1233,18 +1235,125 @@ void main() {
         }
       }
     });
+    test(
+        "testa se não é possível colocar bandeira em zona descoberta na dificuldade intermediário",
+        () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          // o teste n tava passando sem esse if. Pq por verificar o tabuleiro
+          // inteiro, em algum momento ou o jogador vai descobrir uma bomba, ou
+          // vai vencer. Acontecendo isso a variavel '_jogoEmAndamento' da classe
+          // CampoMinado se tornaria 'false', impedindo de descobrir a Zona, oq
+          // faria q n lancasse a excecao esperada
+          if (!campoMinado.tabuleiro[i][j].temBomba) {
+            expect(
+              () {
+                campoMinado.descobrirZona(i, j);
+                campoMinado.colocarBandeira(i, j);
+              },
+              throwsA(isA<BandeiraEmZonaDescobertaException>()),
+            );
+          }
+        }
+      }
+    });
+    test(
+        "testa se não é possível colocar bandeira em zona descoberta na dificuldade difícil",
+        () {
+      int dificuldade = 3;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          // o teste n tava passando sem esse if. Pq por verificar o tabuleiro
+          // inteiro, em algum momento ou o jogador vai descobrir uma bomba, ou
+          // vai vencer. Acontecendo isso a variavel '_jogoEmAndamento' da classe
+          // CampoMinado se tornaria 'false', impedindo de descobrir a Zona, oq
+          // faria q n lancasse a excecao esperada
+          if (!campoMinado.tabuleiro[i][j].temBomba) {
+            expect(
+              () {
+                campoMinado.descobrirZona(i, j);
+                campoMinado.colocarBandeira(i, j);
+              },
+              throwsA(isA<BandeiraEmZonaDescobertaException>()),
+            );
+          }
+        }
+      }
+    });
     parameterizedTest(
-      '35- testa se não é possivel colocar bandeira em zona invalida',
+      'testa se não é possivel colocar bandeira em zona invalida na dificuldade fácil',
       [
         [-1, 0],
         [0, -1],
         [-1, -1],
+        [8, 0],
+        [0, 8],
+        [8, 8],
+        [-1, 8],
+        [8, -1],
       ],
       p2(
         (int i, int j) {
           expect(
             () {
               int dificuldade = 1;
+              CampoMinado campoMinado = CampoMinado(dificuldade);
+
+              campoMinado.colocarBandeira(i, j);
+            },
+            throwsA(isA<RangeError>()),
+          );
+        },
+      ),
+    );
+    parameterizedTest(
+      'testa se não é possivel colocar bandeira em zona invalida na dificuldade intermediário',
+      [
+        [-1, 0],
+        [0, -1],
+        [-1, -1],
+        [10, 0],
+        [0, 16],
+        [10, 16],
+        [-1, 16],
+        [10, -1],
+      ],
+      p2(
+        (int i, int j) {
+          expect(
+            () {
+              int dificuldade = 2;
+              CampoMinado campoMinado = CampoMinado(dificuldade);
+
+              campoMinado.colocarBandeira(i, j);
+            },
+            throwsA(isA<RangeError>()),
+          );
+        },
+      ),
+    );
+    parameterizedTest(
+      'testa se não é possivel colocar bandeira em zona invalida na dificuldade difícil',
+      [
+        [-1, 0],
+        [0, -1],
+        [-1, -1],
+        [24, 0],
+        [0, 24],
+        [24, 24],
+        [-1, 24],
+        [24, -1],
+      ],
+      p2(
+        (int i, int j) {
+          expect(
+            () {
+              int dificuldade = 3;
               CampoMinado campoMinado = CampoMinado(dificuldade);
 
               campoMinado.colocarBandeira(i, j);
