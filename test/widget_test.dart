@@ -189,16 +189,12 @@ void main() {
         ),
       );
 
-      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
-      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+      tabuleiroFake[3][3].temBomba = false;
 
-      // Bombas ao redor da zona central
       tabuleiroFake[2][2].temBomba = true;
 
-      // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
 
-      // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 1);
     });
     test(
@@ -212,17 +208,14 @@ void main() {
         ),
       );
 
-      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
-      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+      tabuleiroFake[3][3].temBomba = false;
 
       // Bombas ao redor da zona central
       tabuleiroFake[2][2].temBomba = true;
       tabuleiroFake[2][3].temBomba = true;
 
-      // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
 
-      // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 2);
     });
     test(
@@ -236,18 +229,15 @@ void main() {
         ),
       );
 
-      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
-      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+      tabuleiroFake[3][3].temBomba = false;
 
       // Bombas ao redor da zona central
       tabuleiroFake[2][2].temBomba = true;
       tabuleiroFake[2][3].temBomba = true;
       tabuleiroFake[2][4].temBomba = true;
 
-      // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
 
-      // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 3);
     });
     test(
@@ -261,8 +251,7 @@ void main() {
         ),
       );
 
-      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
-      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+      tabuleiroFake[3][3].temBomba = false;
 
       // Bombas ao redor da zona central
       tabuleiroFake[2][2].temBomba = true;
@@ -270,10 +259,8 @@ void main() {
       tabuleiroFake[2][4].temBomba = true;
       tabuleiroFake[3][2].temBomba = true;
 
-      // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
 
-      // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 4);
     });
     test(
@@ -287,8 +274,7 @@ void main() {
         ),
       );
 
-      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
-      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+      tabuleiroFake[3][3].temBomba = false;
 
       // Bombas ao redor da zona central
       tabuleiroFake[2][2].temBomba = true;
@@ -297,10 +283,8 @@ void main() {
       tabuleiroFake[3][2].temBomba = true;
       tabuleiroFake[3][4].temBomba = true;
 
-      // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
 
-      // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 5);
     });
     test(
@@ -314,8 +298,7 @@ void main() {
         ),
       );
 
-      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
-      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+      tabuleiroFake[3][3].temBomba = false;
 
       // Bombas ao redor da zona central
       tabuleiroFake[2][2].temBomba = true;
@@ -325,10 +308,8 @@ void main() {
       tabuleiroFake[3][4].temBomba = true;
       tabuleiroFake[4][2].temBomba = true;
 
-      // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
 
-      // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 6);
     });
     test(
@@ -342,8 +323,7 @@ void main() {
         ),
       );
 
-      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
-      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+      tabuleiroFake[3][3].temBomba = false;
 
       // Bombas ao redor da zona central
       tabuleiroFake[2][2].temBomba = true;
@@ -354,10 +334,8 @@ void main() {
       tabuleiroFake[4][2].temBomba = true;
       tabuleiroFake[4][3].temBomba = true;
 
-      // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
 
-      // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 7);
     });
     test(
@@ -371,8 +349,7 @@ void main() {
         ),
       );
 
-      // Configurar o tabuleiro com 8 bombas ao redor da zona central.
-      tabuleiroFake[3][3].temBomba = false; // Zona central com bomba
+      tabuleiroFake[3][3].temBomba = false;
 
       // Bombas ao redor da zona central
       tabuleiroFake[2][2].temBomba = true;
@@ -384,10 +361,8 @@ void main() {
       tabuleiroFake[4][3].temBomba = true;
       tabuleiroFake[4][4].temBomba = true;
 
-      // Crie uma instância de CampoMinado usando o tabuleiro fake.
       final campoMinado = CampoMinado.paraTeste(tabuleiroFake);
 
-      // Verifique se o número de bombas adjacentes da zona central é 8.
       expect(campoMinado.tabuleiro[3][3].bombasAdjacentes, 8);
     });
   });
@@ -1607,14 +1582,12 @@ void main() {
     test(
         'testa se ao descobrir uma zona vazia, zonas adjacentes sem bombas também são descobertas',
         () {
-      // Crie um objeto CampoMinado para o teste
-      final campoMinado = CampoMinado(1);
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
-      // Inicialize as variáveis targetRow e targetCol com valores padrão
       int targetRow = 0;
       int targetCol = 0;
 
-      // Encontre uma zona vazia (sem bomba) para realizar o teste
       for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
         for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
           if (campoMinado.tabuleiro[row][col].bombasAdjacentes == 0) {
@@ -1628,11 +1601,9 @@ void main() {
         }
       }
 
-      // Execute a função que você deseja testar
       campoMinado.descobrirZona(targetRow, targetCol);
 
-      // Verifique se as zonas adjacentes foram descobertas
-
+      // verificando as zonas adjacentes:
       // Zona superior esquerda
       if (targetRow > 0 && targetCol > 0) {
         expect(campoMinado.tabuleiro[targetRow - 1][targetCol - 1].status,
@@ -1971,7 +1942,7 @@ void main() {
       'A pontuação do jogo é dada pelo tempo levado para descobrir todas as bombas em segundos',
       () {
     test(
-        'testa se o contador de tempo é iniciado ao descobrir a primeira zona sem bomba',
+        'testa se o contador de tempo é iniciado ao descobrir a primeira zona sem bomba na dificuldade fácil',
         () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
