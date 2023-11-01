@@ -446,7 +446,7 @@ void main() {
       expect(campoMinado.dificuldade, 3);
     });
     test(
-      "testa se não é deve ser possível escolher outro nivel de dificuldade",
+      "testa se não é possível escolher outro nivel de dificuldade",
       () => expect(
         () {
           int dificuldade = 4;
