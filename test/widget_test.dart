@@ -1034,7 +1034,9 @@ void main() {
   });
 
   group('deve ser possivel descobrir uma zona sem bandeira', () {
-    test('testa se é possível descobrir uma zona que não tem bandeira', () {
+    test(
+        'testa se é possível descobrir qualquer zona que não tem bandeira na dificuldade fácil',
+        () {
       int dificuldade = 1;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
@@ -1045,8 +1047,74 @@ void main() {
         }
       }
     });
-    test('testa se é não possível descobrir uma zona que tem bandeira', () {
+    test(
+        'testa se é possível descobrir qualquer zona que não tem bandeira na dificuldade intermediário',
+        () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          // n tem except, pq caso de uma excecao o teste n passa
+          campoMinado.descobrirZona(i, j);
+        }
+      }
+    });
+    test(
+        'testa se é possível descobrir qualquer zona que não tem bandeira na dificuldade difícil',
+        () {
+      int dificuldade = 3;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          // n tem except, pq caso de uma excecao o teste n passa
+          campoMinado.descobrirZona(i, j);
+        }
+      }
+    });
+    test(
+        'testa se é não possível descobrir qualquer zona que tem bandeira na dificuldade fácil',
+        () {
       int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          expect(
+            () {
+              campoMinado.colocarBandeira(i, j);
+              campoMinado.descobrirZona(i, j);
+            },
+            throwsA(isA<DescobrirZonaComBandeiraException>()),
+          );
+          campoMinado.removerBandeira(i, j);
+        }
+      }
+    });
+    test(
+        'testa se é não possível descobrir qualquer zona que tem bandeira na dificuldade intermediário',
+        () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          expect(
+            () {
+              campoMinado.colocarBandeira(i, j);
+              campoMinado.descobrirZona(i, j);
+            },
+            throwsA(isA<DescobrirZonaComBandeiraException>()),
+          );
+          campoMinado.removerBandeira(i, j);
+        }
+      }
+    });
+    test(
+        'testa se é não possível descobrir qualquer zona que tem bandeira na dificuldade difícil',
+        () {
+      int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
       for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
