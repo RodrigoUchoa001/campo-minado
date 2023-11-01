@@ -800,9 +800,38 @@ void main() {
   });
 
   group('deve ser possível remover bandeira se houver', () {
-    test('testa se é possível remover bandeira de qualquer zona quando houver',
+    test(
+        'testa se é possível remover bandeira de qualquer zona quando houver  na dificuldade fácil',
         () {
       int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          // n tem except, pq caso de uma excecao o teste n passa
+          campoMinado.colocarBandeira(i, j);
+          campoMinado.removerBandeira(i, j);
+        }
+      }
+    });
+    test(
+        'testa se é possível remover bandeira de qualquer zona quando houver  na dificuldade intermediário',
+        () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
+        for (int j = 0; j < campoMinado.tabuleiro[i].length; j++) {
+          // n tem except, pq caso de uma excecao o teste n passa
+          campoMinado.colocarBandeira(i, j);
+          campoMinado.removerBandeira(i, j);
+        }
+      }
+    });
+    test(
+        'testa se é possível remover bandeira de qualquer zona quando houver  na dificuldade dificíl',
+        () {
+      int dificuldade = 3;
       CampoMinado campoMinado = CampoMinado(dificuldade);
 
       for (int i = 0; i < campoMinado.tabuleiro.length; i++) {
