@@ -1557,517 +1557,505 @@ void main() {
 
       expect(jogoParouAntesDaHora, false);
     });
-
-    group(
-        'ao haver uma vitória, todas as zonas com bombas devem ser descobertas',
+  });
+  group('ao haver uma vitória, todas as zonas com bombas devem ser descobertas',
+      () {
+    test(
+        'testa se havendo vitória todas as zonas com bombas são descobertas na dificuldade fácil',
         () {
-      test(
-          'testa se havendo vitória todas as zonas com bombas são descobertas na dificuldade fácil',
-          () {
-        int dificuldade = 1;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
-        // descobrindo todas as zonas sem bombas
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (!campoMinado.tabuleiro[row][col].temBomba) {
-              campoMinado.descobrirZonasAdjacentes(row, col);
-            }
+      // descobrindo todas as zonas sem bombas
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (!campoMinado.tabuleiro[row][col].temBomba) {
+            campoMinado.descobrirZonasAdjacentes(row, col);
           }
         }
+      }
 
-        // verificando se cada zona com bomba está descoberta
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.tabuleiro[row][col].temBomba) {
-              expect(campoMinado.tabuleiro[row][col].status, 2);
-            }
+      // verificando se cada zona com bomba está descoberta
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.tabuleiro[row][col].temBomba) {
+            expect(campoMinado.tabuleiro[row][col].status, 2);
           }
         }
-      });
-      test(
-          'testa se havendo vitória todas as zonas com bombas são descobertas na dificuldade intermediário',
-          () {
-        int dificuldade = 2;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        // descobrindo todas as zonas sem bombas
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (!campoMinado.tabuleiro[row][col].temBomba) {
-              campoMinado.descobrirZonasAdjacentes(row, col);
-            }
-          }
-        }
-
-        // verificando se cada zona com bomba está descoberta
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.tabuleiro[row][col].temBomba) {
-              expect(campoMinado.tabuleiro[row][col].status, 2);
-            }
-          }
-        }
-      });
-      test(
-          'testa se havendo vitória todas as zonas com bombas são descobertas na dificuldade dificil',
-          () {
-        int dificuldade = 3;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        // descobrindo todas as zonas sem bombas
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (!campoMinado.tabuleiro[row][col].temBomba) {
-              campoMinado.descobrirZonasAdjacentes(row, col);
-            }
-          }
-        }
-
-        // verificando se cada zona com bomba está descoberta
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.tabuleiro[row][col].temBomba) {
-              expect(campoMinado.tabuleiro[row][col].status, 2);
-            }
-          }
-        }
-      });
+      }
     });
-
-    group(
-        'ao clicar em uma zona, as zonas adjacentes que não tiverem bombas são automaticamente descobertas ao msm tempo',
+    test(
+        'testa se havendo vitória todas as zonas com bombas são descobertas na dificuldade intermediário',
         () {
-      test(
-          'testa se ao descobrir uma zona vazia, zonas adjacentes sem bombas também são descobertas',
-          () {
-        // Crie um objeto CampoMinado para o teste
-        final campoMinado = CampoMinado(1);
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
-        // Inicialize as variáveis targetRow e targetCol com valores padrão
-        int targetRow = 0;
-        int targetCol = 0;
-
-        // Encontre uma zona vazia (sem bomba) para realizar o teste
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.tabuleiro[row][col].bombasAdjacentes == 0) {
-              targetRow = row;
-              targetCol = col;
-              break;
-            }
+      // descobrindo todas as zonas sem bombas
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (!campoMinado.tabuleiro[row][col].temBomba) {
+            campoMinado.descobrirZonasAdjacentes(row, col);
           }
-          if (targetRow != 0 && targetCol != 0) {
+        }
+      }
+
+      // verificando se cada zona com bomba está descoberta
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.tabuleiro[row][col].temBomba) {
+            expect(campoMinado.tabuleiro[row][col].status, 2);
+          }
+        }
+      }
+    });
+    test(
+        'testa se havendo vitória todas as zonas com bombas são descobertas na dificuldade dificil',
+        () {
+      int dificuldade = 3;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      // descobrindo todas as zonas sem bombas
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (!campoMinado.tabuleiro[row][col].temBomba) {
+            campoMinado.descobrirZonasAdjacentes(row, col);
+          }
+        }
+      }
+
+      // verificando se cada zona com bomba está descoberta
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.tabuleiro[row][col].temBomba) {
+            expect(campoMinado.tabuleiro[row][col].status, 2);
+          }
+        }
+      }
+    });
+  });
+
+  group(
+      'ao clicar em uma zona, as zonas adjacentes que não tiverem bombas são automaticamente descobertas ao msm tempo',
+      () {
+    test(
+        'testa se ao descobrir uma zona vazia, zonas adjacentes sem bombas também são descobertas',
+        () {
+      // Crie um objeto CampoMinado para o teste
+      final campoMinado = CampoMinado(1);
+
+      // Inicialize as variáveis targetRow e targetCol com valores padrão
+      int targetRow = 0;
+      int targetCol = 0;
+
+      // Encontre uma zona vazia (sem bomba) para realizar o teste
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.tabuleiro[row][col].bombasAdjacentes == 0) {
+            targetRow = row;
+            targetCol = col;
             break;
           }
         }
-
-        // Execute a função que você deseja testar
-        campoMinado.descobrirZona(targetRow, targetCol);
-
-        // Verifique se as zonas adjacentes foram descobertas
-
-        // Zona superior esquerda
-        if (targetRow > 0 && targetCol > 0) {
-          expect(campoMinado.tabuleiro[targetRow - 1][targetCol - 1].status,
-              equals(0));
+        if (targetRow != 0 && targetCol != 0) {
+          break;
         }
+      }
 
-        // Zona superior
-        if (targetRow > 0) {
-          expect(campoMinado.tabuleiro[targetRow - 1][targetCol].status,
-              equals(0));
-        }
+      // Execute a função que você deseja testar
+      campoMinado.descobrirZona(targetRow, targetCol);
 
-        // Zona superior direita
-        if (targetRow > 0 && targetCol < campoMinado.tabuleiro[0].length - 1) {
-          expect(campoMinado.tabuleiro[targetRow - 1][targetCol + 1].status,
-              equals(0));
-        }
+      // Verifique se as zonas adjacentes foram descobertas
 
-        // Zona esquerda
-        if (targetCol > 0) {
-          expect(campoMinado.tabuleiro[targetRow][targetCol - 1].status,
-              equals(0));
-        }
+      // Zona superior esquerda
+      if (targetRow > 0 && targetCol > 0) {
+        expect(campoMinado.tabuleiro[targetRow - 1][targetCol - 1].status,
+            equals(0));
+      }
 
-        // Zona direita
-        if (targetCol < campoMinado.tabuleiro[0].length - 1) {
-          expect(campoMinado.tabuleiro[targetRow][targetCol + 1].status,
-              equals(0));
-        }
+      // Zona superior
+      if (targetRow > 0) {
+        expect(
+            campoMinado.tabuleiro[targetRow - 1][targetCol].status, equals(0));
+      }
 
-        // Zona inferior esquerda
-        if (targetRow < campoMinado.tabuleiro.length - 1 && targetCol > 0) {
-          expect(campoMinado.tabuleiro[targetRow + 1][targetCol - 1].status,
-              equals(0));
-        }
+      // Zona superior direita
+      if (targetRow > 0 && targetCol < campoMinado.tabuleiro[0].length - 1) {
+        expect(campoMinado.tabuleiro[targetRow - 1][targetCol + 1].status,
+            equals(0));
+      }
 
-        // Zona inferior
-        if (targetRow < campoMinado.tabuleiro.length - 1) {
-          expect(campoMinado.tabuleiro[targetRow + 1][targetCol].status,
-              equals(0));
-        }
+      // Zona esquerda
+      if (targetCol > 0) {
+        expect(
+            campoMinado.tabuleiro[targetRow][targetCol - 1].status, equals(0));
+      }
 
-        // Zona inferior direita
-        if (targetRow < campoMinado.tabuleiro.length - 1 &&
-            targetCol < campoMinado.tabuleiro[0].length - 1) {
-          expect(campoMinado.tabuleiro[targetRow + 1][targetCol + 1].status,
-              equals(0));
-        }
-      });
+      // Zona direita
+      if (targetCol < campoMinado.tabuleiro[0].length - 1) {
+        expect(
+            campoMinado.tabuleiro[targetRow][targetCol + 1].status, equals(0));
+      }
+
+      // Zona inferior esquerda
+      if (targetRow < campoMinado.tabuleiro.length - 1 && targetCol > 0) {
+        expect(campoMinado.tabuleiro[targetRow + 1][targetCol - 1].status,
+            equals(0));
+      }
+
+      // Zona inferior
+      if (targetRow < campoMinado.tabuleiro.length - 1) {
+        expect(
+            campoMinado.tabuleiro[targetRow + 1][targetCol].status, equals(0));
+      }
+
+      // Zona inferior direita
+      if (targetRow < campoMinado.tabuleiro.length - 1 &&
+          targetCol < campoMinado.tabuleiro[0].length - 1) {
+        expect(campoMinado.tabuleiro[targetRow + 1][targetCol + 1].status,
+            equals(0));
+      }
     });
-    group(
-        'só deve ser possível colocar um número de bandeiras no máximo igual ao número de bombas',
+  });
+  group(
+      'só deve ser possível colocar um número de bandeiras no máximo igual ao número de bombas',
+      () {
+    test(
+        'testa se a contagem de bandeiras colocadas está correta para dificuldade fácil',
         () {
-      test(
-          'testa se a contagem de bandeiras colocadas está correta para dificuldade fácil',
-          () {
-        int dificuldade = 1;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
-        int bandeirasColocadas = 0;
+      int bandeirasColocadas = 0;
 
-        outerLoop:
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            // o if impede de tentar colocar bandeiras acima do numero permitido,
-            // o numero de bombas
-            if (campoMinado.bandeirasColocadas < 10) {
-              campoMinado.colocarBandeira(row, col);
-              bandeirasColocadas++;
-              expect(campoMinado.bandeirasColocadas, bandeirasColocadas);
-            } else {
-              break outerLoop;
-            }
+      outerLoop:
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          // o if impede de tentar colocar bandeiras acima do numero permitido,
+          // o numero de bombas
+          if (campoMinado.bandeirasColocadas < 10) {
+            campoMinado.colocarBandeira(row, col);
+            bandeirasColocadas++;
+            expect(campoMinado.bandeirasColocadas, bandeirasColocadas);
+          } else {
+            break outerLoop;
           }
         }
-      });
-      test(
-          'testa se a contagem de bandeiras colocadas está correta para dificuldade intermediario',
-          () {
-        int dificuldade = 2;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        int bandeirasColocadas = 0;
-
-        outerLoop:
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            // o if impede de tentar colocar bandeiras acima do numero permitido,
-            // o numero de bombas
-            if (campoMinado.bandeirasColocadas < 30) {
-              campoMinado.colocarBandeira(row, col);
-              bandeirasColocadas++;
-              expect(campoMinado.bandeirasColocadas, bandeirasColocadas);
-            } else {
-              break outerLoop;
-            }
-          }
-        }
-      });
-      test(
-          'testa se a contagem de bandeiras colocadas está correta para dificuldade dificil',
-          () {
-        int dificuldade = 3;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        int bandeirasColocadas = 0;
-
-        outerLoop:
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            // o if impede de tentar colocar bandeiras acima do numero permitido,
-            // o numero de bombas
-            if (campoMinado.bandeirasColocadas < 100) {
-              campoMinado.colocarBandeira(row, col);
-              bandeirasColocadas++;
-              expect(campoMinado.bandeirasColocadas, bandeirasColocadas);
-            } else {
-              break outerLoop;
-            }
-          }
-        }
-      });
-      test(
-          'deve ser possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade fácil',
-          () {
-        int dificuldade = 1;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        outerLoop:
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.bandeirasColocadas < 10) {
-              campoMinado.colocarBandeira(row, col);
-            } else {
-              break outerLoop;
-            }
-          }
-        }
-      });
-      test(
-          'deve ser possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade intermediário',
-          () {
-        int dificuldade = 2;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        outerLoop:
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.bandeirasColocadas < 30) {
-              campoMinado.colocarBandeira(row, col);
-            } else {
-              break outerLoop;
-            }
-          }
-        }
-      });
-      test(
-          'deve ser possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade dificil',
-          () {
-        int dificuldade = 3;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        outerLoop:
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.bandeirasColocadas < 100) {
-              campoMinado.colocarBandeira(row, col);
-            } else {
-              break outerLoop;
-            }
-          }
-        }
-      });
-      test(
-          'não deve ser possível colocar um número de bandeiras maior que o número de bombas para dificuldade fácil',
-          () {
-        int dificuldade = 1;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.bandeirasColocadas < 10) {
-              campoMinado.colocarBandeira(row, col);
-            } else {
-              expect(
-                () {
-                  campoMinado.colocarBandeira(row, col);
-                },
-                throwsA(isA<NumeroDeBandeirasUltrapassouOMaximoException>()),
-              );
-            }
-          }
-        }
-      });
-      test(
-          'não deve ser possível colocar um número de bandeiras maior que o número de bombas para dificuldade intermediario',
-          () {
-        int dificuldade = 2;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.bandeirasColocadas < 30) {
-              campoMinado.colocarBandeira(row, col);
-            } else {
-              expect(
-                () {
-                  campoMinado.colocarBandeira(row, col);
-                },
-                throwsA(isA<NumeroDeBandeirasUltrapassouOMaximoException>()),
-              );
-            }
-          }
-        }
-      });
-      test(
-          'não deve ser possível colocar um número de bandeiras maior que o número de bombas para dificuldade dificil',
-          () {
-        int dificuldade = 3;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.bandeirasColocadas < 100) {
-              campoMinado.colocarBandeira(row, col);
-            } else {
-              expect(
-                () {
-                  campoMinado.colocarBandeira(row, col);
-                },
-                throwsA(isA<NumeroDeBandeirasUltrapassouOMaximoException>()),
-              );
-            }
-          }
-        }
-      });
+      }
     });
-    group(
-        'deve ser possivel ganhar quando colocar bandeira em todas os local de bomba',
+    test(
+        'testa se a contagem de bandeiras colocadas está correta para dificuldade intermediario',
         () {
-      test(
-          'testa se colocando bandeira em todos os locais de bomba faz uma vitória na dificuldade fácil',
-          () {
-        int dificuldade = 1;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.tabuleiro[row][col].temBomba) {
-              campoMinado.colocarBandeira(row, col);
-            }
+      int bandeirasColocadas = 0;
+
+      outerLoop:
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          // o if impede de tentar colocar bandeiras acima do numero permitido,
+          // o numero de bombas
+          if (campoMinado.bandeirasColocadas < 30) {
+            campoMinado.colocarBandeira(row, col);
+            bandeirasColocadas++;
+            expect(campoMinado.bandeirasColocadas, bandeirasColocadas);
+          } else {
+            break outerLoop;
           }
         }
-        expect(campoMinado.vitoria, true);
-      });
-      test(
-          'testa se colocando bandeira em todos os locais de bomba faz uma vitória na dificuldade intermediário',
-          () {
-        int dificuldade = 2;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.tabuleiro[row][col].temBomba) {
-              campoMinado.colocarBandeira(row, col);
-            }
-          }
-        }
-        expect(campoMinado.vitoria, true);
-      });
-      test(
-          'testa se colocando bandeira em todos os locais de bomba faz uma vitória na dificuldade dificil',
-          () {
-        int dificuldade = 1;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.tabuleiro[row][col].temBomba) {
-              campoMinado.colocarBandeira(row, col);
-            }
-          }
-        }
-        expect(campoMinado.vitoria, true);
-      });
-      test(
-          'testa se não há vitória caso ainda não tenha sido colocado bandeira em todos os locais de bombas na dificuldade fácil',
-          () {
-        int dificuldade = 1;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.tabuleiro[row][col].temBomba &&
-                campoMinado.bandeirasColocadas < 9) {
-              campoMinado.colocarBandeira(row, col);
-              expect(campoMinado.vitoria, false);
-            }
-          }
-        }
-      });
-      test(
-          'testa se não há vitória caso ainda não tenha sido colocado bandeira em todos os locais de bombas na dificuldade intermediário',
-          () {
-        int dificuldade = 2;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.tabuleiro[row][col].temBomba &&
-                campoMinado.bandeirasColocadas < 29) {
-              campoMinado.colocarBandeira(row, col);
-              expect(campoMinado.vitoria, false);
-            }
-          }
-        }
-      });
-      test(
-          'testa se não há vitória caso ainda não tenha sido colocado bandeira em todos os locais de bombas na dificuldade dificil',
-          () {
-        int dificuldade = 3;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (campoMinado.tabuleiro[row][col].temBomba &&
-                campoMinado.bandeirasColocadas < 99) {
-              campoMinado.colocarBandeira(row, col);
-              expect(campoMinado.vitoria, false);
-            }
-          }
-        }
-      });
+      }
     });
-    group(
-        'A pontuação do jogo é dada pelo tempo levado para descobrir todas as bombas em segundos',
+    test(
+        'testa se a contagem de bandeiras colocadas está correta para dificuldade dificil',
         () {
-      test(
-          'testa se o contador de tempo é iniciado ao descobrir a primeira zona sem bomba',
-          () {
-        int dificuldade = 1;
-        CampoMinado campoMinado = CampoMinado(dificuldade);
-        outerLoop: //nomeando o for para fazer o break sair de todos os for
-        for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-          for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-            if (!campoMinado.tabuleiro[row][col].temBomba) {
-              campoMinado.descobrirZona(row, col);
-              expect(campoMinado.cronometro.isRunning, true);
+      int dificuldade = 3;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
-              break outerLoop;
-            }
+      int bandeirasColocadas = 0;
+
+      outerLoop:
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          // o if impede de tentar colocar bandeiras acima do numero permitido,
+          // o numero de bombas
+          if (campoMinado.bandeirasColocadas < 100) {
+            campoMinado.colocarBandeira(row, col);
+            bandeirasColocadas++;
+            expect(campoMinado.bandeirasColocadas, bandeirasColocadas);
+          } else {
+            break outerLoop;
           }
         }
-      });
-      // test(
-      //     'testa se no fim do jogo (APENAS NO CASO DE VITÓRIA) a pontuação é armazenada com nome do jogador',
-      //     () async {
-      //   WidgetsFlutterBinding.ensureInitialized();
-      //   int dificuldade = 1;
-      //   CampoMinado campoMinado = CampoMinado(dificuldade);
-
-      //   for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
-      //     for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
-      //       if (!campoMinado.tabuleiro[row][col].temBomba) {
-      //         campoMinado.descobrirZona(row, col);
-      //       }
-      //     }
-      //   }
-
-      //   DBMetodos db = DBMetodos();
-      //   Pontuacao pontuacaoRegistrada =
-      //       await db.armazenarNovaVitoria('jogador teste123', campoMinado);
-      //   db.removerVitoria(pontuacaoRegistrada.id);
-      // });
+      }
     });
+    test(
+        'deve ser possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade fácil',
+        () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
-    // group(
-    //     'A pontuação do jogo é dada pelo tempo levado para descobrir todas as bombas em segundos',
-    //     () {
-    //   test('testa se é iniciado um contador de tempo ao começar o jogo', () {
-    //     CampoMinado campoMinado = CampoMinado(1);
-    //   });
-    // });
-    //
-    //
-    //
-    // testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    //   // Build our app and trigger a frame.
-    //   await tester.pumpWidget(const MyApp());
+      outerLoop:
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.bandeirasColocadas < 10) {
+            campoMinado.colocarBandeira(row, col);
+          } else {
+            break outerLoop;
+          }
+        }
+      }
+    });
+    test(
+        'deve ser possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade intermediário',
+        () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
-    //   // Verify that our counter starts at 0.
-    //   expect(find.text('0'), findsOneWidget);
-    //   expect(find.text('1'), findsNothing);
+      outerLoop:
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.bandeirasColocadas < 30) {
+            campoMinado.colocarBandeira(row, col);
+          } else {
+            break outerLoop;
+          }
+        }
+      }
+    });
+    test(
+        'deve ser possível colocar bandeiras até no máximo igual ao número de bombas para dificuldade dificil',
+        () {
+      int dificuldade = 3;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
-    //   // Tap the '+' icon and trigger a frame.
-    //   await tester.tap(find.byIcon(Icons.add));
-    //   await tester.pump();
+      outerLoop:
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.bandeirasColocadas < 100) {
+            campoMinado.colocarBandeira(row, col);
+          } else {
+            break outerLoop;
+          }
+        }
+      }
+    });
+    test(
+        'não deve ser possível colocar um número de bandeiras maior que o número de bombas para dificuldade fácil',
+        () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
 
-    //   // Verify that our counter has incremented.
-    //   expect(find.text('0'), findsNothing);
-    //   expect(find.text('1'), findsOneWidget);
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.bandeirasColocadas < 10) {
+            campoMinado.colocarBandeira(row, col);
+          } else {
+            expect(
+              () {
+                campoMinado.colocarBandeira(row, col);
+              },
+              throwsA(isA<NumeroDeBandeirasUltrapassouOMaximoException>()),
+            );
+          }
+        }
+      }
+    });
+    test(
+        'não deve ser possível colocar um número de bandeiras maior que o número de bombas para dificuldade intermediario',
+        () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.bandeirasColocadas < 30) {
+            campoMinado.colocarBandeira(row, col);
+          } else {
+            expect(
+              () {
+                campoMinado.colocarBandeira(row, col);
+              },
+              throwsA(isA<NumeroDeBandeirasUltrapassouOMaximoException>()),
+            );
+          }
+        }
+      }
+    });
+    test(
+        'não deve ser possível colocar um número de bandeiras maior que o número de bombas para dificuldade dificil',
+        () {
+      int dificuldade = 3;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.bandeirasColocadas < 100) {
+            campoMinado.colocarBandeira(row, col);
+          } else {
+            expect(
+              () {
+                campoMinado.colocarBandeira(row, col);
+              },
+              throwsA(isA<NumeroDeBandeirasUltrapassouOMaximoException>()),
+            );
+          }
+        }
+      }
+    });
+  });
+  group(
+      'deve ser possivel ganhar quando colocar bandeira em todas os local de bomba',
+      () {
+    test(
+        'testa se colocando bandeira em todos os locais de bomba faz uma vitória na dificuldade fácil',
+        () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.tabuleiro[row][col].temBomba) {
+            campoMinado.colocarBandeira(row, col);
+          }
+        }
+      }
+      expect(campoMinado.vitoria, true);
+    });
+    test(
+        'testa se colocando bandeira em todos os locais de bomba faz uma vitória na dificuldade intermediário',
+        () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.tabuleiro[row][col].temBomba) {
+            campoMinado.colocarBandeira(row, col);
+          }
+        }
+      }
+      expect(campoMinado.vitoria, true);
+    });
+    test(
+        'testa se colocando bandeira em todos os locais de bomba faz uma vitória na dificuldade dificil',
+        () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.tabuleiro[row][col].temBomba) {
+            campoMinado.colocarBandeira(row, col);
+          }
+        }
+      }
+      expect(campoMinado.vitoria, true);
+    });
+    test(
+        'testa se não há vitória caso ainda não tenha sido colocado bandeira em todos os locais de bombas na dificuldade fácil',
+        () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.tabuleiro[row][col].temBomba &&
+              campoMinado.bandeirasColocadas < 9) {
+            campoMinado.colocarBandeira(row, col);
+            expect(campoMinado.vitoria, false);
+          }
+        }
+      }
+    });
+    test(
+        'testa se não há vitória caso ainda não tenha sido colocado bandeira em todos os locais de bombas na dificuldade intermediário',
+        () {
+      int dificuldade = 2;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.tabuleiro[row][col].temBomba &&
+              campoMinado.bandeirasColocadas < 29) {
+            campoMinado.colocarBandeira(row, col);
+            expect(campoMinado.vitoria, false);
+          }
+        }
+      }
+    });
+    test(
+        'testa se não há vitória caso ainda não tenha sido colocado bandeira em todos os locais de bombas na dificuldade dificil',
+        () {
+      int dificuldade = 3;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (campoMinado.tabuleiro[row][col].temBomba &&
+              campoMinado.bandeirasColocadas < 99) {
+            campoMinado.colocarBandeira(row, col);
+            expect(campoMinado.vitoria, false);
+          }
+        }
+      }
+    });
+  });
+  group(
+      'A pontuação do jogo é dada pelo tempo levado para descobrir todas as bombas em segundos',
+      () {
+    test(
+        'testa se o contador de tempo é iniciado ao descobrir a primeira zona sem bomba',
+        () {
+      int dificuldade = 1;
+      CampoMinado campoMinado = CampoMinado(dificuldade);
+      outerLoop: //nomeando o for para fazer o break sair de todos os for
+      for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+        for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+          if (!campoMinado.tabuleiro[row][col].temBomba) {
+            campoMinado.descobrirZona(row, col);
+            expect(campoMinado.cronometro.isRunning, true);
+
+            break outerLoop;
+          }
+        }
+      }
+    });
+    // test(
+    //     'testa se no fim do jogo (APENAS NO CASO DE VITÓRIA) a pontuação é armazenada com nome do jogador',
+    //     () async {
+    //   WidgetsFlutterBinding.ensureInitialized();
+    //   int dificuldade = 1;
+    //   CampoMinado campoMinado = CampoMinado(dificuldade);
+
+    //   for (int row = 0; row < campoMinado.tabuleiro.length; row++) {
+    //     for (int col = 0; col < campoMinado.tabuleiro[0].length; col++) {
+    //       if (!campoMinado.tabuleiro[row][col].temBomba) {
+    //         campoMinado.descobrirZona(row, col);
+    //       }
+    //     }
+    //   }
+
+    //   DBMetodos db = DBMetodos();
+    //   Pontuacao pontuacaoRegistrada =
+    //       await db.armazenarNovaVitoria('jogador teste123', campoMinado);
+    //   db.removerVitoria(pontuacaoRegistrada.id);
     // });
   });
+  //
+  // testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  //   // Build our app and trigger a frame.
+  //   await tester.pumpWidget(const MyApp());
+
+  //   // Verify that our counter starts at 0.
+  //   expect(find.text('0'), findsOneWidget);
+  //   expect(find.text('1'), findsNothing);
+
+  //   // Tap the '+' icon and trigger a frame.
+  //   await tester.tap(find.byIcon(Icons.add));
+  //   await tester.pump();
+
+  //   // Verify that our counter has incremented.
+  //   expect(find.text('0'), findsNothing);
+  //   expect(find.text('1'), findsOneWidget);
+  // });
 }
